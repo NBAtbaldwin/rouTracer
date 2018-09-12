@@ -1,13 +1,11 @@
-<% if logged_in? %>
-  <script type="text/javascript">
-  window.currentUser = <%= render(
-    "api/users/user.json.jbuilder",
-    user: current_user
-  ).html_safe %>
-  </script>
-<% end %>
-<div id='root'></div>
 <script type="text/javascript">
-  window.phoneImage = "<%= asset_path("phone.png") %>"
-  window.loginBiker = "<%= asset_path("loginBiker.jpeg") %>"
+  <% if logged_in? %>
+    window.currentUser = <%= render(
+      "api/users/user.json.jbuilder",
+      user: current_user
+    ).html_safe %>
+  <% end %>
+  window.phoneImage = "<%= asset_path("phone.png")%>"
+  window.loginBiker = "<%= asset_path("loginBiker.jpeg")%>"
 </script>
+<div id='root'></div>
