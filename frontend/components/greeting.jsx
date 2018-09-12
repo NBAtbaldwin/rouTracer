@@ -10,7 +10,7 @@ const Greeting = ({ currentUser, logout }) => {
   );
   const links = () => (
     <div>
-      <p id="#1-text">The #1 app for runners and cyclists</p>
+      <p id="number-1-text">The #1 app for runners and cyclists</p>
       <Link to="/signup">Use my email</Link>
     </div>
   );

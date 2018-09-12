@@ -2,3 +2,4 @@
 -navbar and footer before styling
 -make dashboard a protected route
 -figure out a way to incorporate svgs
+-svgbackgrounds.com
