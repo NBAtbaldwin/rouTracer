@@ -35,6 +35,9 @@ class SessionForm extends React.Component {
           <div className="session-form-header">
             <h2>{this.props.formTitle}</h2>
           </div>
+          <div className="session-form-title">
+            <h3>{this.props.formType}</h3>
+          </div>
           <form className="session-form" onSubmit={this.handleSubmit}>
             <ul>
               <li>
@@ -44,8 +47,9 @@ class SessionForm extends React.Component {
                 <input className="session-form-field" type="password" placeholder="Password" onChange={this.updateField("password")} value={this.state.password} />
               </li>
               <li>
-                <input type='submit' value={this.props.formType}/>
+                <input className="session-form-submit" type='submit' value={this.props.formTitle}/>
               </li>
+              <li className="session-form-line"></li>
             </ul>
           </form>
           <ul>
