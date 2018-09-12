@@ -30,22 +30,30 @@ class SessionForm extends React.Component {
 
   render() {
     return(
-      <div>
-        <h2>{this.props.formType}</h2>
-        <form onSubmit={this.handleSubmit}>
-          <label>Email
-            <input type="text" onChange={this.updateField("email")} value={this.state.email} />
-          </label>
-          <label>Password
-            <input type="text" onChange={this.updateField("password")} value={this.state.password} />
-          </label>
-          <input type='submit' value={this.props.formType}/>
-        </form>
-        <ul>
-          {this.props.errors.session.map((error) => {
-            return <li>{error}</li>;
-          })}
-        </ul>
+      <div className="session-form-background">
+        <div className="session-form-main">
+          <div className="session-form-header">
+            <h2>{this.props.formTitle}</h2>
+          </div>
+          <form className="session-form" onSubmit={this.handleSubmit}>
+            <ul>
+              <li>
+                <input type="text" className="session-form-field" placeholder="Your Email" onChange={this.updateField("email")} value={this.state.email} />
+              </li>
+              <li>
+                <input className="session-form-field" type="password" placeholder="Password" onChange={this.updateField("password")} value={this.state.password} />
+              </li>
+              <li>
+                <input type='submit' value={this.props.formType}/>
+              </li>
+            </ul>
+          </form>
+          <ul>
+            {this.props.errors.session.map((error) => {
+              return <li>{error}</li>;
+            })}
+          </ul>
+        </div>
       </div>
     );
   }

@@ -1,5 +1,9 @@
 -re-factor unnecessary currentUser conditional in greeting container
--navbar and footer before styling
--make dashboard a protected route
--figure out a way to incorporate svgs
+-create footer
+-figure out how to make background image more responsive
+
 -svgbackgrounds.com
+-class^="common-name"
+
+helpful links:
+https://pixnio.com/sport/biking-sport/wheel-bicycle-fence-asphalt-street-road?slideshow

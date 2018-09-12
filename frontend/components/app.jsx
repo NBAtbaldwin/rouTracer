@@ -10,11 +10,11 @@ import NavBarSignupContainer from "./navbar_signup_container";
 import NavBarLoginContainer from "./navbar_login_container";
 
   const App = () => (
-    <div>
+    <div id="main">
       <header>
         <AuthRoute path='/login' component={NavBarLoginContainer} />
         <AuthRoute path='/signup' component={NavBarSignupContainer} />
-        <AuthRoute exact path='/' component={NavBarSignupContainer} />        
+        <AuthRoute exact path='/' component={NavBarSignupContainer} />
       </header>
       <Route exact path='/' component={GreetingContainer} />
       <ProtectedRoute exact path='/dashboard' component={DashboardContainer} />
