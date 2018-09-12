@@ -2,14 +2,30 @@
   height: 50px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid $light-gray;
+}
+
+.nav-master-div > ul > li {
+  height: 40px;
+  width: 102px;
+  border: 1px solid $gray;
+  margin-right: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2px;
 }
 
 .navbar-logo {
   color: $rt-orange;
   font-weight: 800;
-  font-size: 25px;
+  font-size: 23px;
+  margin-left: 50px;
 }
 
 .navbar-login-link {
-
+  color: $rt-orange;
+  font-weight: 500;
+  font-size: 14px;
 }

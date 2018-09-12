@@ -8,11 +8,15 @@ class NavBar extends React.Component {
 
   render() {
     return(
-      <div class="nav-master-div">
+      <div className="nav-master-div">
         <h1>
-          <Link to="/" class="navbar-logo">RouTracer</Link>
+          <Link to="/" className="navbar-logo">RouTracer</Link>
         </h1>
-        <Link to={this.props.linkRoute} class="navbar-login-link">{this.props.linkText}</Link>
+        <ul>
+          <li>
+            <Link to={this.props.linkRoute} className="navbar-login-link">{this.props.linkText}</Link>
+          </li>
+        </ul>
       </div>
     );
   }

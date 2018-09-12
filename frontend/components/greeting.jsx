@@ -9,12 +9,20 @@ const Greeting = ({ currentUser, logout }) => {
     </div>
   );
   const links = () => (
-    <div>
+    <div className="greeting-div">
       <p id="number-1-text">The #1 app for runners and cyclists</p>
-      <Link to="/signup">Use my email</Link>
+      <div className="image-login-container">
+        <img src={window.phoneImage} className="greeting-image"></img>
+        <div className="greeting-image-container">
+          <i class="far fa-envelope"></i>
+          <Link to="/signup" id="signup-email">Sign up with email</Link>
+        </div>
+      </div>
     </div>
   );
   return currentUser ? greeting() : links();
 };
 
 export default Greeting;
+
+// <div className="img-placeholder"></div>

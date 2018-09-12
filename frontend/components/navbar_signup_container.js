@@ -5,7 +5,7 @@ import NavBar from './navbar';
 const mapStateToProps = (state, ownProps) => {
   return {
     errors: state.errors,
-    linkText: "Login",
+    linkText: "Log In",
     linkRoute: "/login"
   };
 };

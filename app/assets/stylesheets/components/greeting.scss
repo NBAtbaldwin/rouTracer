@@ -1,3 +1,43 @@
+.greeting-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 70px;
+}
+
+.image-login-container {
+  width: 600px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
 #number-1-text {
   font-weight: 300;
+  font-size: 46px;
+  margin-bottom: 80px;
+}
+
+.greeting-image {
+  height: 300px;
+  width: auto;
+}
+
+.greeting-image-container {
+  height: 54px;
+  width: 245px;
+  border: 1px solid $gray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+#signup-email {
+  color: black;
+}
+
+.greeting-image-container > i {
+  margin-right: 20px;
 }
