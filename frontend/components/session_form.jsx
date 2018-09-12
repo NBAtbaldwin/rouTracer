@@ -32,7 +32,6 @@ class SessionForm extends React.Component {
     return(
       <div>
         <h2>{this.props.formType}</h2>
-        <Link to={this.props.formType === "Sign Up" ? `/login` : `/signup`} >{this.props.formType === "Sign Up" ? "Login" : "Sign Up"}</Link>
         <form onSubmit={this.handleSubmit}>
           <label>Email
             <input type="text" onChange={this.updateField("email")} value={this.state.email} />

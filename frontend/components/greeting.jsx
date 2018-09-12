@@ -10,8 +10,8 @@ const Greeting = ({ currentUser, logout }) => {
   );
   const links = () => (
     <div>
-      <Link to="/login">Login</Link>
-      <Link to="/signup">Sign up</Link>
+      <p id="#1-text">The #1 app for runners and cyclists</p>
+      <Link to="/signup">Use my email</Link>
     </div>
   );
   return currentUser ? greeting() : links();
