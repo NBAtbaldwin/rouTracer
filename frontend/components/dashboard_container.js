@@ -8,10 +8,10 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     logout: () => dispatch(logout()),
-//   };
-// };
+const mapDispatchToProps = (dispatch) => {
+  return {
+    logout: () => dispatch(logout()),
+  };
+};
 
-export default connect(mapStateToProps, null)(Dashboard);
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

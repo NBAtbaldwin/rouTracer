@@ -3,8 +3,8 @@ import { Route } from 'react-router-dom';
 import LoginFormContainer from './login_form_container';
 import SignupFormContainer from './sign_up_form_container';
 import GreetingContainer from "./greeting_container";
-import Dashboard from "./dashboard";
-import { AuthRoute } from './../util/route_util';
+import DashboardContainer from "./dashboard_container";
+import { AuthRoute, ProtectedRoute } from './../util/route_util';
 
   const App = () => (
     <div>
@@ -12,7 +12,7 @@ import { AuthRoute } from './../util/route_util';
         <h1>Stråååvå</h1>
       </header>
       <Route exact path='/' component={GreetingContainer} />
-      <Route exact path='/dashboard' component={Dashboard} />
+      <ProtectedRoute exact path='/dashboard' component={DashboardContainer} />
       <AuthRoute path='/login' component={LoginFormContainer} />
       <AuthRoute path='/signup' component={SignupFormContainer} />
     </div>

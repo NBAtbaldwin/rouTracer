@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const Greeting = ({ currentUser, logout }) => {
   const greeting = () => (
     <div>
-      <h2>Ready to get yolked, {currentUser.email}?</h2>
+      <h2>Hello, {currentUser.email}?</h2>
       <button onClick={logout}>Logout</button>
     </div>
   );

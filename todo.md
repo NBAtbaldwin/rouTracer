@@ -1,2 +1,3 @@
 -re-factor unnecessary currentUser conditional in greeting container
 -navbar and footer before styling
+-make dashboard a protected route
