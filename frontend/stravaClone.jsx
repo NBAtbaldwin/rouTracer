@@ -4,7 +4,6 @@ import Root from './components/root';
 import configureStore from './store/store';
 
 
-
 document.addEventListener("DOMContentLoaded", () => {
   let store;
   if (window.currentUser) {
@@ -19,8 +18,8 @@ document.addEventListener("DOMContentLoaded", () => {
   } else {
     store = configureStore();
   }
-
-  window.getState = store.getState
+  window.getState = store.getState;
+  window.dispatch = store.dispatch;
   delete window.currentUser;
   const root = document.getElementById("root");
   ReactDOM.render(<Root store={store} />, root);
