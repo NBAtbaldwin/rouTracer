@@ -10,6 +10,9 @@
 #  description      :string
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
+#  est_duration     :integer          not null
+#  elevation        :integer          not null
+#  distance         :float            not null
 #
 
 class Route < ApplicationRecord

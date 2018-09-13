@@ -26,15 +26,29 @@ def gen_description
   output
 end
 
+def gen_dist
+  rand(51)
+end
+
+def gen_elev
+  rand(1001)
+end
+
+def gen_dur
+  rand(4001)
+end
+
 
 demo_user = User.create(email: "user@example.com", password: "demouser", name: "Demo User" )
 
 user_1 = User.create(email: "bobby@shmurda.com", password: "shmurda", name: "Bobby Shmurda")
 
-route_2 = Route.create(route_name: gen_route_name, activity_type: activity_type, coordinates_list: SecureRandom::base64, user_id: demo_user.id, description: gen_description)
+route_1 = Route.create(route_name: gen_route_name, activity_type: activity_type, coordinates_list: SecureRandom::base64, user_id: demo_user.id, distance: gen_dist, est_duration: gen_dur, elevation: gen_elev, description: gen_description)
 
-route_3 = Route.create(route_name: gen_route_name, activity_type: activity_type, coordinates_list: SecureRandom::base64, user_id: demo_user.id, description: gen_description)
+route_2 = Route.create(route_name: gen_route_name, activity_type: activity_type, coordinates_list: SecureRandom::base64, user_id: user_1.id, distance: gen_dist, est_duration: gen_dur, elevation: gen_elev, description: gen_description)
 
-route_4 = Route.create(route_name: gen_route_name, activity_type: activity_type, coordinates_list: SecureRandom::base64, user_id: user_1.id, description: gen_description)
+route_3 = Route.create(route_name: gen_route_name, activity_type: activity_type, coordinates_list: SecureRandom::base64, user_id: user_1.id, distance: gen_dist, est_duration: gen_dur, elevation: gen_elev, description: gen_description)
 
-route_5 = Route.create(route_name: gen_route_name, activity_type: activity_type, coordinates_list: SecureRandom::base64, user_id: user_1.id, description: gen_description)
+route_4 = Route.create(route_name: gen_route_name, activity_type: activity_type, coordinates_list: SecureRandom::base64, user_id: user_1.id, distance: gen_dist, est_duration: gen_dur, elevation: gen_elev, description: gen_description)
+
+route_5 = Route.create(route_name: gen_route_name, activity_type: activity_type, coordinates_list: SecureRandom::base64, user_id: demo_user.id, distance: gen_dist, est_duration: gen_dur, elevation: gen_elev, description: gen_description)
