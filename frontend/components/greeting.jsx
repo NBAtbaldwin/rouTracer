@@ -14,7 +14,7 @@ const Greeting = ({ currentUser, logout }) => {
       <div className="image-login-container">
         <img src={window.phoneImage} className="greeting-image"></img>
         <div className="greeting-image-container">
-          <i class="far fa-envelope"></i>
+          <i className="far fa-envelope"></i>
           <Link to="/signup" id="signup-email">Sign up with email</Link>
         </div>
       </div>

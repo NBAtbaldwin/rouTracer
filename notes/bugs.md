@@ -1,0 +1,2 @@
+-errors:
+  -errors remain in state when switching between login and sign up containers

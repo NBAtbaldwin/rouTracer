@@ -46,17 +46,17 @@ class SessionForm extends React.Component {
               <li>
                 <input className="session-form-field" type="password" placeholder="Password" onChange={this.updateField("password")} value={this.state.password} />
               </li>
+              <ul>
+                {this.props.errors.session.map((error) => {
+                  return <li className="session-form-error">{error}</li>;
+                })}
+              </ul>
               <li>
                 <input className="session-form-submit" type='submit' value={this.props.formTitle}/>
               </li>
               <li className="session-form-line"></li>
             </ul>
           </form>
-          <ul>
-            {this.props.errors.session.map((error) => {
-              return <li>{error}</li>;
-            })}
-          </ul>
         </div>
       </div>
     );
