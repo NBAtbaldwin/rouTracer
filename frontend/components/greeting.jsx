@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from "react-router-dom";
+import FooterContainer from "./footer_container"
 
 const Greeting = ({ currentUser, logout }) => {
   const greeting = () => (
@@ -20,6 +21,7 @@ const Greeting = ({ currentUser, logout }) => {
           </button>
         </Link>
       </div>
+      <FooterContainer />
     </div>
   );
   return currentUser ? greeting() : links();

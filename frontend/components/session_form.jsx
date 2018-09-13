@@ -20,6 +20,10 @@ class SessionForm extends React.Component {
     this.props.processForm(user);
   }
 
+  componentDidMount() {
+    this.props.errors.session = [];
+  }
+
 // then(() => this.props.history.push('/'))
 
   updateField(field) {

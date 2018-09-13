@@ -5,6 +5,7 @@
 -short-term
   -re-factor unnecessary currentUser conditional in greeting container
   -create footer
+  -demo user?
 
 
 -fine-tuning:
