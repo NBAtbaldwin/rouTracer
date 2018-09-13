@@ -12,6 +12,7 @@ class SessionForm extends React.Component {
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.updateField = this.updateField.bind(this);
+    this.demoLogin = this.demoLogin.bind(this);
   }
 
   handleSubmit(e) {
@@ -29,6 +30,10 @@ class SessionForm extends React.Component {
     return (e) => {
       this.setState({[field]: e.currentTarget.value});
     };
+  }
+
+  demoLogin() {
+
   }
 
   render() {

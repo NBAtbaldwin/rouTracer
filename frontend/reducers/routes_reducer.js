@@ -1,4 +1,5 @@
 import { RECEIVE_ROUTE, DELETE_ROUTE, RECEIVE_ROUTES } from "./../actions/route_actions";
+import { LOGOUT_CURRENT_USER } from './../actions/session_actions';
 import { merge } from 'lodash';
 
 const routesReducer = (oldState = {}, action) => {
@@ -12,6 +13,8 @@ const routesReducer = (oldState = {}, action) => {
       let newState = merge({}, oldState);
       delete newState[action.routeId];
       return newState;
+    case LOGOUT_CURRENT_USER:
+      return {};
     default:
       return oldState;
   }
