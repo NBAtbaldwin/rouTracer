@@ -63,11 +63,12 @@
   background-color: rgba(0, 0, 0, .7);
   border: 1px solid #585858;
   font-size: 14px;
-  color: black;
+  color: white;
 }
 
 .session-form-field:focus {
   background-color: white;
+  color: black;
 }
 
 .session-form-submit {
