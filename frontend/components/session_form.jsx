@@ -22,7 +22,7 @@ class SessionForm extends React.Component {
 // then(() => this.props.history.push('/'))
 
   componentWillUnmount() {
-    
+    this.props.clearSessionErrors();
   }
 
   updateField(field) {
