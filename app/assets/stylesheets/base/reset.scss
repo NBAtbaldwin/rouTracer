@@ -45,4 +45,13 @@ table {
 
 a {
   text-decoration: None;
+  cursor: pointer;
+}
+
+button {
+  cursor: pointer;
+}
+
+input[type='submit'] {
+  cursor: pointer;
 }

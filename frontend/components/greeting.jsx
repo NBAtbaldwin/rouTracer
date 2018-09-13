@@ -13,10 +13,10 @@ const Greeting = ({ currentUser, logout }) => {
       <p id="number-1-text">The #1 app for runners and cyclists</p>
       <div className="image-login-container">
         <img src={window.phoneImage} className="greeting-image"></img>
-        <div className="greeting-image-container">
+        <button className="greeting-email-button">
           <i className="far fa-envelope"></i>
           <Link to="/signup" id="signup-email">Sign up with email</Link>
-        </div>
+        </button>
       </div>
     </div>
   );

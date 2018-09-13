@@ -24,20 +24,28 @@
   width: auto;
 }
 
-.greeting-image-container {
+.greeting-email-button {
   height: 54px;
   width: 245px;
   border: 1px solid $gray;
   display: flex;
-  justify-content: center;
   align-items: center;
-
 }
 
 #signup-email {
+  margin: 0 auto;
+  font-size: 15px;
+  margin-right: 52px;
   color: black;
 }
 
-.greeting-image-container > i {
+.greeting-email-button > i {
   margin-right: 20px;
+  font-size: 18px;
+  margin-left: 10px;
+}
+
+.greeting-email-button:hover {
+  background-color: $gray-hover;
+  border-color: $border-gray-hover;
 }

@@ -65,6 +65,10 @@
   color: white;
 }
 
+.session-form-field:focus {
+  background-color: white;
+}
+
 .session-form-submit {
   width: 300px;
   height: 40px;
@@ -75,6 +79,10 @@
   border: none;
   border-radius: 4px;
   margin-top: 86px;
+}
+
+.session-form-submit:hover {
+  background-color: $rt-orange-hover;
 }
 
 .session-form-line {
