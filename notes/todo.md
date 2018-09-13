@@ -1,5 +1,4 @@
 -now:
-  -add hovers and fix email button to make whole area clickable
   -aws hosting for images
   -create footer
 
