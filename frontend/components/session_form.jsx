@@ -37,10 +37,9 @@ class SessionForm extends React.Component {
   }
 
   render() {
-    const demoUser = {email: "user@example.com", password: "demouser"};
     let demoUserButton;
     if (this.props.formTitle === "Log In") {
-      demoUserButton = <button className="demo-user-button" onClick={() => this.props.processForm(demoUser)}>Demo User</button>;
+      demoUserButton = <button className="demo-user-button" onClick={() => this.props.loginDemoUser()}>Demo User</button>;
     } else {
       demoUserButton = <span></span>;
     }
@@ -69,12 +68,12 @@ class SessionForm extends React.Component {
               <li>
                 <input className="session-form-submit" type='submit' value={this.props.formTitle}/>
               </li>
-              <div className="demo-user-button-container">
-                {demoUserButton}
-              </div>
               <li className="session-form-line"></li>
             </ul>
           </form>
+          <div className="demo-user-button-container">
+            {demoUserButton}
+          </div>
         </div>
       </div>
     );
@@ -82,3 +81,12 @@ class SessionForm extends React.Component {
 }
 
 export default withRouter(SessionForm);
+
+
+// const demoUser = {email: "user@example.com", password: "demouser"};
+// let demoUserButton;
+// if (this.props.formTitle === "Log In") {
+//   demoUserButton = <button className="demo-user-button" onClick={() => this.props.processForm(demoUser)}>Demo User</button>;
+// } else {
+//   demoUserButton = <span></span>;
+// }

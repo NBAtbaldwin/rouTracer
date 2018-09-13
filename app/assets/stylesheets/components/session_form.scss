@@ -98,6 +98,13 @@
   color: white;
   font-size: 12px;
   font-weight: 100;
+  text-align: center;
+}
+
+.demo-user-button-container {
+  margin: 0 auto;
+  width: 100%;
+  position: relative;
 }
 
 .demo-user-button {
@@ -108,13 +115,20 @@
   color: white;
   border: none;
   border-radius: 4px;
-  margin-bottom: 29px;
+  position: absolute;
+  top: -90px;
+  right: 50px;
 }
 
 .demo-user-button:hover {
   background-color: $rt-orange-hover;
 }
 
+.session-form > ul > ul {
+  position: absolute;
+  top: 112px;
+  width: 300px;
+}
 
 
 // 400*592
