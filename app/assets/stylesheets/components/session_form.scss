@@ -23,6 +23,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
 }
 
 .session-form-header {
@@ -45,7 +46,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 150px;
+  margin-top: 124px;
 }
 
 .session-form-title > h3 {
@@ -72,13 +73,13 @@
 .session-form-submit {
   width: 300px;
   height: 40px;
-  margin-bottom: 30px;
-  background-color: $rt-orange;
+  margin-bottom: 12px;
+  background-color: #fc4c02;
   font-size: 14px;
   color: white;
   border: none;
   border-radius: 4px;
-  margin-top: 86px;
+  margin-top: 54px;
 }
 
 .session-form-submit:hover {
@@ -88,13 +89,29 @@
 .session-form-line {
   width: 360px;
   border-top: 1px solid #585858;
-  margin-bottom: 60px;
+  position: absolute;
+  bottom: 31px;
 }
 
 .session-form-error {
   color: white;
   font-size: 12px;
   font-weight: 100;
+}
+
+.demo-user-button {
+  width: 300px;
+  height: 40px;
+  background-color: $rt-orange;
+  font-size: 14px;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  margin-bottom: 29px;
+}
+
+.demo-user-button:hover {
+  background-color: $rt-orange-hover;
 }
 
 

@@ -32,6 +32,13 @@ class SessionForm extends React.Component {
   }
 
   render() {
+    const demoUser = {email: "user@example.com", password: "demouser"};
+    let demoUserButton;
+    if (this.props.formTitle === "Log In") {
+      demoUserButton = <button className="demo-user-button" onClick={() => this.props.processForm(demoUser)}>Demo User</button>;
+    } else {
+      demoUserButton = <span></span>;
+    }
     return(
       <div className="session-form-background">
         <div className="session-form-main">
@@ -57,6 +64,9 @@ class SessionForm extends React.Component {
               <li>
                 <input className="session-form-submit" type='submit' value={this.props.formTitle}/>
               </li>
+              <div className="demo-user-button-container">
+                {demoUserButton}
+              </div>
               <li className="session-form-line"></li>
             </ul>
           </form>
