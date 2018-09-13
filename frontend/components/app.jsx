@@ -8,6 +8,7 @@ import { AuthRoute, ProtectedRoute } from './../util/route_util';
 import NavBar from './navbar';
 import NavBarSignupContainer from "./navbar_signup_container";
 import NavBarLoginContainer from "./navbar_login_container";
+import RouteIndexContainer from "./routes/route_index/route_index_container";
 
   const App = () => (
     <div id="main">
@@ -16,6 +17,7 @@ import NavBarLoginContainer from "./navbar_login_container";
         <AuthRoute path='/signup' component={NavBarSignupContainer} />
         <AuthRoute exact path='/' component={NavBarSignupContainer} />
       </header>
+      <ProtectedRoute exact path='/routes' component={RouteIndexContainer} />
       <Route exact path='/' component={GreetingContainer} />
       <ProtectedRoute exact path='/dashboard' component={DashboardContainer} />
       <AuthRoute path='/login' component={LoginFormContainer} />
