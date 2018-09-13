@@ -8,7 +8,7 @@ class SessionForm extends React.Component {
     super(props);
     this.state = {
       email: "",
-      password: ""
+      password: "",
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.updateField = this.updateField.bind(this);
@@ -16,15 +16,14 @@ class SessionForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const user = Object.assign({}, this.state);
+    const user = Object.assign({}, {email: this.state.email, password: this.state.password});
     this.props.processForm(user);
   }
-
-  componentDidMount() {
-    this.props.errors.session = [];
-  }
-
 // then(() => this.props.history.push('/'))
+
+  componentWillUnmount() {
+    
+  }
 
   updateField(field) {
     return (e) => {
