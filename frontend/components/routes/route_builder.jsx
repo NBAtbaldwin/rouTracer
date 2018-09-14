@@ -6,6 +6,9 @@ import { withRouter } from 'react-router-dom';
 //   lat: latLng.lat(),
 //   lng: latLng.lng()
 // });
+function parseDist(str) {
+  return parseFloat(str.split(" ")[0]);
+}
 
 class RouteBuilder extends React.Component {
   constructor(props) {
@@ -13,6 +16,7 @@ class RouteBuilder extends React.Component {
     this.state = this.props.newRoute;
     this.handleSubmit = this.handleSubmit.bind(this);
     this.update = this.update.bind(this);
+    this.toggleActivityType = this.toggleActivityType.bind(this);
   }
 
   componentDidMount() {
@@ -21,7 +25,7 @@ class RouteBuilder extends React.Component {
         lat: 40.7831,
         lng: -73.9712
       },
-      zoom: 16
+      zoom: 14
     };
     const service = new google.maps.DirectionsService();
     let path = new google.maps.MVCArray();
@@ -42,19 +46,38 @@ class RouteBuilder extends React.Component {
       if (path.getLength() === 0) {
         path.push(evt.latLng);
         poly.setPath(path);
+        let marker = new google.maps.Marker({
+          position: evt.latLng,
+          title: '#',
+          map: that.map
+        });
       } else {
+        let travelMode;
+        that.state.activity_type === 'WALKING' ? travelMode = google.maps.DirectionsTravelMode.WALKING : travelMode = google.maps.DirectionsTravelMode.BICYCLING;
         service.route({
           origin: path.getAt(path.getLength() - 1),
           destination: evt.latLng,
-          travelMode: google.maps.DirectionsTravelMode.DRIVING
+          travelMode: travelMode
         }, function(result, status) {
           if (status == google.maps.DirectionsStatus.OK) {
             for (let i = 0, len = result.routes[0].overview_path.length;
                 i < len; i++) {
               path.push(result.routes[0].overview_path[i]);
               if (i === 0) {
-                // adds first concatenated polyline from Directions route function return
-                that.setState({coordinates_list: result.routes[0].overview_polyline});
+                let marker = new google.maps.Marker({
+                  position: evt.latLng,
+                  title: '#',
+                  map: that.map
+                });
+                // add distance, duration of new segment to state
+                let distance = that.state.distance + parseDist(result.routes[0].legs[0].distance.text);
+                let duration = that.state.est_duration + result.routes[0].legs[0].duration.value
+                that.setState({
+                  coordinates_list: result.routes[0].overview_polyline,
+                  distance: distance,
+                  est_duration: duration
+                });
+                console.log(that.state);
               };
             }
           }
@@ -92,15 +115,29 @@ class RouteBuilder extends React.Component {
     this.props.createRoute(this.state).then(() => this.props.history.push('/routes'));
   };
 
+  toggleActivityType(type) {
+    return (e) => {
+      this.setState({activity_type: type});
+    };
+  }
+
   render() {
     return (
       <div className="routebuilder-main">
+        <div className="routebuilder-toolbar">
+          <ul>
+            <li>
+              <button onClick={this.toggleActivityType("BICYCLING")}>Ride</button>
+            </li>
+            <li>
+              <button onClick={this.toggleActivityType("WALKING")}>Run</button>
+            </li>
+            <li>
+              <button>Save</button>
+            </li>
+          </ul>
+        </div>
         <form onSubmit={this.handleSubmit}>
-          <label>Activity Type
-            <input type="text"
-              value={this.state.activity_type}
-              onChange={this.update('activity_type')} />
-          </label>
           <label>Route Name
             <input type="text"
               value={this.state.route_name}
@@ -111,10 +148,17 @@ class RouteBuilder extends React.Component {
             onChange={this.update('description')} />
           </label>
           <input type="hidden" value={this.state.coordinates_list} />
+          <input type="hidden" value={this.state.est_duration} />
+          <input type="hidden" value={this.state.distance} />
           <input type="submit" value="save" />
         </form>
         <div id='map-container' ref={ map => this.mapNode = map }>
         </div>
+        <ul>
+          <li>{this.state.activity_type}</li>
+          <li>{this.state.distance}</li>
+          <li>{this.state.est_duration}</li>
+        </ul>
       </div>
     );
   }

@@ -23,3 +23,11 @@ function addLatLngToPoly(latLng, poly) {
    that.setState({coordinates_list: encodeString})
    console.log(that.state);
  }
+
+ function addMarker(event) {
+   let marker = new google.maps.Marker({
+     position: event.latLng,
+     title: '#',
+     map: that.map
+   });
+ }

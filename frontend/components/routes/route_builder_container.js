@@ -4,7 +4,7 @@ import RouteBuilder from './route_builder';
 
 const mapStateToProps = (state, ownProps) => ({
   currentUser: state.entities.users[state.session.id],
-  newRoute: { route_name: "", activity_type: "", coordinates_list: "", user_id: parseInt(state.entities.users[state.session.id].id), description: "", est_duration: 1, elevation: 1, distance: 1 }
+  newRoute: { route_name: "", activity_type: "WALKING", coordinates_list: "", user_id: parseInt(state.entities.users[state.session.id].id), description: "", est_duration: 0, elevation: 1, distance: 0 }
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
