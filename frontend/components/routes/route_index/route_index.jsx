@@ -11,7 +11,10 @@ class RouteIndex extends React.Component {
   render() {
     return(
       <div>
-        <h1>Routes!</h1>
+        <button>
+          <Link to="/routes/new">Create New Route</Link>
+        </button>
+        <h1>My Routes</h1>
         <div>
           <ul>
             {this.props.routes.map((route, idx) => {

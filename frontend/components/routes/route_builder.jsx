@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Link } from "react-router-dom";
 import { withRouter } from 'react-router-dom';
 
 // const getCoordsObj = latLng => ({
@@ -134,6 +135,9 @@ class RouteBuilder extends React.Component {
             </li>
             <li>
               <button>Save</button>
+            </li>
+            <li>
+              <Link to="/routes">Exit RouteBuilder</Link>
             </li>
           </ul>
         </div>
