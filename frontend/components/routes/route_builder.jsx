@@ -21,8 +21,10 @@ class RouteBuilder extends React.Component {
         lat: 40.7831,
         lng: -73.9712
       },
-      zoom: 13
+      zoom: 16
     };
+    const service = new google.maps.DirectionsService();
+    let path = new google.maps.MVCArray();
     let poly;
     let infoWindow;
     // creates map
@@ -35,30 +37,32 @@ class RouteBuilder extends React.Component {
         });
     poly.setMap(this.map);
     const that = this;
-    // listener for adding coordinates to onscreen map
-    this.map.addListener('click', addLatLng);
-    // listener for adding coordinates to polyline string
-    google.maps.event.addListener(this.map, 'click', function(event) {
-      addLatLngToPoly(event.latLng, poly);
+    // traces shortest path on roads onscreen
+    google.maps.event.addListener(this.map, "click", function(evt) {
+      if (path.getLength() === 0) {
+        path.push(evt.latLng);
+        poly.setPath(path);
+      } else {
+        service.route({
+          origin: path.getAt(path.getLength() - 1),
+          destination: evt.latLng,
+          travelMode: google.maps.DirectionsTravelMode.DRIVING
+        }, function(result, status) {
+          if (status == google.maps.DirectionsStatus.OK) {
+            for (let i = 0, len = result.routes[0].overview_path.length;
+                i < len; i++) {
+              path.push(result.routes[0].overview_path[i]);
+              if (i === 0) {
+                // adds first concatenated polyline from Directions route function return
+                that.setState({coordinates_list: result.routes[0].overview_polyline})
+                console.log(that.state);
+              };
+            }
+          }
+        });
+      }
     });
-    // Adds to displayed path on map
-    function addLatLng(event) {
-      let path = poly.getPath();
-      path.push(event.latLng);
-      let marker = new google.maps.Marker({
-        position: event.latLng,
-        title: '#' + path.getLength(),
-        map: that.map
-      });
-    }
-    // adds current marker to polyline string
-    function addLatLngToPoly(latLng, poly) {
-       var path = poly.getPath();
-       path.push(latLng);
-       let encodeString = google.maps.geometry.encoding.encodePath(path);
-       that.setState({coordinates_list: encodeString})
-       console.log(that.state);
-     }
+
     // sets geolocation
     infoWindow = new google.maps.InfoWindow;
     if (navigator.geolocation) {
@@ -108,7 +112,7 @@ class RouteBuilder extends React.Component {
             onChange={this.update('description')} />
           </label>
           <input type="hidden" value={this.state.coordinates_list} />
-            <input type="submit" value="save" />
+          <input type="submit" value="save" />
         </form>
         <div id='map-container' ref={ map => this.mapNode = map }>
         </div>
