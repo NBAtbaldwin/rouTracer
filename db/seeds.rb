@@ -52,3 +52,13 @@ route_3 = Route.create(route_name: gen_route_name, activity_type: activity_type,
 route_4 = Route.create(route_name: gen_route_name, activity_type: activity_type, coordinates_list: SecureRandom::base64, user_id: user_1.id, distance: gen_dist, est_duration: gen_dur, elevation: gen_elev, description: gen_description)
 
 route_5 = Route.create(route_name: gen_route_name, activity_type: activity_type, coordinates_list: SecureRandom::base64, user_id: demo_user.id, distance: gen_dist, est_duration: gen_dur, elevation: gen_elev, description: gen_description)
+
+route_6 = Route.create(route_name: gen_route_name, activity_type: activity_type, coordinates_list: SecureRandom::base64, user_id: demo_user.id, distance: gen_dist, est_duration: gen_dur, elevation: gen_elev, description: gen_description)
+
+route_7 = Route.create(route_name: gen_route_name, activity_type: activity_type, coordinates_list: SecureRandom::base64, user_id: user_1.id, distance: gen_dist, est_duration: gen_dur, elevation: gen_elev, description: gen_description)
+
+route_8 = Route.create(route_name: gen_route_name, activity_type: activity_type, coordinates_list: SecureRandom::base64, user_id: user_1.id, distance: gen_dist, est_duration: gen_dur, elevation: gen_elev, description: gen_description)
+
+route_9 = Route.create(route_name: gen_route_name, activity_type: activity_type, coordinates_list: SecureRandom::base64, user_id: user_1.id, distance: gen_dist, est_duration: gen_dur, elevation: gen_elev, description: gen_description)
+
+route_10 = Route.create(route_name: gen_route_name, activity_type: activity_type, coordinates_list: SecureRandom::base64, user_id: demo_user.id, distance: gen_dist, est_duration: gen_dur, elevation: gen_elev, description: gen_description)
