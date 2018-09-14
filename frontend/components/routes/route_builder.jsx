@@ -11,10 +11,11 @@ class RouteBuilder extends React.Component {
   constructor(props) {
     super(props);
     this.state = this.props.newRoute;
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.update = this.update.bind(this);
   }
 
   componentDidMount() {
-    debugger;
     const mapOptions = {
       center: {
         lat: 40.7831,
@@ -55,7 +56,8 @@ class RouteBuilder extends React.Component {
        var path = poly.getPath();
        path.push(latLng);
        let encodeString = google.maps.geometry.encoding.encodePath(path);
-       console.log(encodeString)
+       that.setState({coordinates_list: encodeString})
+       console.log(that.state);
      }
     // sets geolocation
     infoWindow = new google.maps.InfoWindow;
@@ -76,14 +78,40 @@ class RouteBuilder extends React.Component {
       }
     };
 
+  update(field) {
+    return (e) => {
+      this.setState({[field]: e.target.value});
+    };
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    this.props.createRoute(this.state).then(() => this.props.history.push('/routes'));
+  };
+
   render() {
     return (
       <div className="routebuilder-main">
+        <form onSubmit={this.handleSubmit}>
+          <label>Activity Type
+            <input type="text"
+              value={this.state.activity_type}
+              onChange={this.update('activity_type')} />
+          </label>
+          <label>Route Name
+            <input type="text"
+              value={this.state.route_name}
+              onChange={this.update('route_name')} />
+          </label>
+          <label>Description
+            <textarea value={this.state.description}
+            onChange={this.update('description')} />
+          </label>
+          <input type="hidden" value={this.state.coordinates_list} />
+            <input type="submit" value="save" />
+        </form>
         <div id='map-container' ref={ map => this.mapNode = map }>
         </div>
-        <form>
-
-        </form>
       </div>
     );
   }
