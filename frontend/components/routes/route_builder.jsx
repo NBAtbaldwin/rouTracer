@@ -54,8 +54,7 @@ class RouteBuilder extends React.Component {
               path.push(result.routes[0].overview_path[i]);
               if (i === 0) {
                 // adds first concatenated polyline from Directions route function return
-                that.setState({coordinates_list: result.routes[0].overview_polyline})
-                console.log(that.state);
+                that.setState({coordinates_list: result.routes[0].overview_polyline});
               };
             }
           }
