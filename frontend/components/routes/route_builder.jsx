@@ -64,7 +64,7 @@ class RouteBuilder extends React.Component {
             for (let i = 0, len = result.routes[0].overview_path.length;
                 i < len; i++) {
               path.push(result.routes[0].overview_path[i]);
-              if (i === 0) {
+              if (i === result.routes[0].overview_path.length-1) {
                 let marker = new google.maps.Marker({
                   position: evt.latLng,
                   title: '#',
@@ -72,13 +72,13 @@ class RouteBuilder extends React.Component {
                 });
                 // add distance, duration of new segment to state
                 let distance = that.state.distance + parseDist(result.routes[0].legs[0].distance.text);
-                let duration = that.state.est_duration + result.routes[0].legs[0].duration.value
+                let duration = that.state.est_duration + result.routes[0].legs[0].duration.value;
                 that.setState({
                   coordinates_list: result.routes[0].overview_polyline,
                   distance: distance,
                   est_duration: duration
                 });
-                console.log(that.state);
+                console.log(google.maps.geometry.encoding.encodePath(poly.getPath()));
               };
             }
           }

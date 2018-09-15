@@ -17,3 +17,5 @@
   -record elevation gain
   -time util
   -disable scroll zoom
+
+-routesShow
