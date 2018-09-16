@@ -28,7 +28,23 @@ class RouteShow extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.props.match.params.routeId !== nextProps.match.params.routeId) {
-    this.props.fetchRoute(nextProps.match.params.routeId);
+    this.props.fetchRoute(nextProps.match.params.routeId).then(() => {
+      const decodedPoly = google.maps.geometry.encoding.decodePath(this.props.route.coordinates_list);
+      const mapOptions = {
+        center: MapUtil.averageCenter(this.props.route.coordinates_list),
+        zoom: 10,
+      };
+      this.map = new google.maps.Map(this.mapNode, mapOptions);
+      MapUtil.zoomFit(this.map, this.props.route.coordinates_list);
+      const poly = new google.maps.Polyline({
+        strokeColor: '#000000',
+        strokeOpacity: 1.0,
+        strokeWeight: 3
+      });
+      poly.setMap(this.map);
+      const path = new google.maps.MVCArray(decodedPoly);
+      poly.setPath(path);
+    });
     }
   }
 

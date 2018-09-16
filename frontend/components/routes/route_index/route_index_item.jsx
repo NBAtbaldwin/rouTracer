@@ -9,7 +9,6 @@ class RouteIndexItem extends React.Component {
     const decodedPoly = google.maps.geometry.encoding.decodePath(route.coordinates_list);
     const codedPoly=route.coordinates_list;
     const center = Object.values(MapUtil.averageCenter(codedPoly)).join();
-    console.log(center);
     return(
       <li className="pokemon-index-item">
         <Link to={`routes/${route.id}`}>{route.route_name}</Link>
