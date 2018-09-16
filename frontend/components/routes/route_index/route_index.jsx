@@ -1,7 +1,9 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import { withRouter } from 'react-router';
-import RouteIndexItemContainer from './route_index_item_container'
+import RouteIndexItemContainer from './route_index_item_container';
+import FooterContainer from "./../../footer_container";
+import NavbarLoggedInContainer from "./../../navbar_loggedIn_container";
 
 class RouteIndex extends React.Component {
   constructor(props) {
@@ -26,6 +28,7 @@ class RouteIndex extends React.Component {
     const activity = this.state.activity_type;
     return(
       <div>
+        <NavbarLoggedInContainer />
         <button>
           <Link to="/new_route">Create New Route</Link>
         </button>
@@ -40,6 +43,7 @@ class RouteIndex extends React.Component {
             })}
           </ul>
         </div>
+        <FooterContainer />
       </div>
     );
   }

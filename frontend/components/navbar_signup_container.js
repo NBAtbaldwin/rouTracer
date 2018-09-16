@@ -6,14 +6,10 @@ const mapStateToProps = (state, ownProps) => {
   return {
     errors: state.errors,
     linkText: "Log In",
-    linkRoute: "/login"
+    linkRoute: "/login",
+    currentUser: state.entities.users[state.session.id],
   };
 };
 
-// const mapDispatchToProps = (dispatch, ownProps) => {
-//   return {
-//     processForm: (user) => dispatch(login(user)),
-//   };
-// };
 
 export default connect(mapStateToProps, null)(NavBar);

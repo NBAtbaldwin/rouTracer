@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import { Link } from "react-router-dom";
 import { withRouter } from 'react-router-dom';
 import * as MapUtil from './../../../util/map_util';
+import FooterContainer from "./../../footer_container";
+import NavbarLoggedInContainer from "./../../navbar_loggedIn_container";
 
 class RouteShow extends React.Component {
 
@@ -60,9 +62,11 @@ class RouteShow extends React.Component {
     };
     return (
       <div className="route-show-main">
+        <NavbarLoggedInContainer />
         {routeParams()}
         <div id='show-map-container' ref={ map => this.mapNode = map }>
         </div>
+        <FooterContainer />
       </div>
     );
   }

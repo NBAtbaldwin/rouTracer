@@ -7,16 +7,27 @@ class NavBar extends React.Component {
   }
 
   render() {
+    const loginLinks = () => {
+      if (!this.props.currentUser) {
+        return (
+          <ul>
+            <li>
+              <Link to={this.props.linkRoute} className="navbar-login-link">{this.props.linkText}</Link>
+            </li>
+          </ul>
+        );
+      } else {
+        return (
+          <ul></ul>
+        );
+      }
+    };
     return(
       <div className="nav-master-div">
         <h1>
           <Link to="/" className="navbar-logo">RouTracer</Link>
         </h1>
-        <ul>
-          <li>
-            <Link to={this.props.linkRoute} className="navbar-login-link">{this.props.linkText}</Link>
-          </li>
-        </ul>
+        {loginLinks()}
       </div>
     );
   }

@@ -14,5 +14,6 @@
 
 -routeBuilder to-do:
   -record elevation gain
-  -time util
-  -disable scroll zoom
+  -add undo button
+  -figure out how to enable dragging for edit route (ask abby if you can wait on this)
+  -dispay mile markers
