@@ -23,11 +23,13 @@ class NavBar extends React.Component {
       }
     };
     return(
-      <div className="nav-master-div">
-        <h1>
-          <Link to="/" className="navbar-logo">RouTracer</Link>
-        </h1>
-        {loginLinks()}
+      <div className="nav-container">
+        <div className="nav-master-div">
+          <h1>
+            <Link to="/" className="navbar-logo">RouTracer</Link>
+          </h1>
+          {loginLinks()}
+        </div>
       </div>
     );
   }

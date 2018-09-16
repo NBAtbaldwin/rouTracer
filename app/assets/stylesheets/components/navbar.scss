@@ -1,9 +1,15 @@
+.nav-container {
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid $light-gray;
+}
+
 .nav-master-div {
+  width: 1218px;
   height: 50px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid $light-gray;
 }
 
 .nav-master-div > ul > li {
@@ -16,12 +22,13 @@
   align-items: center;
   border-radius: 2px;
 }
-
-.navbar-logo {
-  color: $rt-orange;
-  font-weight: 800;
-  font-size: 23px;
-  margin-left: 50px;
+#master-header {
+  .navbar-logo {
+    color: $rt-orange;
+    font-weight: 800;
+    font-size: 23px;
+    margin-left: 50px;
+  }
 }
 
 .navbar-login-link {

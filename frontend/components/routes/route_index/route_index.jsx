@@ -27,22 +27,29 @@ class RouteIndex extends React.Component {
   render() {
     const activity = this.state.activity_type;
     return(
-      <div>
+      <div className="route-index-main">
         <NavbarLoggedInContainer />
-        <button>
-          <Link to="/new_route">Create New Route</Link>
-        </button>
-        <button onClick={this.updateActivity('BICYCLING')}>Ride</button>
-        <button onClick={this.updateActivity('WALKING')}>Run</button>
-        <h1>My Routes</h1>
-        <div>
-          <ul>
-            {this.props.routes.map((route, idx) => {
-              if (route.activity_type === activity) {              return <RouteIndexItemContainer key={idx} route={route} />;
-              }
-            })}
-          </ul>
-        </div>
+        <section>
+          <header>
+            <div>
+              <h1>My Routes</h1>
+              <button>
+                <Link to="/new_route">Create New Route</Link>
+              </button>
+            </div>
+            <img src="https://d3nn82uaxijpm6.cloudfront.net/assets/routes/route-list-mobile-upsell-c1aec554d010e3c86411ad560615802162318875f086d1e3ed4850d6c7014b8f.png"/>
+          </header>
+          <button onClick={this.updateActivity('BICYCLING')}>Cycling</button>
+          <button onClick={this.updateActivity('WALKING')}>Running</button>
+          <div>
+            <ul className="route-index-items">
+              {this.props.routes.map((route, idx) => {
+                if (route.activity_type === activity) {              return <RouteIndexItemContainer key={idx} route={route} />;
+                }
+              })}
+            </ul>
+          </div>
+        </section>
         <FooterContainer />
       </div>
     );

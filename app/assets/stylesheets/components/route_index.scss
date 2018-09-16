@@ -1,0 +1,160 @@
+.route-index-main {
+
+  section {
+    width: 1218px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    min-height: 728px;
+
+    & > button {
+      height: 40px;
+      width: 86px;
+      margin-top: 26px;
+      margin-bottom: 16px;
+      border: 1px solid #ccccd1;
+      border-radius: 2px;
+      color: #2d2d32;
+      font-size: 14px;
+      padding: 10px 16px;
+    }
+
+    & > button:active {
+      background-color: #333;
+      border-color: #999;
+      text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+      background-image: linear-gradient(#666, #777);
+      color: white;
+    }
+
+    header {
+      padding: 20px 0px;
+      border-bottom: 1px solid $gray;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      h1 {
+        font-size: 28px;
+        font-weight: 300;
+        margin: 8px 0px;
+      }
+
+      button {
+        height: 40px;
+        width: 150px;
+        background-color: $rt-orange;
+        border-radius: 2px;
+        border: 0px;
+        margin: 8px 0px 20px 0px;
+
+        a {
+          color: white;
+          font-size: 14px;
+        }
+
+      }
+
+      button:hover {
+        background-color: $rt-orange-hover;
+      }
+
+      img {
+        margin-top: 32px;
+        margin-right: 110px;
+        height: 94px;
+        width: 171px;
+      }
+
+    }
+
+    div {
+      .route-index-items {
+        width: 1218px;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-gap: 20px;
+        box-sizing: border-box;
+      }
+
+    }
+  }
+
+}
+
+.route-index-item {
+  height: 364px;
+  background-color: #f7f7f7;
+  position: relative;
+
+  button {
+    position: absolute;
+    top: 27px;
+    right: -87px;
+    z-index: 1;
+  }
+
+  a {
+    color: #007FB6;
+    font-size: 18px;
+    font-weight: 300;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  .route-index-stats {
+    padding: 5px 20px 20px 20px;
+    display: flex;
+    flex-direction: column;
+  }
+
+
+  .route-index-stats {
+    & > p > span {
+      color: black;
+    }
+    p, div {
+      color: #99999e;
+    }
+    ul {
+      display: flex;
+
+      strong {
+        font-size: 23px;
+        font-weight: 300;
+        color: black;
+        }
+      li {
+        margin: 20px 20px 15px 0px;
+        div {
+          font-weight: 100;
+          color: black;
+        }
+        p {
+          font-size: 13px;
+          margin-top: -5px;
+        }
+      }
+    }
+    p {
+      font-size: 13px;
+    }
+  }
+  & > p {
+    background-color: #f0f0f0;
+    color: #99999e;
+    font-size: 13px;
+    height: 27px;
+    line-height: 27px;
+    text-indent: 20px;
+  }
+}
+
+#main {
+  .navbar-logo {
+    color: $rt-orange;
+    font-weight: 800;
+    font-size: 23px;
+  }
+}

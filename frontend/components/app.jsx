@@ -14,7 +14,7 @@ import RouteShowContainer from './routes/route_show/route_show_container'
 
   const App = () => (
     <div id="main">
-      <header>
+      <header id="master-header">
         <AuthRoute path='/login' component={NavBarLoginContainer} />
         <AuthRoute path='/signup' component={NavBarSignupContainer} />
         <AuthRoute exact path='/' component={NavBarSignupContainer} />
