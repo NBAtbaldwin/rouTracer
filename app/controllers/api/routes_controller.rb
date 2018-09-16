@@ -6,6 +6,11 @@ class Api::RoutesController < ApplicationController
 
   def show
     @route = Route.find(params[:id])
+    if @route.user_id == current_user.id
+      render :show
+    else
+      render json: ["Unauthorized route request"], status: 401
+    end
   end
 
   def create

@@ -3,10 +3,7 @@ import ReactDOM from 'react-dom';
 import { Link } from "react-router-dom";
 import { withRouter } from 'react-router-dom';
 
-// const getCoordsObj = latLng => ({
-//   lat: latLng.lat(),
-//   lng: latLng.lng()
-// });
+
 function parseDist(str) {
   return parseFloat(str.split(" ")[0]);
 }
@@ -73,12 +70,12 @@ class RouteBuilder extends React.Component {
                 // add distance, duration of new segment to state
                 let distance = that.state.distance + parseDist(result.routes[0].legs[0].distance.text);
                 let duration = that.state.est_duration + result.routes[0].legs[0].duration.value;
+                let finalPolyLine = google.maps.geometry.encoding.encodePath(poly.getPath())
                 that.setState({
-                  coordinates_list: result.routes[0].overview_polyline,
+                  coordinates_list: finalPolyLine,
                   distance: distance,
-                  est_duration: duration
+                  est_duration: duration,
                 });
-                console.log(google.maps.geometry.encoding.encodePath(poly.getPath()));
               };
             }
           }

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import { withRouter } from 'react-router';
+import RouteIndexItemContainer from './route_index_item_container'
 
 class RouteIndex extends React.Component {
 
@@ -12,14 +13,14 @@ class RouteIndex extends React.Component {
     return(
       <div>
         <button>
-          <Link to="/routes/new">Create New Route</Link>
+          <Link to="/new_route">Create New Route</Link>
         </button>
         <h1>My Routes</h1>
         <div>
           <ul>
-            {this.props.routes.map((route, idx) => {
-              return <li key={idx}>{route.route_name}</li>;
-            })}
+            {this.props.routes.map((route, idx) => (
+              <RouteIndexItemContainer key={idx} route={route} />
+            ))}
           </ul>
         </div>
       </div>
