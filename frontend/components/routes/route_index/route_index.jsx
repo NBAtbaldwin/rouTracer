@@ -9,7 +9,9 @@ class RouteIndex extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      activity_type: "WALKING"
+      activity_type: "WALKING",
+      WALKING: "selected",
+      BICYCLING: "",
     }
     this.updateActivity = this.updateActivity.bind(this);
   }
@@ -20,7 +22,8 @@ class RouteIndex extends React.Component {
 
   updateActivity(activity) {
     return (e) => {
-      this.setState({activity_type: activity});
+      this.setState({WALKING: "", BICYCLING: "", });
+      this.setState({activity_type: activity, [activity]: "selected" });
     };
   }
 
@@ -39,8 +42,8 @@ class RouteIndex extends React.Component {
             </div>
             <img src="https://d3nn82uaxijpm6.cloudfront.net/assets/routes/route-list-mobile-upsell-c1aec554d010e3c86411ad560615802162318875f086d1e3ed4850d6c7014b8f.png"/>
           </header>
-          <button onClick={this.updateActivity('BICYCLING')}>Cycling</button>
-          <button onClick={this.updateActivity('WALKING')}>Running</button>
+          <button onClick={this.updateActivity('BICYCLING')} className={this.state.BICYCLING}>Cycling</button>
+          <button onClick={this.updateActivity('WALKING')} className={this.state.WALKING}>Running</button>
           <div>
             <ul className="route-index-items">
               {this.props.routes.map((route, idx) => {
