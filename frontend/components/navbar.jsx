@@ -7,6 +7,8 @@ class NavBar extends React.Component {
     this.state = {
       dashboard: "hidden",
       training: "hidden",
+      profPic: "hidden",
+      addActivity: "hidden",
     }
     this.makeHidden = this.makeHidden.bind(this);
     this.makeDisplayed = this.makeDisplayed.bind(this);
@@ -53,7 +55,7 @@ class NavBar extends React.Component {
                 <ul onMouseOver={this.makeHidden("dashboard")} onMouseOut={this.makeDisplayed("dashboard")}><Link to="/dashboard">Dashboard<i className="fas fa-chevron-down"></i></Link>
                   <ul className={this.state.dashboard}>
                     <li><Link to="/dashboard">Activity Feed</Link></li>
-                    <li><Link to="/routes">My Route</Link></li>
+                    <li><Link to="/routes">My Routes</Link></li>
                   </ul>
                 </ul>
                 <ul onMouseOver={this.makeHidden("training")} onMouseOut={this.makeDisplayed("training")}><Link to="/training">Training<i className="fas fa-chevron-down"></i></Link>
@@ -65,9 +67,23 @@ class NavBar extends React.Component {
               </ul>
             </div>
             <div className="profile">
-              <li>thing</li>
-              <li>thing</li>
-              <li>thing</li>
+              <li onMouseOver={this.makeHidden("profPic")} onMouseOut={this.makeDisplayed("profPic")}>
+                <div className="prof-pic">
+                </div>
+                <i className="fas fa-chevron-down"></i>
+                <ul className={this.state.profPic}>
+                  <li><Link to="/profile">My Profile</Link></li>
+                  <li onClick={this.props.logout}>Log Out</li>
+                </ul>
+              </li>
+              <li className="add-workout" onMouseOver={this.makeHidden("addActivity")} onMouseOut={this.makeDisplayed("addActivity")}>
+                <div id='add-workout'>+
+                </div>
+                <ul className={this.state.addActivity}>
+                  <li><i class="far fa-file"></i>Add Manual entry</li>
+                  <li><i class="fas fa-location-arrow"></i><Link to="/new_route">Create a Route</Link></li>
+                </ul>
+              </li>
             </div>
           </div>
         );

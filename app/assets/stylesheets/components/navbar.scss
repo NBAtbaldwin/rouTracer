@@ -55,6 +55,7 @@
 
     & > i {
       margin: 0px 20px;
+      color: #606065;
     }
 
     & > ul {
@@ -67,7 +68,7 @@
         border-left: 1px solid $light-gray;
         border-bottom: 1px solid white;
         height: 56px;
-        z-index: 1;
+        z-index: 3;
       }
 
       > ul {
@@ -84,13 +85,17 @@
           flex-direction: column;
           position: absolute;
           left: -1px;
+          top: 57px;
           line-height: normal;
           border-left: 1px solid $light-gray;
           border-right: 1px solid $light-gray;
           border-bottom: 1px solid $light-gray;
+          z-index: 1;
 
           > li {
             padding: 16px;
+            background-color: white;
+
           }
 
           > li:hover {
@@ -118,7 +123,96 @@
 
   & > .profile {
     display: flex;
+
+    & > li:hover {
+      border-right: 1px solid $light-gray;
+      border-left: 1px solid $light-gray;
+      border-bottom: 1px solid white;
+      position: relative;
+    }
+
+    & > li {
+      padding: 0px 15px;
+      display: flex;
+      align-items: center;
+      height: 56px;
+
+      & > .prof-pic {
+        height: 34px;
+        width: 34px;
+        background-image: image_url("profile_placeholder.jpg");
+        background-size: contain;
+        border-radius: 17px;
+      }
+
+      & > i {
+        margin-left: 5px;
+        font-size: 9px;
+      }
+
+      & > #add-workout {
+        height: 22px;
+        width: 22px;
+        border-radius: 15px;
+        font-size: 21px;
+        font-weight: 300;
+        border: 2px solid $rt-orange;
+        text-align: center;
+        vertical-align: middle;
+        line-height: 24px;
+        color: $rt-orange;
+      }
+
+      & > #add-workout:hover {
+        background-color: $rt-orange;
+        color: white;
+      }
+
+      & > ul > li {
+        padding: 16px;
+        background-color: white;
+        color: #606065;
+        font-size: 14px;
+        cursor: pointer;
+        & > a {
+          color: #606065;
+        }
+
+        & > i {
+          margin-right: 10px;
+          color: $gray;
+        }
+
+      }
+
+      > ul > li:hover {
+        background-color: $gray-hover;
+      }
+
+    }
   }
 
+  .hidden {
+    display: none;
+  }
+
+  .show {
+    width: 158px;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    left: -82px;
+    top: 57px;
+    line-height: normal;
+    border-left: 1px solid $light-gray;
+    border-right: 1px solid $light-gray;
+    border-bottom: 1px solid $light-gray;
+    z-index: 1;
+  }
+
+  .add-workout > .show {
+    left: -115px;
+    width: 170px;
+  }
 
 }

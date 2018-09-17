@@ -34,11 +34,11 @@ class RouteIndexItem extends React.Component {
           <Link to={`routes/${route.id}`}>{route.route_name}</Link>
           <ul>
             <li>
-              <div><strong>{route.distance}</strong>mi</div>
+              <div><strong>{route.distance}</strong> mi</div>
               <p>Distance</p>
             </li>
             <li>
-              <div><strong>100</strong>ft</div>
+              <div><strong>100</strong> ft</div>
               <p>Elevation Gain</p>
             </li>
           </ul>
