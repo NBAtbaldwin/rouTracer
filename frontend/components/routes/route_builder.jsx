@@ -26,66 +26,69 @@ class RouteBuilder extends React.Component {
       },
       zoom: 14
     };
-    const service = new google.maps.DirectionsService();
+    const service = new google.maps.DirectionsService;
     let path = new google.maps.MVCArray();
     let poly;
     let infoWindow;
     // creates map
     this.map = new google.maps.Map(this.mapNode, mapOptions);
+
+    let directionsDisplay = new google.maps.DirectionsRenderer({
+      draggable: true,
+      map: this.map,
+    });
     // initiates polyline
     poly = new google.maps.Polyline({
           strokeColor: '#000000',
           strokeOpacity: 1.0,
-          strokeWeight: 3
+          strokeWeight: 0,
         });
     poly.setMap(this.map);
     const that = this;
+    let wayPoints = []
+    let origin = ""
+    let marker;
     // traces shortest path on roads onscreen
     google.maps.event.addListener(this.map, "click", function(evt) {
       if (path.getLength() === 0) {
+
+        origin = evt.latLng;
         path.push(evt.latLng);
         poly.setPath(path);
-        let marker = new google.maps.Marker({
+
+        marker = new google.maps.Marker({
           position: evt.latLng,
           title: '#',
-          map: that.map
+          map: that.map,
         });
-        MapUtil.lngLatToArray(marker, that.state.marker_coordinates);
+
       } else {
+        marker.setMap(null);
         let travelMode;
         that.state.activity_type === 'WALKING' ? travelMode = google.maps.DirectionsTravelMode.WALKING : travelMode = google.maps.DirectionsTravelMode.BICYCLING;
-        service.route({
-          origin: path.getAt(path.getLength() - 1),
-          destination: evt.latLng,
-          travelMode: travelMode
-        }, function(result, status) {
-          if (status == google.maps.DirectionsStatus.OK) {
-            for (let i = 0, len = result.routes[0].overview_path.length;
-                i < len; i++) {
-              path.push(result.routes[0].overview_path[i]);
-              if (i === result.routes[0].overview_path.length-1) {
-                let marker = new google.maps.Marker({
-                  position: evt.latLng,
-                  title: '#',
-                  map: that.map
-                });
-                // add distance, marker coordinates, duration of new segment to state
-                let distance = that.state.distance + parseDist(result.routes[0].legs[0].distance.text);
-                let duration = that.state.est_duration + result.routes[0].legs[0].duration.value;
-                let finalPolyLine = google.maps.geometry.encoding.encodePath(poly.getPath())
-                MapUtil.lngLatToArray(marker, that.state.marker_coordinates);
-                that.setState({
-                  coordinates_list: finalPolyLine,
-                  distance: distance,
-                  est_duration: duration,
-                });
-                console.log(that.state);
-              };
-            }
-          }
-        });
-      }
+
+        MapUtil.displayRoute(origin, evt.latLng, service, directionsDisplay, travelMode, wayPoints);
+
+        wayPoints.push({location: evt.latLng});
+
+        }
+
     });
+
+    directionsDisplay.addListener('directions_changed', function() {
+      let distance = MapUtil.getDistance(directionsDisplay);
+      let duration = MapUtil.getDuration(directionsDisplay);
+      let coords = directionsDisplay.getDirections().routes[0].overview_polyline;
+      let markerCoords = MapUtil.getMarkers(directionsDisplay);
+      that.setState({
+        distance: distance,
+        coordinates_list: coords,
+        est_duration: duration,
+        marker_coordinates: markerCoords,
+      });
+      console.log(that.state)
+    });
+
 
     // sets geolocation
     infoWindow = new google.maps.InfoWindow;
@@ -171,3 +174,5 @@ class RouteBuilder extends React.Component {
 }
 
 export default withRouter(RouteBuilder);
+
+// console.log(`${duration} ${distance} ${coords} ${markerCoords}`);

@@ -3,12 +3,13 @@ export const getCoordsObj = latLng => ({
   lng: latLng.lng()
 });
 
-export const lngLatToArray = (marker, array) => {
-  const markerCoords = marker.position;
-  Object.values(getCoordsObj(markerCoords)).forEach((coord) => {
+export const latLngToArray = (latLng, array) => {
+  Object.values(getCoordsObj(latLng)).forEach((coord) => {
     array.push(coord);
   });
 }
+
+
 
 export const markersFromPropsArray = (array, map) => {
   array.forEach((coord, idx) => {
@@ -52,4 +53,57 @@ export const getMapBounds = (encodedPolyline) => {
     bounds.extend(getCoordsObj(latLng));
   });
   return bounds;
+}
+
+
+
+export const displayRoute = (origin, destination, service, display, travelMode, waypoints) => {
+  service.route({
+    origin: origin,
+    destination: destination,
+    waypoints: waypoints,
+    travelMode: travelMode,
+  }, function(response, status) {
+    if (status === 'OK') {
+      display.setDirections(response);
+    } else {
+      alert('Could not display directions due to: ' + status);
+    }
+  });
+}
+
+export const getDistance = (dirDisplay) => {
+  let distance = 0;
+  dirDisplay.getDirections().routes[0].legs.forEach((leg) => {
+    distance += parseFloat(leg.distance.text.split(" ")[0]);
+  });
+  return distance;
+}
+
+export const getDuration = (dirDisplay) => {
+  let time = 0;
+  dirDisplay.getDirections().routes[0].legs.forEach((leg) => {
+    time += parseFloat(leg.duration.text.split(" ")[0]);
+  });
+  time *= 60;
+  return parseInt(time);
+}
+
+
+export const getMarkers = (dirDisplay) => {
+  let markersArray = [];
+  dirDisplay.getDirections().routes[0].legs.forEach((leg, idx) => {
+    let start = getCoordsObj(leg.start_location);
+    let end = getCoordsObj(leg.end_location);
+    if (idx === 0) {
+      markersArray.push(start.lat);
+      markersArray.push(start.lng);
+      markersArray.push(end.lat);
+      markersArray.push(end.lng);
+    } else {
+      markersArray.push(end.lat);
+      markersArray.push(end.lng);
+    }
+  });
+  return markersArray;
 }
