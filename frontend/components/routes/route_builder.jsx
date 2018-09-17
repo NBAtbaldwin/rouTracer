@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Link } from "react-router-dom";
 import { withRouter } from 'react-router-dom';
+import * as MapUtil from './../../util/map_util';
 
 
 function parseDist(str) {
@@ -49,6 +50,7 @@ class RouteBuilder extends React.Component {
           title: '#',
           map: that.map
         });
+        MapUtil.lngLatToArray(marker, that.state.marker_coordinates);
       } else {
         let travelMode;
         that.state.activity_type === 'WALKING' ? travelMode = google.maps.DirectionsTravelMode.WALKING : travelMode = google.maps.DirectionsTravelMode.BICYCLING;
@@ -67,15 +69,17 @@ class RouteBuilder extends React.Component {
                   title: '#',
                   map: that.map
                 });
-                // add distance, duration of new segment to state
+                // add distance, marker coordinates, duration of new segment to state
                 let distance = that.state.distance + parseDist(result.routes[0].legs[0].distance.text);
                 let duration = that.state.est_duration + result.routes[0].legs[0].duration.value;
                 let finalPolyLine = google.maps.geometry.encoding.encodePath(poly.getPath())
+                MapUtil.lngLatToArray(marker, that.state.marker_coordinates);
                 that.setState({
                   coordinates_list: finalPolyLine,
                   distance: distance,
                   est_duration: duration,
                 });
+                console.log(that.state);
               };
             }
           }
@@ -151,6 +155,7 @@ class RouteBuilder extends React.Component {
           <input type="hidden" value={this.state.coordinates_list} />
           <input type="hidden" value={this.state.est_duration} />
           <input type="hidden" value={this.state.distance} />
+          <input type="hidden" value={this.state.marker_coordinates} />
           <input type="submit" value="save" />
         </form>
         <div id='map-container' ref={ map => this.mapNode = map }>

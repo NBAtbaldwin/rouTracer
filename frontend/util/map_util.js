@@ -3,6 +3,26 @@ export const getCoordsObj = latLng => ({
   lng: latLng.lng()
 });
 
+export const lngLatToArray = (marker, array) => {
+  const markerCoords = marker.position;
+  Object.values(getCoordsObj(markerCoords)).forEach((coord) => {
+    array.push(coord);
+  });
+}
+
+export const markersFromPropsArray = (array, map) => {
+  array.forEach((coord, idx) => {
+    if (idx%2 === 0) {
+      let marker = new google.maps.Marker({
+        position: {lat: array[idx], lng: array[idx+1]},
+        title: '#',
+        map: map
+    });
+  }
+  });
+}
+
+
 export const averageCenter = (encodedPolyline) => {
   const decodedPoly = google.maps.geometry.encoding.decodePath(encodedPolyline);
   // let bounds = new google.maps.LatLngBounds();

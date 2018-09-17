@@ -25,6 +25,7 @@ class RouteShow extends React.Component {
       poly.setMap(this.map);
       const path = new google.maps.MVCArray(decodedPoly);
       poly.setPath(path);
+      MapUtil.markersFromPropsArray(this.props.route.marker_coordinates, this.map);
     });
   }
 
@@ -46,6 +47,7 @@ class RouteShow extends React.Component {
       poly.setMap(this.map);
       const path = new google.maps.MVCArray(decodedPoly);
       poly.setPath(path);
+      MapUtil.markersFromPropsArray(this.props.route.marker_coordinates, this.map);
     });
     }
   }
