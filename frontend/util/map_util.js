@@ -107,3 +107,20 @@ export const getMarkers = (dirDisplay) => {
   });
   return markersArray;
 }
+
+export const getWayPoints = (coords) => {
+  const output = [];
+  coords.forEach((coord, idx) => {
+    if (idx % 2 === 0) {
+      output.push({
+        location: {
+          lat: coords[idx],
+          lng: coords[idx+1]
+        }
+      });
+    }
+  });
+  output.shift();
+  output.pop();
+  return output;
+}

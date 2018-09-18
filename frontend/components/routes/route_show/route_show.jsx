@@ -56,7 +56,10 @@ class RouteShow extends React.Component {
     const routeParams = () => {
       if (this.props.route !== undefined) {
         return (
-          <h2>{this.props.route.route_name}</h2>
+          <div>
+            <h2>{this.props.route.route_name}</h2>
+            <Link to={`/edit_route/${this.props.route.id}`}>Edit route</Link>
+          </div>
         );
       } else {
         return <span></span>;
