@@ -20,8 +20,7 @@ function addLatLngToPoly(latLng, poly) {
    let polyPath = poly.getPath();
    polyPath.push(latLng);
    let encodeString = google.maps.geometry.encoding.encodePath(polyPath);
-   that.setState({coordinates_list: encodeString})
-   console.log(that.state);
+   that.setState({coordinates_list: encodeString});
  }
 
  function addMarker(event) {

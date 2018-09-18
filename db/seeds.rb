@@ -41,8 +41,6 @@ Route.destroy_all
 
 demo_user = User.create(email: "user@example.com", password: "demouser", name: "Demo User" )
 
-route1 = Route.create(route_name: 'demo route', activity_type: 'biking', coordinates_list: 'asdfasfsadfsadfas', user_id: demo_user.id, distance: 4, est_duration: 30, elevation: 400, description: 'this is the demo route')
-
 # user_1 = User.create(email: "bobby@shmurda.com", password: "shmurda", name: "Bobby Shmurda")
 
 # route_1 = Route.create(route_name: gen_route_name, activity_type: activity_type, coordinates_list: SecureRandom::base64, user_id: demo_user.id, distance: gen_dist, est_duration: gen_dur, elevation: gen_elev, description: gen_description)

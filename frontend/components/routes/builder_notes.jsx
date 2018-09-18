@@ -106,7 +106,6 @@ class RouteBuilder extends React.Component {
         est_duration: duration,
         marker_coordinates: markerCoords,
       });
-      console.log(that.state)
     });
 
 
@@ -208,5 +207,3 @@ class RouteBuilder extends React.Component {
 }
 
 export default withRouter(RouteBuilder);
-
-// console.log(`${duration} ${distance} ${coords} ${markerCoords}`);

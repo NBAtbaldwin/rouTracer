@@ -159,6 +159,7 @@ class RouteBuilder extends React.Component {
         let wayPoints = []
         let origin = ""
         let marker;
+        let travelMode = this.props.defaultRoute.activity_type;
         // traces shortest path on roads onscreen
         google.maps.event.addListener(this.map, "click", function(evt) {
           if (path.getLength() === 0) {
@@ -175,7 +176,6 @@ class RouteBuilder extends React.Component {
 
           } else {
             marker.setMap(null);
-            let travelMode;
             that.state.route.activity_type === 'WALKING' ? travelMode = google.maps.DirectionsTravelMode.WALKING : travelMode = google.maps.DirectionsTravelMode.BICYCLING;
 
             MapUtil.displayRoute(origin, evt.latLng, service, directionsDisplay, travelMode, wayPoints);
@@ -191,13 +191,15 @@ class RouteBuilder extends React.Component {
           let duration = MapUtil.getDuration(directionsDisplay);
           let coords = directionsDisplay.getDirections().routes[0].overview_polyline;
           let markerCoords = MapUtil.getMarkers(directionsDisplay);
-          that.setState({ route: {
+          let route = {
             distance: distance,
             coordinates_list: coords,
             est_duration: duration,
             marker_coordinates: markerCoords,
-          }
-          });
+            travelMode: travelMode,
+          };
+          let updatedRoute = merge({}, that.state.route, route);
+          that.setState({ route: updatedRoute });
         });
 
 
@@ -224,7 +226,6 @@ class RouteBuilder extends React.Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    debugger;
     if (this.props.match.params.routeId !== nextProps.match.params.routeId) {
     this.props.fetchRoute(nextProps.match.params.routeId).then(() => {
       const that = this;
@@ -324,7 +325,10 @@ class RouteBuilder extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.action(this.state.route).then(() => this.props.history.push('/routes'));
+    this.props.action(this.state.route).then((route) => {
+    debugger;
+    this.props.history.push(`/routes/${route.route.id}`)
+    });
   };
 
   toggleActivityType(type) {
