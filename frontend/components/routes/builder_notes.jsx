@@ -85,7 +85,7 @@ class RouteBuilder extends React.Component {
       } else {
         marker.setMap(null);
         let travelMode;
-        that.state.activity_type === 'WALKING' ? travelMode = google.maps.DirectionsTravelMode.WALKING : travelMode = google.maps.DirectionsTravelMode.BICYCLING;
+        that.state.route.activity_type === 'WALKING' ? travelMode = google.maps.DirectionsTravelMode.WALKING : travelMode = google.maps.DirectionsTravelMode.BICYCLING;
 
         MapUtil.displayRoute(origin, evt.latLng, service, directionsDisplay, travelMode, wayPoints);
 

@@ -56,9 +56,14 @@
 
         & > a {
           color: black;
-          padding: 5px 10px;
+          padding: 5px 15px;
           border: 1px solid $gray;
           font-weight: 300;
+        }
+
+        & > a:hover {
+          background-color: #e6e6e6;
+          border-color: #adadad;
         }
       }
 
