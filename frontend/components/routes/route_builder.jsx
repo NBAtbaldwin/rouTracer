@@ -233,19 +233,27 @@ class RouteBuilder extends React.Component {
       if (that.state !== null) {
         return (
           <div className="routebuilder-main">
+            <div className="routebuilder-navbar">
+              <ul>
+                <li>RouTracer</li>
+                <li>route builder</li>
+              </ul>
+              <ul>
+                <Link to="/routes">Exit Builder</Link>
+              </ul>
+            </div>
             <div className="routebuilder-toolbar">
               <ul>
                 <li>
-                  <button onClick={that.toggleActivityType("BICYCLING")}>Ride</button>
+                  <button onClick={that.toggleActivityType("BICYCLING")}><i class="fas fa-bicycle"></i>Ride</button>
                 </li>
                 <li>
-                  <button onClick={that.toggleActivityType("WALKING")}>Run</button>
+                  <button onClick={that.toggleActivityType("WALKING")}><i class="fas fa-shoe-prints"></i>Run</button>
                 </li>
+              </ul>
+              <ul>
                 <li>
                   <button>Save</button>
-                </li>
-                <li>
-                  <Link to="/routes">Exit RouteBuilder</Link>
                 </li>
               </ul>
             </div>
