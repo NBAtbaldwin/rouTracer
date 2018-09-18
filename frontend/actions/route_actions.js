@@ -22,7 +22,7 @@ export const removeRoute = (routeId) => ({
 
 export const receiveErrors = (errors) => {
   return {
-    type: RECEIVE_SESSION_ERRORS,
+    type: RECEIVE_ROUTE_ERRORS,
     errors: errors
   };
 };

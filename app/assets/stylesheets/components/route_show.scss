@@ -1,10 +1,163 @@
 .route-show-main {
-  height: 100%;
   width: 100%;
+  height: 100%;
+  margin: auto;
 
-  #show-map-container {
-    height: 80%;
-    width: 100%;
+  & > section {
+    width: 1286px;
+    display: grid;
+    grid-template-columns: 5fr 3fr;
+    grid-gap: 0px;
+    box-sizing: border-box;
+
+    height: 728px;
+    margin: auto;
+
+    & > .route-show-container {
+      margin-top: 30px;
+      min-height: 500px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 0px 34px;
+
+      & > .header {
+        margin-bottom: 30px;
+
+        & > p {
+          text-transform: capitalize;
+          font-size: 14px;
+          margin-bottom: 20px;
+          color: #606065;
+
+          & > a {
+            color: inherit;
+          }
+
+          & > a:hover {
+            text-decoration: underline;
+          }
+
+          & > strong {
+            font-weight: 700;
+            color: black;
+          }
+        }
+
+        & > h2 {
+          font-size: 28px;
+          font-weight: 300;
+          margin-bottom: 10px;
+
+          & > i {
+            font-weight: 100;
+          }
+        }
+
+        & > a {
+          color: black;
+          padding: 5px 10px;
+          border: 1px solid $gray;
+          font-weight: 300;
+        }
+      }
+
+      #show-map-container {
+        height: 352px;
+        width: 802px;
+      }
+
+    }
+
+    .route-aside {
+      margin-top: 100px;
+
+      & > div:first-child {
+        display: flex;
+        margin-top: 56px;
+
+        & > ul {
+
+          & > li:first-child {
+            font-size: 28px;
+            font-weight: 300;
+          }
+
+          & > li:nth-child(2) {
+            font-size: 14px;
+            font-weight: 400;
+          }
+        }
+
+        div:first-child {
+          margin-right: 15px;
+          height: 74px;
+          width: 74px;
+          border-radius: 37px;
+          background-image: image_url("profile_placeholder.jpg");
+          background-size: contain;
+        }
+      }
+
+      & > ul:nth-child(2) {
+        display: flex;
+        margin-top: 40px;
+
+        ul {
+          margin-right: 10px;
+
+          li:first-child {
+            font-size: 20px;
+            font-weight: 300;
+            margin-bottom: -8px;
+          }
+
+          li:nth-child(2) {
+            font-size: 13px;
+            text-indent: 2px;
+            color: #99999e;
+            font-weight: 400;
+          }
+
+        }
+
+      }
+
+      & > ul:nth-child(3) {
+        color: red;
+        margin-top: 20px;
+
+        & > li {
+          font-size: 13px;
+          text-indent: 2px;
+          color: #99999e;
+          font-weight: 400;
+
+          strong {
+            font-size: 20px;
+            font-weight: 300;
+            color: black;
+          }
+        }
+      }
+
+      & > p {
+        margin-top: 40px;
+        font-weight: 400;
+        font-size: 13px;
+        color: black;
+      }
+
+
+      ul:nth-child(2) {
+
+      }
+
+    }
+
+
+
+
   }
 
 }

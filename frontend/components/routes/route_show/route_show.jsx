@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Link } from "react-router-dom";
 import { withRouter } from 'react-router-dom';
 import * as MapUtil from './../../../util/map_util';
+import * as ConversionUtil from './../../../util/conversion_util';
 import FooterContainer from "./../../footer_container";
 import NavbarLoggedInContainer from "./../../navbar_loggedIn_container";
 
@@ -53,12 +54,46 @@ class RouteShow extends React.Component {
   }
 
   render() {
-    const routeParams = () => {
+    const routeAside = () => {
       if (this.props.route !== undefined) {
+        const route = this.props.route;
         return (
-          <div>
-            <h2>{this.props.route.route_name}</h2>
-            <Link to={`/edit_route/${this.props.route.id}`}>Edit route</Link>
+          <div className="route-aside">
+            <div>
+              <div></div>
+              <ul>
+                <li>By {this.props.user.email}</li>
+                <li>Created on {ConversionUtil.displayDate(route.created_at)}</li>
+              </ul>
+            </div>
+            <ul>
+              <ul>
+                <li>{route.distance}mi</li>
+                <li>Distance</li>
+              </ul>
+              <ul>
+                <li>{route.elevation}ft</li>
+                <li>Elevation Gain</li>
+              </ul>
+            </ul>
+            <ul>
+              <li>Est Moving time <strong>{ConversionUtil.hrsMinsSecs(route.est_duration)}</strong></li>
+            </ul>
+            <p>{route.description}</p>
+          </div>
+        );
+      } else {
+        return <span></span>;
+      }
+    };
+    const routeHeader = () => {
+      if (this.props.route !== undefined) {
+        const route = this.props.route;
+        return (
+          <div className="header">
+            <p><Link to="/routes">My {route.activity_type.toLowerCase()} Routes</Link>  <strong> / {route.route_name}</strong></p>
+            <h2><i className="far fa-star"></i> {route.route_name}</h2>
+            <Link to={`/edit_route/${this.props.route.id}`}>Edit</Link>
           </div>
         );
       } else {
@@ -68,9 +103,16 @@ class RouteShow extends React.Component {
     return (
       <div className="route-show-main">
         <NavbarLoggedInContainer />
-        {routeParams()}
-        <div id='show-map-container' ref={ map => this.mapNode = map }>
-        </div>
+        <section>
+          <div className="route-show-container">
+            {routeHeader()}
+            <div>
+              <div id='show-map-container' ref={ map => this.mapNode = map }>
+              </div>
+            </div>
+          </div>
+          {routeAside()}
+        </section>
         <FooterContainer />
       </div>
     );
