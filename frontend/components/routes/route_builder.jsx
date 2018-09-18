@@ -129,7 +129,11 @@ class RouteBuilder extends React.Component {
             lat: 40.7831,
             lng: -73.9712
           },
-          zoom: 14
+          zoom: 14,
+          zoomControl: true,
+          zoomControlOptions: {
+              position: google.maps.ControlPosition.LEFT_TOP
+          },
         };
         const service = new google.maps.DirectionsService;
         let path = new google.maps.MVCArray();
@@ -220,10 +224,95 @@ class RouteBuilder extends React.Component {
   };
 
   componentWillReceiveProps(nextProps) {
+    debugger;
     if (this.props.match.params.routeId !== nextProps.match.params.routeId) {
-    this.props.fetchRoute(nextProps.match.params.routeId);
-    }
+    this.props.fetchRoute(nextProps.match.params.routeId).then(() => {
+      const that = this;
+
+      this.setState({ route: {
+        id: this.props.route.id,
+        distance: this.props.route.distance,
+        coordinates_list: this.props.route.coords,
+        est_duration: this.props.route.duration,
+        marker_coordinates: this.props.route.markerCoords,
+        est_duration: this.props.route.est_duration,
+        elevation: this.props.route.elevation,
+        route_name: this.props.route.route_name,
+        activity_type: this.props.route.activity_type,
+        description: this.props.route.description,
+        user_id: this.props.route.user_id,
+      }
+      });
+      const mapOptions = {
+        center: {
+          lat: 40.7831,
+          lng: -73.9712
+        },
+        zoom: 14,
+        zoomControl: true,
+        zoomControlOptions: {
+            position: google.maps.ControlPosition.LEFT_TOP
+        },
+      };
+      const service = new google.maps.DirectionsService;
+      let path = new google.maps.MVCArray();
+      let poly;
+      let infoWindow;
+      // creates map
+      this.map = new google.maps.Map(this.mapNode, mapOptions)
+
+      let directionsDisplay = new google.maps.DirectionsRenderer({
+        draggable: true,
+        map: this.map,
+      });
+      let coords = this.props.route.marker_coordinates
+      let origin = {
+        lat: coords[0],
+        lng: coords[1]
+      };
+      let end = {
+        lat: coords[coords.length-2],
+        lng: coords[coords.length-1]
+      };
+      let travelMode = this.props.route.activity_type;
+      let wayPoints = MapUtil.getWayPoints(coords);
+      MapUtil.displayRoute(origin, end, service, directionsDisplay, travelMode, wayPoints);
+
+      poly = new google.maps.Polyline({
+        strokeColor: '#000000',
+        strokeOpacity: 1.0,
+        strokeWeight: 0,
+      });
+      poly.setMap(this.map);
+      let marker;
+      wayPoints.push({location: end });
+      google.maps.event.addListener(this.map, "click", function(evt) {
+
+        that.state.activity_type === 'WALKING' ? travelMode = google.maps.DirectionsTravelMode.WALKING : travelMode = google.maps.DirectionsTravelMode.BICYCLING;
+
+        MapUtil.displayRoute(origin, evt.latLng, service, directionsDisplay, travelMode, wayPoints);
+
+        wayPoints.push({location: evt.latLng});
+      });
+
+      directionsDisplay.addListener('directions_changed', function() {
+        let distance = MapUtil.getDistance(directionsDisplay);
+        let duration = MapUtil.getDuration(directionsDisplay);
+        let coords = directionsDisplay.getDirections().routes[0].overview_polyline;
+        let markerCoords = MapUtil.getMarkers(directionsDisplay);
+        let route = {
+          distance: distance,
+          coordinates_list: coords,
+          est_duration: duration,
+          marker_coordinates: markerCoords,
+          travelMode: travelMode,
+        };
+        let updatedRoute = merge({}, that.state.route, route);
+        that.setState({ route: updatedRoute });
+    });
+  });
   }
+};
 
   update(field) {
     return (e) => {
@@ -261,7 +350,7 @@ class RouteBuilder extends React.Component {
           <div className="routebuilder-main">
             <div className="routebuilder-navbar">
               <ul>
-                <li>RouTracer</li>
+                <li><Link to="/">RouTracer</Link></li>
                 <li>route builder</li>
               </ul>
               <ul>
