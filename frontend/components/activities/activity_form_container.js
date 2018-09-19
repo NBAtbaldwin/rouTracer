@@ -21,6 +21,7 @@ const mapStateToProps = (state, ownProps) => ({
   },
   routes: routeSelector(state),
   errors: state.errors.activity,
+  flag: 'Create',
 });
 
 

@@ -15,7 +15,31 @@ class ActivityForm extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchActivities();
+    const that = this;
+    if (this.props.flag === 'Create') {
+      this.props.fetchActivities();
+    } else {
+      this.props.fetchActivity(this.props.match.params.activityId).then(() => {
+        let activity = this.props.activity
+        let hours = ConversionUtil.hrs(activity.duration);
+        let minutes = ConversionUtil.mins(activity.duration);
+        let seconds = ConversionUtil.secs(activity.duration);
+        that.setState({
+          id: activity.id,
+          distance: activity.distance,
+          duration: activity.duration,
+          elevation: activity.elevation,
+          activity_type: activity.activity_type,
+          date: activity.date,
+          title: activity.title,
+          user_id: activity.user_id,
+          route_id: activity.route_id,
+          seconds: seconds,
+          minutes: minutes,
+          hours: hours,
+        });
+      });
+    }
   }
 
   handleSubmit(e) {
@@ -56,6 +80,7 @@ class ActivityForm extends React.Component {
         distance: ride.distance,
         elevation: ride.elevation,
         activity_type: ride.activity_type,
+        route_id: ride.id,
       });
     };
   }
@@ -83,8 +108,8 @@ class ActivityForm extends React.Component {
 
             <label>Sport</label>
             <select name="Activity" onChange={this.updateField('activity_type')}>
-              <option value="WALKING">Run</option>
-              <option value="BICYCLING">Ride</option>
+              <option value="WALKING" selected={this.state.activity_type === "WALKING"}>Run</option>
+              <option value="BICYCLING" selected={this.state.activity_type === "BICYCLING"}>Ride</option>
             </select>
 
             <label>Date</label>
@@ -92,9 +117,9 @@ class ActivityForm extends React.Component {
 
             <label>Route (optional)</label>
             <select name="Routes" onChange={this.updateRide()}>
-              <option value={null} disabled selected>--Select Route--</option>
+              <option value={null} disabled selected={this.state.route_id === null }>--Select Route--</option>
               {this.props.routes.map((route, idx) => (
-                <option key={idx} value={route.id}>{route.route_name}</option>
+                <option selected={this.state.route_id == route.id} key={idx} value={route.id}>{route.route_name}</option>
               ))}
             </select>
 
@@ -102,7 +127,7 @@ class ActivityForm extends React.Component {
             <input type="text" value={this.state.title}
             onChange={this.updateField('title')} />
 
-            <input type="submit" value="Create" />
+          <input type="submit" value={this.props.flag} />
             <p>Cancel</p>
           </form>
           <ul>
