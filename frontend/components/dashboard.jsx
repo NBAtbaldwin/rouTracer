@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import { withRouter } from 'react-router';
 import NavbarLoggedInContainer from "./navbar_loggedIn_container";
+import ActivityShowItem from "./activities/activity_show_item"
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -20,7 +21,7 @@ class Dashboard extends React.Component {
         <ul>
           {this.props.activities.map((activity) => {
             return (
-              <li>{activity.title}</li>
+              <ActivityShowItem route={this.props.routes[activity.route_id]} activity={activity} currentUser = {this.props.currentUser} />
             );
           })}
         </ul>

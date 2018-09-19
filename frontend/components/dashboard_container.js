@@ -5,6 +5,7 @@ import { fetchActivities } from "./../actions/activity_actions";
 const mapStateToProps = (state, ownProps) => ({
   currentUser: state.entities.users[state.session.id],
   activities: Object.values(state.entities.activities),
+  routes: state.entities.routes,
 })
 
 

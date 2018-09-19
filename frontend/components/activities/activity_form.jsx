@@ -42,6 +42,32 @@ class ActivityForm extends React.Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    const that = this;
+    if (this.props.match.params.activityId !== nextProps.match.params.activityId) {
+    this.props.fetchActivity(nextProps.match.params.activityId).then(() => {
+      let activity = this.props.activity
+      let hours = ConversionUtil.hrs(activity.duration);
+      let minutes = ConversionUtil.mins(activity.duration);
+      let seconds = ConversionUtil.secs(activity.duration);
+      that.setState({
+        id: activity.id,
+        distance: activity.distance,
+        duration: activity.duration,
+        elevation: activity.elevation,
+        activity_type: activity.activity_type,
+        date: activity.date,
+        title: activity.title,
+        user_id: activity.user_id,
+        route_id: activity.route_id,
+        seconds: seconds,
+        minutes: minutes,
+        hours: hours,
+      });
+    })
+  }
+}
+
   handleSubmit(e) {
     e.preventDefault();
     this.props.action(this.state).then(() => this.props.history.push('/'))
@@ -50,16 +76,14 @@ class ActivityForm extends React.Component {
   updateField(field) {
     return (e) => {
       this.setState({[field]: e.currentTarget.value});
-      console.log(this.state);
     };
   }
 
-  updateTime(unit) {
-    return (e) => {
-      this.setState({[unit]: e.currentTarget.value});
-      let seconds = this.state.seconds + this.state.minutes*60 + this.state.hours*3600;
-      this.setState({duration: seconds});
-    };
+  updateTime(e, unit) {
+    this.setState({[unit]: e.currentTarget.value}, () => {
+      let x = parseInt(this.state.seconds) + parseInt(this.state.minutes)*60 + parseInt(this.state.hours)*3600;
+      this.setState({duration: x});
+    });
   }
 
   updateRide() {
@@ -98,9 +122,9 @@ class ActivityForm extends React.Component {
             onChange={this.updateField('distance')} />miles
 
             <label>Duration</label>
-            <input onChange={this.updateTime('hours')} value={this.state.hours} type="text" placeholder="1" />hr
-            <input onChange={this.updateTime('minutes')} value={this.state.minutes} type="text" placeholder="00" />min
-            <input onChange={this.updateTime('seconds')} value={this.state.seconds} type="text" placeholder="00" />s
+            <input onChange={ (e) => this.updateTime(e, "hours")} value={this.state.hours} type="text" placeholder="1" />hr
+            <input onChange={ (e) => this.updateTime(e, "minutes")} value={this.state.minutes} type="text" placeholder="00" />min
+            <input onChange={ (e) => this.updateTime(e, "seconds")} value={this.state.seconds} type="text" placeholder="00" />s
 
             <label>Elevation</label>
             <input type="text" value={this.state.elevation}

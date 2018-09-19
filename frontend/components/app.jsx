@@ -14,6 +14,7 @@ import RouteShowContainer from './routes/route_show/route_show_container';
 import RouteBuilderEditContainer from "./routes/route_builder_edit_container";
 import ActivityFormContainer from "./activities/activity_form_container";
 import EditActivityFormContainer from "./activities/edit_activity_form_container";
+import ActivityShowContainer from "./activities/activity_show_container";
 
   const App = () => (
     <div id="main">
@@ -29,6 +30,7 @@ import EditActivityFormContainer from "./activities/edit_activity_form_container
       <ProtectedRoute exact path='/dashboard' component={DashboardContainer} />
       <ProtectedRoute exact path='/upload' component={ActivityFormContainer} />
       <ProtectedRoute exact path='/edit_activity/:activityId' component={EditActivityFormContainer} />
+      <ProtectedRoute exact path='/activities/:activityId' component={ActivityShowContainer} />
       <AuthRoute path='/login' component={LoginFormContainer} />
       <AuthRoute path='/signup' component={SignupFormContainer} />
       <Route exact path='/' component={GreetingContainer} />
