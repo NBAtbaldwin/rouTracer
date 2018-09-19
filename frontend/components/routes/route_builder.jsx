@@ -328,7 +328,6 @@ class RouteBuilder extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     this.props.action(this.state.route).then((route) => {
-    debugger;
     this.props.history.push(`/routes/${route.route.id}`)
     });
   };

@@ -8,6 +8,7 @@
 
 User.destroy_all
 Route.destroy_all
+Activity.destroy_all
 
 # def gen_route_name
 #   Faker::Cannabis.buzzword + " " + Faker::Company.buzzword

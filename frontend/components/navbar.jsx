@@ -80,7 +80,7 @@ class NavBar extends React.Component {
                 <div id='add-workout'>+
                 </div>
                 <ul className={this.state.addActivity}>
-                  <li><i className="far fa-file"></i>Add Manual entry</li>
+                  <li><i className="far fa-file"></i><Link to="/upload">Add Manual entry</Link></li>
                   <li><i className="fas fa-location-arrow"></i><Link to="/new_route">Create a Route</Link></li>
                 </ul>
               </li>

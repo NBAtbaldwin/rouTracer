@@ -17,6 +17,7 @@ class Api::ActivitiesController < ApplicationController
 
   def create
     @activity = Activity.new(activity_params)
+    @routes = current_user.routes
     if @activity.save
       render :show
     else
@@ -37,7 +38,7 @@ class Api::ActivitiesController < ApplicationController
   def destroy
     @activity = Activity.find(params[:id])
     @routes = current_user.routes
-    
+
     if @activity.destroy
       render :show
     else
