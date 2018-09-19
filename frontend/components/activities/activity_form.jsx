@@ -110,6 +110,19 @@ class ActivityForm extends React.Component {
   }
 
   render() {
+
+    const cancel = () => {
+      if (this.props.flag === 'Create') {
+        return (
+          <Link to="/">Cancel</Link>
+        );
+      } else {
+        return (
+          <Link to={`/activities/${this.props.match.params.activityId}`}>Cancel</Link>
+        );
+      }
+    };
+
     return(
       <div>
         <NavbarLoggedInContainer />
@@ -152,7 +165,7 @@ class ActivityForm extends React.Component {
             onChange={this.updateField('title')} />
 
           <input type="submit" value={this.props.flag} />
-            <p>Cancel</p>
+            <p>{cancel()}</p>
           </form>
           <ul>
             {this.props.errors.map((error) => {

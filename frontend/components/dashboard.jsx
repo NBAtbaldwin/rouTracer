@@ -15,16 +15,21 @@ class Dashboard extends React.Component {
 
   render() {
     return(
-      <div>
+      <div className="dashboard-master">
         <NavbarLoggedInContainer />
-        <h1>Dashboard</h1>
-        <ul>
-          {this.props.activities.map((activity) => {
-            return (
-              <ActivityShowItem route={this.props.routes[activity.route_id]} activity={activity} currentUser = {this.props.currentUser} />
-            );
-          })}
-        </ul>
+        <div>
+          <div className="dashboard-body">
+            <div className="workout-feed">
+              <ul className="feed-items">
+                {this.props.activities.map((activity) => {
+                  return (
+                    <ActivityShowItem route={this.props.routes[activity.route_id]} activity={activity} currentUser = {this.props.currentUser} />
+                  );
+                })}
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
