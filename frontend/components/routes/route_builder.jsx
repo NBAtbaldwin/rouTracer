@@ -102,6 +102,7 @@ class RouteBuilder extends React.Component {
           let duration = MapUtil.getDuration(directionsDisplay);
           let coords = directionsDisplay.getDirections().routes[0].overview_polyline;
           let markerCoords = MapUtil.getMarkers(directionsDisplay);
+          that.state.activity_type === 'WALKING' ? travelMode = google.maps.DirectionsTravelMode.WALKING : travelMode = google.maps.DirectionsTravelMode.BICYCLING;
           let route = {
             distance: distance,
             coordinates_list: coords,
@@ -181,7 +182,6 @@ class RouteBuilder extends React.Component {
             MapUtil.displayRoute(origin, evt.latLng, service, directionsDisplay, travelMode, wayPoints);
 
             wayPoints.push({location: evt.latLng});
-
           }
 
         });
@@ -190,7 +190,9 @@ class RouteBuilder extends React.Component {
           let distance = MapUtil.getDistance(directionsDisplay);
           let duration = MapUtil.getDuration(directionsDisplay);
           let coords = directionsDisplay.getDirections().routes[0].overview_polyline;
+          // analogous to waypoints
           let markerCoords = MapUtil.getMarkers(directionsDisplay);
+          that.state.route.activity_type === 'WALKING' ? travelMode = google.maps.DirectionsTravelMode.WALKING : travelMode = google.maps.DirectionsTravelMode.BICYCLING;
           let route = {
             distance: distance,
             coordinates_list: coords,
