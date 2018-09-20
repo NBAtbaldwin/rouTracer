@@ -57,3 +57,9 @@ export const allToSeconds = (unit, input) => {
       return parseInt(input)*3600
   }
 }
+
+export const dateToInt = (date) => {
+  let output;
+  date = date.split('-');
+  return parseFloat(date[0]) + parseFloat(date[1])*.1 + parseFloat(date[2])*.01;
+}

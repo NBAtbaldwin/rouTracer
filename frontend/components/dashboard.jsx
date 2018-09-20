@@ -2,7 +2,8 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import { withRouter } from 'react-router';
 import NavbarLoggedInContainer from "./navbar_loggedIn_container";
-import ActivityShowItem from "./activities/activity_show_item"
+import ActivityShowItem from "./activities/activity_show_item";
+import * as ConversionUtil from "./../util/conversion_util";
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -14,6 +15,16 @@ class Dashboard extends React.Component {
   }
 
   render() {
+    const sortedActivities = this.props.activities.sort(function(a, b) {
+      if (ConversionUtil.dateToInt(a.date) < ConversionUtil.dateToInt(b.date)) {
+        return 1;
+      }
+      if (ConversionUtil.dateToInt(a.date) > ConversionUtil.dateToInt(b.date)) {
+        return -1;
+      }
+      return 0;
+    });
+
     return(
       <div className="dashboard-master">
         <NavbarLoggedInContainer />
@@ -21,9 +32,9 @@ class Dashboard extends React.Component {
           <div className="dashboard-body">
             <div className="workout-feed">
               <ul className="feed-items">
-                {this.props.activities.map((activity, idx) => {
+                {sortedActivities.map((activity, idx) => {
                   return (
-                    <ActivityShowItem key={idx} route={this.props.routes[activity.route_id]} activity={activity} currentUser = {this.props.currentUser} />
+                    <ActivityShowItem key={idx} route={this.props.routes[activity.route_id]} activity={activity} currentUser = {this.props.currentUser} feed={true} />
                   );
                 })}
               </ul>

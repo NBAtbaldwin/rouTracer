@@ -33,7 +33,9 @@
           margin-left: 6px;
         }
 
-
+        & > ul {
+          display: none;
+        }
 
       }
 

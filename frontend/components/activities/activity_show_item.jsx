@@ -3,13 +3,15 @@ import { Link } from "react-router-dom";
 import * as MapUtil from './../../util/map_util';
 import * as ConversionUtil from "./../../util/conversion_util";
 
-const ActivityShowItem = ({route, activity, currentUser}) => {
+const ActivityShowItem = ({route, activity, currentUser, feed}) => {
   const hasRoute = () => {
     const decodedPoly = google.maps.geometry.encoding.decodePath(route.coordinates_list);
     const codedPoly=route.coordinates_list;
     const center = Object.values(MapUtil.averageCenter(codedPoly)).join();
     let type;
     activity.activity_type === 'WALKING' ? type = 'fas fa-shoe-prints' : type = 'fas fa-bicycle';
+    let mapSize;
+    feed ? mapSize = "550x180" : mapSize = "800x350";
     return (
       <div className="show-item-container">
         <header>{currentUser.email} - Workout</header>
@@ -17,6 +19,11 @@ const ActivityShowItem = ({route, activity, currentUser}) => {
           <div>
             <div className="user-img"></div>
             <div><i className={type}></i></div>
+            <ul>
+              <li>On {activity.date}</li>
+              <li>{activity.title}</li>
+              <li>{route.description}</li>
+            </ul>
           </div>
           <ul>
             <ul>
@@ -44,7 +51,7 @@ const ActivityShowItem = ({route, activity, currentUser}) => {
           </ul>
         </div>
         <div className="vertical-divide"></div>
-        <img src={`https://maps.googleapis.com/maps/api/staticmap?center=${center}&size=550x180&key=${window.googleAPIKey}&path=weight:4%7Ccolor:red%7Cenc:${codedPoly}`}/>
+        <img src={`https://maps.googleapis.com/maps/api/staticmap?center=${center}&size=${mapSize}&key=${window.googleAPIKey}&path=weight:4%7Ccolor:red%7Cenc:${codedPoly}`}/>
       </div>
     )
   }
@@ -59,6 +66,11 @@ const ActivityShowItem = ({route, activity, currentUser}) => {
           <div>
             <div className="user-img"></div>
             <div><i className={type}></i></div>
+            <ul>
+              <li>On {activity.date}</li>
+              <li>{activity.title}</li>
+              <li></li>
+            </ul>
           </div>
           <ul>
             <ul>

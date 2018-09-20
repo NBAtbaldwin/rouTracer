@@ -1,0 +1,217 @@
+.activity-show-item {
+  width: 1218px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 28px;
+
+    section {
+      display: flex;
+      height: 40px;
+
+      button {
+        width: 76px;
+        height: 42px;
+        background-color: white;
+        border-color: #ccccd1;
+        position: relative;
+
+        a {
+          padding: 14px 24px;
+          margin: auto;
+        }
+
+        i {
+          color: gray;
+          font-size: 16px;
+        }
+
+        div {
+          position: absolute;
+          right: -86px;
+          top: -1px;
+          width: 160px;
+          background-color: white;
+          font-size: 15px;
+          font-weight: 400;
+
+
+          div {
+            border: 1px solid #ccccd1;
+            height: 41px;
+            line-height: 40px;
+            text-indent: -50px;
+          }
+          div:hover {
+            background-color: #f5f5fa;
+          }
+        }
+
+      }
+
+      button:hover {
+        background-color: #f5f5fa;
+      }
+
+      button:first-child {
+        border-right: 0px;
+      }
+    }
+
+  .show-item-container {
+    width: 1038px;
+    background-color: white;
+    border: 1px solid #ccccd1;
+
+    & > header {
+      width: 1038px;
+      background-color: #f5f5fa;
+      height: 44px;
+      border-bottom: 1px solid #ccccd1;
+      line-height: 44px;
+      text-indent: 20px;
+      font-weight: 300;
+      font-size: 18px;
+    }
+
+    & > div {
+      padding: 0px 15px 0px 15px;
+      display: flex;
+      height: 202px;
+
+      & > div {
+        width: 519px;
+        border-right: 1px solid #ccccd1;
+        display: flex;
+
+        .user-img {
+          height: 102px;
+          width: 102px;
+          background-image: image_url("profile_placeholder.jpg");
+          background-size: contain;
+          border-radius: 50px;
+          margin-bottom: 12px;
+          margin-top: 20px;
+        }
+
+        i {
+          display: none;
+        }
+
+        & > ul {
+          margin: 20px 0px 0px 20px;
+
+          li:first-child {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: -2px;
+          }
+
+          li:nth-child(2) {
+            font-size: 25px;
+            font-weight: 300;
+          }
+
+          li:nth-child(3) {
+            margin-top: 5px;
+            font-size: 14px;
+            font-weight: 300;
+            background-color: #e6e6eb;
+            border-radius: 2px;
+            padding: 2px 10px;
+          }
+        }
+
+      }
+
+      & > ul {
+        width: 519px;
+
+        & > ul {
+          display: none;
+
+          header {
+            font-size: 15px;
+            font-weight: 500;
+          }
+
+          li:nth-child(2) {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 5px;
+          }
+
+          a {
+            color: black;
+            font-size: 21px;
+            font-weight: 500;
+          }
+
+          li:last-child {
+            font-weight: 400;
+            font-size: 14px;
+            margin-top: 8px;
+            margin-bottom: 10px;
+          }
+
+        }
+
+        & > div {
+          display: flex;
+          margin: 20px 0px 0px 20px;
+
+          .divide {
+            width: 1px;
+            height: 28px;
+            border-left: 1px solid #cccccc;
+            margin-top: 9px;
+          }
+
+          > ul:first-child {
+            margin-left: 0px;
+          }
+
+          > ul {
+            margin: 0px 17px;
+
+            li:first-child {
+              font-size: 12px;
+              font-weight: 400;
+              color: #606065;
+            }
+
+            li:nth-child(2) {
+              font-size: 21px;
+              font-weight: 400;
+            }
+          }
+        }
+
+      }
+    }
+
+    & > .vertical-divide {
+      height: 1px;
+      border-bottom: 1px solid #cccccc;
+      width: 1038px;
+      margin: auto;
+      padding: 0px;
+    }
+
+    & > .vertical-divide-bottom {
+      height: 60px;
+      border-top: 1px solid #cccccc;
+      width: 1038px;
+      margin: auto;
+      padding: 0px;
+    }
+
+    & > img {
+      margin: 20px;
+      border-radius: 2px;
+
+    }
+
+  }
+
+}

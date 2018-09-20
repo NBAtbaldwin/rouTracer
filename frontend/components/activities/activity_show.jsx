@@ -4,12 +4,13 @@ import { withRouter } from 'react-router';
 import NavbarLoggedInContainer from "./../navbar_loggedIn_container";
 import * as ConversionUtil from "./../../util/conversion_util";
 import ActivityShowItem from "./activity_show_item";
-import FooterContainer from "./../footer_container"
+import FooterContainer from "./../footer_container";
+import ActivityShowDropdownContainer from "./activity_show_dropdown_container";
 
 class ActivityShow extends React.Component {
   constructor(props) {
     super(props)
-    this.handleDelete = this.handleDelete.bind(this);
+    // this.handleDelete = this.handleDelete.bind(this);
   }
 
   componentDidMount() {
@@ -22,9 +23,9 @@ class ActivityShow extends React.Component {
     }
   }
 
-  handleDelete(){
-    this.props.deleteActivity(this.props.activity.id).then(() => this.props.history.push("/"));
-  }
+  // handleDelete(){
+  //   this.props.deleteActivity(this.props.activity.id).then(() => this.props.history.push("/"));
+  // }
 
   render() {
     const that = this;
@@ -32,10 +33,7 @@ class ActivityShow extends React.Component {
       if (this.props.activity !== undefined) {
         return (
           <div className="activity-show-item">
-            <section>
-              <button onClick={this.handleDelete}>Delete</button>
-              <button><Link to={`/edit_activity/${this.props.activity.id}`}>Edit</Link></button>
-            </section>
+            <ActivityShowDropdownContainer id={this.props.activity.id} />
             <ActivityShowItem route={this.props.route} activity={this.props.activity} currentUser = {this.props.currentUser} />
           </div>
         );
@@ -48,7 +46,7 @@ class ActivityShow extends React.Component {
       }
     };
     return(
-      <div>
+      <div className="activity-show-master">
         <NavbarLoggedInContainer />
         {activityPanel()}
         <FooterContainer />
@@ -58,3 +56,9 @@ class ActivityShow extends React.Component {
 }
 
 export default ActivityShow;
+
+// <section>
+//   <button><Link to={`/edit_activity/${this.props.activity.id}`}><i className="fas fa-edit"></i></Link></button>
+//   <button onClick={this.handleDelete}><i className="fas fa-wrench"></i></button>
+//   <ActivityShowDropdownContainer id={this.props.activity.id} />
+// </section>
