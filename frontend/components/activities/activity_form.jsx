@@ -124,56 +124,94 @@ class ActivityForm extends React.Component {
     };
 
     return(
-      <div>
+      <div className="activity-form">
         <NavbarLoggedInContainer />
-        <section>
-          <h1>Manual Entry</h1>
-          <form onSubmit={this.handleSubmit}>
-
-            <label>Distance</label>
-            <input type="text" value={this.state.distance}
-            onChange={this.updateField('distance')} />miles
-
-            <label>Duration</label>
-            <input onChange={ (e) => this.updateTime(e, "hours")} value={this.state.hours} type="text" placeholder="1" />hr
-            <input onChange={ (e) => this.updateTime(e, "minutes")} value={this.state.minutes} type="text" placeholder="00" />min
-            <input onChange={ (e) => this.updateTime(e, "seconds")} value={this.state.seconds} type="text" placeholder="00" />s
-
-            <label>Elevation</label>
-            <input type="text" value={this.state.elevation}
-            onChange={this.updateField('elevation')}/>feet
-
-            <label>Sport</label>
-            <select name="Activity" onChange={this.updateField('activity_type')}>
-              <option value="WALKING" selected={this.state.activity_type === "WALKING"}>Run</option>
-              <option value="BICYCLING" selected={this.state.activity_type === "BICYCLING"}>Ride</option>
-            </select>
-
-            <label>Date</label>
-            <input type="date" value={this.state.date} min="2018-01-01" max="2018-12-31" onChange={this.updateField('date')} />
-
-            <label>Route (optional)</label>
-            <select name="Routes" onChange={this.updateRide()}>
-              <option value={null} disabled selected={this.state.route_id === null }>--Select Route--</option>
-              {this.props.routes.map((route, idx) => (
-                <option selected={this.state.route_id == route.id} key={idx} value={route.id}>{route.route_name}</option>
-              ))}
-            </select>
-
-            <label>Title</label>
-            <input type="text" value={this.state.title}
-            onChange={this.updateField('title')} />
-
-          <input type="submit" value={this.props.flag} />
-            <p>{cancel()}</p>
-          </form>
-          <ul>
-            {this.props.errors.map((error) => {
-              return (
-                <li>{error}</li>
-              );
-            })}
-          </ul>
+        <section className="form-master">
+          <div className="form-container">
+            <h1>Manual Entry</h1>
+            <form onSubmit={this.handleSubmit}>
+              <div>
+                <ul>
+                  <label>Distance</label>
+                  <div>
+                    <input type="text" value={this.state.distance}
+                    onChange={this.updateField('distance')} />
+                    <p>miles</p>
+                  </div>
+                </ul>
+                <ul>
+                  <label>Duration</label>
+                  <div>
+                    <input onChange={ (e) => this.updateTime(e, "hours")} value={this.state.hours} type="text" placeholder="1" />
+                    <p>hrs</p>
+                    <input onChange={ (e) => this.updateTime(e, "minutes")} value={this.state.minutes} type="text" placeholder="00" />
+                    <p>mins</p>
+                    <input onChange={ (e) => this.updateTime(e, "seconds")} value={this.state.seconds} type="text" placeholder="00" />
+                    <p>s</p>
+                  </div>
+                </ul>
+                <ul>
+                  <label>Elevation</label>
+                  <div>
+                    <input type="text" value={this.state.elevation}
+                    onChange={this.updateField('elevation')}/><p>feet</p>
+                  </div>
+                </ul>
+              </div>
+              <div>
+                <ul>
+                  <label>Sport</label>
+                  <div>
+                    <select name="Activity" onChange={this.updateField('activity_type')}>
+                      <option value="WALKING" selected={this.state.activity_type === "WALKING"}>Run</option>
+                      <option value="BICYCLING" selected={this.state.activity_type === "BICYCLING"}>Ride</option>
+                    </select>
+                    <i className="fas fa-caret-down"></i>
+                  </div>
+                </ul>
+                <ul>
+                  <label>Date</label>
+                  <div>
+                    <input type="date" value={this.state.date} min="2018-01-01" max="2018-12-31" onChange={this.updateField('date')} />
+                  </div>
+                </ul>
+                <ul>
+                  <label>Route (optional)</label>
+                  <div>
+                    <select name="Routes" onChange={this.updateRide()}>
+                      <option value={null} disabled selected={this.state.route_id === null }>--Select Route--</option>
+                      {this.props.routes.map((route, idx) => (
+                        <option selected={this.state.route_id == route.id} key={idx} value={route.id}>{route.route_name}</option>
+                      ))}
+                    </select>
+                    <i className="fas fa-caret-down"></i>
+                  </div>
+                </ul>
+              </div>
+              <div>
+                <ul>
+                  <label>Title</label>
+                  <div>
+                    <input type="text" value={this.state.title}
+                    onChange={this.updateField('title')} />
+                  </div>
+                </ul>
+              </div>
+              <div>
+                <div>
+                  <input type="submit" value={this.props.flag} />
+                  <p>{cancel()}</p>
+                </div>
+              </div>
+              <ul>
+                {this.props.errors.map((error) => {
+                  return (
+                    <li>{error}</li>
+                  );
+                })}
+              </ul>
+            </form>
+          </div>
         </section>
       </div>
     );
