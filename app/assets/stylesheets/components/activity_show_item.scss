@@ -12,16 +12,25 @@
     }
 
     & > div {
-      padding: 15px 20px 15px 20px;
+      padding: 15px 25px 10px 25px;
       display: flex;
 
       & > div {
+        width: 62px;
+
         .user-img {
           height: 40px;
           width: 40px;
           background-image: image_url("profile_placeholder.jpg");
           background-size: contain;
           border-radius: 25px;
+          margin-bottom: 12px;
+        }
+
+        i {
+          color: #565656;
+          font-size: 21px;
+          margin-left: 6px;
         }
 
 
@@ -30,7 +39,80 @@
 
       & > ul {
 
+        & > ul {
+          header {
+            font-size: 15px;
+            font-weight: 500;
+          }
+
+          li:nth-child(2) {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 5px;
+          }
+
+          a {
+            color: black;
+            font-size: 21px;
+            font-weight: 500;
+          }
+
+          li:last-child {
+            font-weight: 400;
+            font-size: 14px;
+            margin-top: 8px;
+            margin-bottom: 10px;
+          }
+
+        }
+
+        & > div {
+          display: flex;
+
+          .divide {
+            width: 1px;
+            height: 28px;
+            border-left: 1px solid #cccccc;
+            margin-top: 9px;
+          }
+
+          > ul:first-child {
+            margin-left: 0px;
+          }
+
+          > ul {
+            margin: 0px 17px;
+
+            li:first-child {
+              font-size: 12px;
+              font-weight: 400;
+              color: #606065;
+            }
+
+            li:nth-child(2) {
+              font-size: 21px;
+              font-weight: 400;
+            }
+          }
+        }
+
       }
+    }
+
+    & > .vertical-divide {
+      height: 1px;
+      border-bottom: 1px solid #cccccc;
+      width: 524px;
+      margin: auto;
+      padding: 0px;
+    }
+
+    & > .vertical-divide-bottom {
+      height: 60px;
+      border-top: 1px solid #cccccc;
+      width: 524px;
+      margin: auto;
+      padding: 0px;
     }
 
     & > img {
@@ -38,6 +120,7 @@
       border-radius: 2px;
 
     }
+
   }
 
 }

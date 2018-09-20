@@ -21,9 +21,9 @@ class Dashboard extends React.Component {
           <div className="dashboard-body">
             <div className="workout-feed">
               <ul className="feed-items">
-                {this.props.activities.map((activity) => {
+                {this.props.activities.map((activity, idx) => {
                   return (
-                    <ActivityShowItem route={this.props.routes[activity.route_id]} activity={activity} currentUser = {this.props.currentUser} />
+                    <ActivityShowItem key={idx} route={this.props.routes[activity.route_id]} activity={activity} currentUser = {this.props.currentUser} />
                   );
                 })}
               </ul>

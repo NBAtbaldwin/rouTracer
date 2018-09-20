@@ -27,53 +27,65 @@ const ActivityShowItem = ({route, activity, currentUser}) => {
             </ul>
             <div>
               <ul>
-                <li><strong>{activity.distance}</strong> mi</li>
                 <li>Distance</li>
+                <li><strong>{activity.distance}</strong> mi</li>
               </ul>
+              <div className="divide"></div>
               <ul>
-                <li><strong>{ConversionUtil.hrsMinsSecs(activity.duration)}</strong></li>
                 <li>Duration</li>
+                <li><strong>{ConversionUtil.hrsMinsSecs(activity.duration)}</strong></li>
               </ul>
+              <div className="divide"></div>
               <ul>
-                <li><strong>{ConversionUtil.hrsMinsSecs(activity.duration/activity.distance)}</strong> /mi</li>
                 <li>Pace</li>
+                <li><strong>{ConversionUtil.hrsMinsSecs(activity.duration/activity.distance)}</strong> /mi</li>
               </ul>
             </div>
           </ul>
         </div>
+        <div className="vertical-divide"></div>
         <img src={`https://maps.googleapis.com/maps/api/staticmap?center=${center}&size=550x180&key=${window.googleAPIKey}&path=weight:4%7Ccolor:red%7Cenc:${codedPoly}`}/>
       </div>
     )
   }
 
   const noRoute = () => {
+    let type;
+    activity.activity_type === 'WALKING' ? type = 'fas fa-shoe-prints' : type = 'fas fa-bicycle';
     return (
       <div className="show-item-container">
         <header>{currentUser.email} - Workout</header>
         <div>
-          <ul>
-            <li>user_img</li>
-            <ul>
-              <li>On {activity.date}</li>
-              <li>{activity.title}</li>
-              <li>--</li>
-            </ul>
-          </ul>
           <div>
-            <ul>
-              <li><strong>{activity.distance}</strong> mi</li>
-              <li>Distance</li>
-            </ul>
-            <ul>
-              <li><strong>{ConversionUtil.hrsMinsSecs(activity.duration)}</strong></li>
-              <li>Duration</li>
-            </ul>
-            <ul>
-              <li><strong>{ConversionUtil.hrsMinsSecs(activity.duration/activity.distance)}</strong> /mi</li>
-              <li>Pace</li>
-            </ul>
+            <div className="user-img"></div>
+            <div><i className={type}></i></div>
           </div>
+          <ul>
+            <ul>
+              <header>{currentUser.email}</header>
+              <li>On {activity.date}</li>
+              <li><Link to={`/activities/${activity.id}`}>{activity.title}</Link></li>
+              <li></li>
+            </ul>
+            <div>
+              <ul>
+                <li>Distance</li>
+                <li><strong>{activity.distance}</strong> mi</li>
+              </ul>
+              <div className="divide"></div>
+              <ul>
+                <li>Duration</li>
+                <li><strong>{ConversionUtil.hrsMinsSecs(activity.duration)}</strong></li>
+              </ul>
+              <div className="divide"></div>
+              <ul>
+                <li>Pace</li>
+                <li><strong>{ConversionUtil.hrsMinsSecs(activity.duration/activity.distance)}</strong> /mi</li>
+              </ul>
+            </div>
+          </ul>
         </div>
+        <div className="vertical-divide-bottom"></div>
       </div>
     );
   }
