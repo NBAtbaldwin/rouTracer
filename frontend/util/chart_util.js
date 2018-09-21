@@ -2,7 +2,7 @@ export const distanceThisWeek = (activities) => {
   let today = new Date();
   let output = [];
 
-  [7,6,5,4,3,2,1].forEach((num,i) => {
+  [6,5,4,3,2,1,0].forEach((num,i) => {
     let day = new Date(today - (1000*60*60*24*num));
     output.push({ date: day.getDay(), distance: 0, formattedDate: day, weekday: DAYS[day.getDay()], duration: 0, elevation: 0, });
   });
@@ -21,12 +21,14 @@ export const distanceThisWeek = (activities) => {
       output[i].elevation += activity.elevation;
     }
   });
+  let sortedOutput;
 
-  return output.sort((a, b) => {
+  sortedOutput = output.sort((a, b) => {
     if (a.formattedDate > b.formattedDate) return 1;
     if (a.formattedDate < b.formattedDate) return -1;
     return 0;
   });
+  return sortedOutput;
 }
 
 export const totalField = (activities, field) => {
