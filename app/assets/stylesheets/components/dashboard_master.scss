@@ -8,7 +8,7 @@
     position: fixed;
     width: 100%;
     box-shadow: 0px 8px 24px rgba(13,13,18,0.04);
-    
+
 
     & > .nav-master-div {
       margin: auto 20px auto 20px;
@@ -16,13 +16,40 @@
   }
   & > div:nth-child(2) {
       width: 1258px;
-      padding: 0 20px 0 20px;
+      padding: 0 0px 0 0px;
       margin: auto;
 
     & > .dashboard-body {
       width: 1218px;
       margin: auto;
-      margin-top: 118px;
+      margin-top: 106px;
+      display: grid;
+      grid-template-columns: 1fr 2fr 1fr;
+      grid-gap: 6px;
+
+      .left-aside {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .dash-top-container {
+          height: 276px;
+          box-shadow: 0px 8px 24px rgba(13, 13, 18, 0.04);
+          background-color: white;
+          width: 280px;
+          border-radius: 4px;
+          margin-top: 10px;
+        }
+
+        .dash-lower-left {
+          height: 592px;
+          box-shadow: 0px 8px 24px rgba(13, 13, 18, 0.04);
+          background-color: white;
+          width: 280px;
+          border-radius: 4px;
+          margin-top: 12px;
+        }
+      }
 
       .workout-feed {
         width: 592px;

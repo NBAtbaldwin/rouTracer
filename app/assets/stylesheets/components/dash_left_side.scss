@@ -1,0 +1,84 @@
+.dash-top-container {
+
+  & > div:first-child {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-bottom: 1px solid #e6e6eb;
+
+    & > div:first-child {
+      height: 72px;
+      width: 72px;
+      border-radius: 36px;
+      background-image: image_url("profile_placeholder.jpg");
+      background-size: contain;
+      box-shadow: 0px 8px 24px rgba(13,13,18,0.16);
+      margin-top: -36px;
+
+    }
+
+    & > p {
+      margin-top: 12px;
+      font-weight: 400;
+      font-size: 18px;
+    }
+
+    & > div:last-child {
+      width: 140px;
+      margin: auto;
+      display: flex;
+      justify-content: space-around;
+      margin-top: 12px;
+      margin-bottom: 12px;
+
+      & > ul {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        li:first-child {
+          font-size: 12px;
+          color: #606065;
+        }
+
+        li:last-child {
+          font-size: 18px;
+          font-weight: 300;
+        }
+      }
+    }
+
+  }
+
+  & > div:nth-child(2) {
+    margin: 16px 16px 0px 16px;
+    border-bottom: 1px solid #e6e6eb;
+    padding-bottom: 16px;
+
+    p {
+      font-size: 12px;
+    }
+
+    strong {
+      font-weight: 700;
+    }
+  }
+
+  & > div:last-child {
+    margin: 20px 20px 20px 16px;
+    display: flex;
+
+    p {
+      font-size: 14px;
+    }
+
+    i {
+      margin-left: 121px;
+      margin-top: 0px;
+      font-size: 20px;
+      color: #606065;
+    }
+  }
+
+}
