@@ -43,8 +43,6 @@ class LowerPanel extends React.Component {
 
         const weeklyTotal = ChartUtil.distanceThisWeek(activities);
 
-        console.log(weeklyTotal)
-
         return(
           <div className="dash-lower-left">
             <ul>

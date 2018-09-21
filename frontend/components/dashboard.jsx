@@ -6,6 +6,7 @@ import ActivityShowItem from "./activities/activity_show_item";
 import * as ConversionUtil from "./../util/conversion_util";
 import DashTopPanel from "./totals/dash_top_panel";
 import DashLowerPanelContainer from "./totals/dash_lower_panel_container";
+import * as ChartUtil from "./../util/chart_util";
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -18,10 +19,10 @@ class Dashboard extends React.Component {
 
   render() {
     const sortedActivities = this.props.activities.sort(function(a, b) {
-      if (ConversionUtil.dateToInt(a.date) < ConversionUtil.dateToInt(b.date)) {
+      if (ChartUtil.parseDate(a.date) < ChartUtil.parseDate(b.date)) {
         return 1;
       }
-      if (ConversionUtil.dateToInt(a.date) > ConversionUtil.dateToInt(b.date)) {
+      if (ChartUtil.parseDate(a.date) > ChartUtil.parseDate(b.date)) {
         return -1;
       }
       return 0;
