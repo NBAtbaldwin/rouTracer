@@ -1,4 +1,7 @@
 .dash-top-container {
+  position: sticky;
+  top: -40px;
+  z-index: 0;
 
   & > div:first-child {
     width: 100%;
@@ -85,6 +88,8 @@
 
 .dash-lower-left {
   background-color: #f1f1f5;
+  position: sticky;
+  top: 248px;
 
   & > ul:first-child {
     height: 44px;
@@ -194,7 +199,6 @@
   }
 
   & > .placeholder {
-    height: 200px;
     border-radius: 4px;
     margin-top: -2px;
   }
