@@ -7,6 +7,8 @@ export const distanceThisWeek = (activities) => {
     output.push({ date: day.getDay(), distance: 0, formattedDate: day, weekday: DAYS[day.getDay()], duration: 0, elevation: 0, });
   });
 
+  console.log(activities)
+
   activities.forEach((activity) => {
     let workoutDate = parseDate(activity.date);
     if (daysBetween(workoutDate, today) <= 7) {
