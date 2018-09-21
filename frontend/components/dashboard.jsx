@@ -4,6 +4,8 @@ import { withRouter } from 'react-router';
 import NavbarLoggedInContainer from "./navbar_loggedIn_container";
 import ActivityShowItem from "./activities/activity_show_item";
 import * as ConversionUtil from "./../util/conversion_util";
+import DashTopPanel from "./totals/dash_top_panel";
+import DashLowerPanelContainer from "./totals/dash_lower_panel_container";
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -30,6 +32,10 @@ class Dashboard extends React.Component {
         <NavbarLoggedInContainer />
         <div>
           <div className="dashboard-body">
+            <aside className="left-aside">
+              <DashTopPanel activities={sortedActivities} currentUser={this.props.currentUser} routeNum={Object.keys(this.props.routes).length}/>
+              <DashLowerPanelContainer activities={this.props.activities} />
+            </aside>
             <div className="workout-feed">
               <ul className="feed-items">
                 {sortedActivities.map((activity, idx) => {
