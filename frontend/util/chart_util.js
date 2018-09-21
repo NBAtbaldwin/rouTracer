@@ -67,3 +67,15 @@ export const sort_by_activity = (activities, type) => {
   });
   return output;
 }
+
+export const emptyDateData = () => {
+  let today = new Date();
+  let output = [];
+
+  [7,6,5,4,3,2,1].forEach((num,i) => {
+    let day = new Date(today - (1000*60*60*24*num));
+    output.push({ date: day.getDay(), distance: 0, formattedDate: day, weekday: DAYS[day.getDay()], duration: 0, elevation: 0, });
+  });
+
+  return output;
+}

@@ -34,7 +34,30 @@ const TopPanel = ({activities, currentUser, routeNum}) => {
       )
     } else {
       return (
-      <h1>loading</h1>
+        <div className="dash-top-container">
+          <div>
+            <div></div>
+            <p>{currentUser.email}</p>
+            <div>
+              <ul>
+                <li>Activities</li>
+                <li>0</li>
+              </ul>
+              <ul>
+                <li>Routes</li>
+                <li>0</li>
+              </ul>
+            </div>
+          </div>
+          <div>
+            <p>Latest Activity</p>
+            <p><strong></strong> --/--/-- </p>
+          </div>
+          <div>
+            <p>Your Training Log</p>
+            <i className="fas fa-chevron-right"></i>
+          </div>
+        </div>
       );
     }
   }

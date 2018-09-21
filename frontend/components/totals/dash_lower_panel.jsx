@@ -24,25 +24,24 @@ class LowerPanel extends React.Component {
   render() {
     const activitiesFetched = () => {
 
+      const classToggle = () => {
+        return this.state.walking ? "walking" : "bicycle"
+      };
+
+      const toggleBike = () => {
+        return this.state.walking ? "hidden" : "show"
+      };
+
+      const toggleRun = () => {
+        return this.state.walking ? "show" : "hidden"
+      };
+
       if(this.props.activities.length > 0) {
 
-        const classToggle = () => {
-          return this.state.walking ? "walking" : "bicycle"
-        };
-
-        const toggleBike = () => {
-          return this.state.walking ? "hidden" : "show"
-        }
-
-        const toggleRun = () => {
-          return this.state.walking ? "show" : "hidden"
-        }
 
         let activities = ChartUtil.sort_by_activity(this.props.activities, this.state.walking);
 
         const weeklyTotal = ChartUtil.distanceThisWeek(activities);
-
-        console.log(weeklyTotal);
 
         return(
           <div className="dash-lower-left">
@@ -75,8 +74,36 @@ class LowerPanel extends React.Component {
           </div>
         )
       } else {
+        let chartData= ChartUtil.emptyDateData();
         return (
-        <h1>loading</h1>
+          <div className="dash-lower-left">
+            <ul>
+              <div onClick={this.toggleActivity(true)} className={toggleRun()}><i className="fas fa-walking"></i></div>
+              <div onClick={this.toggleActivity(false)} className={toggleBike()}><i className="fas fa-bicycle"></i></div>
+            </ul>
+            <div>
+              <p></p>
+              <h4>this week</h4>
+              <p>--:-- mi.</p>
+              <div>
+                <div className="chart">
+                  <BarChart width={140} height={86} barSize={6} barGap={6} data={chartData}>
+                    <XAxis dataKey="weekday" tickLine={false} minTickGap={2} axisLine={false} />
+
+                    <Tooltip />
+                    <Bar dataKey="distance" fill="#e6e6eb" />
+                  </BarChart>
+                </div>
+                <div><i className={`fas fa-${classToggle()}`}></i></div>
+              </div>
+              <div>
+                <p>00h:00m</p>
+                <p>0 ft</p>
+              </div>
+            </div>
+            <div className="placeholder">
+            </div>
+          </div>
         );
       }
     }
