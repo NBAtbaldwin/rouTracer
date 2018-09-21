@@ -30,24 +30,34 @@ class LowerPanel extends React.Component {
           return this.state.walking ? "walking" : "bicycle"
         };
 
+        const toggleBike = () => {
+          return this.state.walking ? "hidden" : "show"
+        }
+
+        const toggleRun = () => {
+          return this.state.walking ? "show" : "hidden"
+        }
+
         let activities = ChartUtil.sort_by_activity(this.props.activities, this.state.walking);
 
         const weeklyTotal = ChartUtil.distanceThisWeek(activities);
 
+        console.log(weeklyTotal);
+
         return(
           <div className="dash-lower-left">
             <ul>
-              <button onClick={this.toggleActivity(true)}>w<i className="fas fa-walking"></i></button>
-              <button onClick={this.toggleActivity(false)}>b<i className="fas fa-bicycle"></i></button>
+              <div onClick={this.toggleActivity(true)} className={toggleRun()}><i className="fas fa-walking"></i></div>
+              <div onClick={this.toggleActivity(false)} className={toggleBike()}><i className="fas fa-bicycle"></i></div>
             </ul>
             <div>
               <p></p>
               <h4>this week</h4>
-              <p>{ChartUtil.totalField(weeklyTotal, 'distance')}</p>
+              <p>{ChartUtil.totalField(weeklyTotal, 'distance')} mi.</p>
               <div>
-                <div>
-                  <BarChart width={130} height={80} barGap={6} data={weeklyTotal}>
-                    <XAxis dataKey="weekday" />
+                <div className="chart">
+                  <BarChart width={140} height={86} barSize={6} barGap={6} data={weeklyTotal}>
+                    <XAxis dataKey="weekday" tickLine={false} minTickGap={2} axisLine={false} />
 
                     <Tooltip />
                     <Bar dataKey="distance" fill="#e6e6eb" />
@@ -56,9 +66,11 @@ class LowerPanel extends React.Component {
                 <div><i className={`fas fa-${classToggle()}`}></i></div>
               </div>
               <div>
-                <p>{ChartUtil.totalField(weeklyTotal, 'duration')}</p>
-                <p>{ChartUtil.totalField(weeklyTotal, 'elevation')}</p>
+                <p>{ConversionUtil.hrsMins(ChartUtil.totalField(weeklyTotal, 'duration'))}</p>
+                <p>{ChartUtil.totalField(weeklyTotal, 'elevation')} ft</p>
               </div>
+            </div>
+            <div className="placeholder">
             </div>
           </div>
         )

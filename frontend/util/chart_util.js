@@ -23,8 +23,8 @@ export const distanceThisWeek = (activities) => {
   });
 
   return output.sort((a, b) => {
-    if (a.formattedDate < b.formattedDate) return 1;
-    if (a.formattedDate > b.formattedDate) return -1;
+    if (a.formattedDate > b.formattedDate) return 1;
+    if (a.formattedDate < b.formattedDate) return -1;
     return 0;
   });
 }
@@ -34,7 +34,8 @@ export const totalField = (activities, field) => {
   activities.forEach((activity) => {
     output += activity[field];
   });
-  return output;
+  console.log(output)
+  return output.toFixed(1);
 }
 
 export const daysBetween = ( date1, date2 ) => {
