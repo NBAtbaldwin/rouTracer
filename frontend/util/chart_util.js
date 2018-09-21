@@ -34,7 +34,6 @@ export const totalField = (activities, field) => {
   activities.forEach((activity) => {
     output += activity[field];
   });
-  console.log(output)
   return output.toFixed(1);
 }
 
