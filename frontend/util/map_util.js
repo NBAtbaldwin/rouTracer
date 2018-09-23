@@ -83,9 +83,8 @@ export const getDistance = (dirDisplay) => {
 export const getDuration = (dirDisplay) => {
   let time = 0;
   dirDisplay.getDirections().routes[0].legs.forEach((leg) => {
-    time += parseFloat(leg.duration.text.split(" ")[0]);
+    time += durationSplit(leg.duration.text.split(" "));
   });
-  time *= 60;
   return parseInt(time);
 }
 
@@ -123,4 +122,40 @@ export const getWayPoints = (coords) => {
   output.shift();
   output.pop();
   return output;
+}
+
+export const durationSplit = (duration) => {
+  let output = 0;
+  switch (duration[1]) {
+    case "min":
+      return parseInt(duration[0])*60;
+    case "mins":
+      return parseInt(duration[0])*60;
+    case "hour":
+      if (duration.length > 2) {
+        return parseInt(duration[0])*3600+parseInt(duration[2])*60;
+      } else {
+        return parseInt(duration[0])*3600;
+      }
+    case "hours":
+      if (duration.length > 2) {
+        return parseInt(duration[0])*3600+parseInt(duration[2])*60;
+      } else {
+        return parseInt(duration[0])*3600;
+      }
+    case "day":
+      if (duration.length > 2) {
+        return parseInt(duration[0])*86400+parseInt(duration[2])*3600;
+      } else {
+        return parseInt(duration[0])*86400;
+      }
+    case "days":
+      if (duration.length > 2) {
+        return parseInt(duration[0])*86400+parseInt(duration[2])*3600;
+      } else {
+        return parseInt(duration[0])*86400;
+      }
+    default:
+      return output;
+  }
 }

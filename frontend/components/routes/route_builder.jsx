@@ -123,6 +123,7 @@ class RouteBuilder extends React.Component {
       // //////////////////////////////////////////////////
       // //////////////////////////////////////////////////
         } else {
+          // edit route
         const that = this;
 
         const mapOptions = {
@@ -230,6 +231,7 @@ class RouteBuilder extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (this.props.match.params.routeId !== nextProps.match.params.routeId) {
     this.props.fetchRoute(nextProps.match.params.routeId).then(() => {
+      // switch route url manually
       const that = this;
 
       this.setState({ route: {
