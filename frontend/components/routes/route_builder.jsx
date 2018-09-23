@@ -19,6 +19,8 @@ class RouteBuilder extends React.Component {
       WALKING: "selected",
       BICYCLING: "",
       modal: "hidden",
+      dirDisplay: "",
+      service: "",
     }
     this.handleSubmit = this.handleSubmit.bind(this);
     this.update = this.update.bind(this);
@@ -29,6 +31,7 @@ class RouteBuilder extends React.Component {
   componentDidMount() {
     if (this.props.flag === true) {
       this.props.fetchRoute(this.props.match.params.routeId).then(() => {
+        // logic for editing route
         const that = this;
 
         this.setState({ route: {
@@ -43,7 +46,9 @@ class RouteBuilder extends React.Component {
           activity_type: this.props.route.activity_type,
           description: this.props.route.description,
           user_id: this.props.route.user_id,
-        }
+        }, WALKING: "", BICYCLING: "",
+        }, () => {
+          this.setState({activity_type: this.state.route.activity_type, [this.state.route.activity_type]: "selected"})
         });
         const mapOptions = {
           center: {
@@ -76,6 +81,7 @@ class RouteBuilder extends React.Component {
           lat: coords[coords.length-2],
           lng: coords[coords.length-1]
         };
+        that.setState({dirDisplay: directionsDisplay, service: service});
         let travelMode = this.props.route.activity_type;
         let wayPoints = MapUtil.getWayPoints(coords);
         MapUtil.displayRoute(origin, end, service, directionsDisplay, travelMode, wayPoints);
@@ -108,7 +114,7 @@ class RouteBuilder extends React.Component {
             coordinates_list: coords,
             est_duration: duration,
             marker_coordinates: markerCoords,
-            travelMode: travelMode,
+            activity_type: travelMode,
           };
           let updatedRoute = merge({}, that.state.route, route);
           that.setState({ route: updatedRoute });
@@ -123,7 +129,7 @@ class RouteBuilder extends React.Component {
       // //////////////////////////////////////////////////
       // //////////////////////////////////////////////////
         } else {
-          // edit route
+          // logic for creating new route
         const that = this;
 
         const mapOptions = {
@@ -148,6 +154,7 @@ class RouteBuilder extends React.Component {
           draggable: true,
           map: this.map,
         });
+        that.setState({dirDisplay: directionsDisplay, service: service});
 
 
         // initiates polyline
@@ -199,10 +206,10 @@ class RouteBuilder extends React.Component {
             coordinates_list: coords,
             est_duration: duration,
             marker_coordinates: markerCoords,
-            travelMode: travelMode,
+            activity_type: travelMode,
           };
           let updatedRoute = merge({}, that.state.route, route);
-          that.setState({ route: updatedRoute });
+          that.setState({ route: updatedRoute, dirDisplay: directionsDisplay });
         });
 
 
@@ -246,8 +253,10 @@ class RouteBuilder extends React.Component {
         activity_type: this.props.route.activity_type,
         description: this.props.route.description,
         user_id: this.props.route.user_id,
-      }
-      });
+      }, WALKING: "", BICYCLING: "",
+    }, () => {
+      this.setState({activity_type: this.state.route.activity_type, [this.state.route.activity_type]: "selected"})
+    });
       const mapOptions = {
         center: {
           lat: 40.7831,
@@ -279,6 +288,7 @@ class RouteBuilder extends React.Component {
         lat: coords[coords.length-2],
         lng: coords[coords.length-1]
       };
+      that.setState({dirDisplay: directionsDisplay, service: service});
       let travelMode = this.props.route.activity_type;
       let wayPoints = MapUtil.getWayPoints(coords);
       MapUtil.displayRoute(origin, end, service, directionsDisplay, travelMode, wayPoints);
@@ -310,7 +320,7 @@ class RouteBuilder extends React.Component {
           coordinates_list: coords,
           est_duration: duration,
           marker_coordinates: markerCoords,
-          travelMode: travelMode,
+          activity_type: travelMode,
         };
         let updatedRoute = merge({}, that.state.route, route);
         that.setState({ route: updatedRoute });
@@ -338,9 +348,15 @@ class RouteBuilder extends React.Component {
     return (e) => {
       let route = { activity_type: type};
       let updatedRoute = merge({}, this.state.route, route);
-      this.setState({route: updatedRoute });
+      console.log(updatedRoute);
+      console.log(type);
       this.setState({WALKING: "", BICYCLING: "" });
       this.setState({ activity_type: type, [type]: "selected" });
+
+      this.setState({route: updatedRoute }, () => {
+        let last = this.state.route.marker_coordinates.length - 1;
+        MapUtil.displayRoute(MapUtil.coordsObjFromArray(this.state.route.marker_coordinates[0], this.state.route.marker_coordinates[1]), MapUtil.coordsObjFromArray(this.state.route.marker_coordinates[last-1], this.state.route.marker_coordinates[last]), this.state.service, this.state.dirDisplay, this.state.route.activity_type, MapUtil.getWayPoints(this.state.route.marker_coordinates));
+      });
     };
   }
 

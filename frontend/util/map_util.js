@@ -9,6 +9,10 @@ export const latLngToArray = (latLng, array) => {
   });
 }
 
+export const coordsObjFromArray = (lat, lng) => ({
+  lat: lat,
+  lng: lng
+})
 
 
 export const markersFromPropsArray = (array, map) => {
