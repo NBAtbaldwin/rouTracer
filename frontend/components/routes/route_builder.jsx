@@ -73,18 +73,18 @@ class RouteBuilder extends React.Component {
           map: this.map,
         });
         let coords = this.props.route.marker_coordinates
-        let origin = {
-          lat: coords[0],
-          lng: coords[1]
-        };
-        let end = {
-          lat: coords[coords.length-2],
-          lng: coords[coords.length-1]
-        };
+        // let origin = {
+        //   lat: coords[0],
+        //   lng: coords[1]
+        // };
+        // let end = {
+        //   lat: coords[coords.length-2],
+        //   lng: coords[coords.length-1]
+        // };
         that.setState({dirDisplay: directionsDisplay, service: service});
         let travelMode = this.props.route.activity_type;
-        let wayPoints = MapUtil.getWayPoints(coords);
-        MapUtil.displayRoute(origin, end, service, directionsDisplay, travelMode, wayPoints);
+        let wayPoints = MapUtil.getWayPointsWithStartEnd(coords);
+        MapUtil.displayRoute(wayPoints[0], wayPoints[wayPoints.length-1], service, directionsDisplay, travelMode, MapUtil.getMiddleWayPoints(wayPoints));
 
         poly = new google.maps.Polyline({
           strokeColor: '#000000',
@@ -93,14 +93,15 @@ class RouteBuilder extends React.Component {
         });
         poly.setMap(this.map);
         let marker;
-        wayPoints.push({location: end });
+        // wayPoints.push({location: end });
+
         google.maps.event.addListener(this.map, "click", function(evt) {
 
           that.state.activity_type === 'WALKING' ? travelMode = google.maps.DirectionsTravelMode.WALKING : travelMode = google.maps.DirectionsTravelMode.BICYCLING;
 
-          MapUtil.displayRoute(origin, evt.latLng, service, directionsDisplay, travelMode, wayPoints);
+          MapUtil.displayRoute(wayPoints[0], evt.latLng, service, directionsDisplay, travelMode, MapUtil.getMiddleWayPoints(wayPoints));
 
-          wayPoints.push({location: evt.latLng});
+          // wayPoints.push({location: evt.latLng});
         });
 
         directionsDisplay.addListener('directions_changed', function() {
@@ -108,6 +109,7 @@ class RouteBuilder extends React.Component {
           let duration = MapUtil.getDuration(directionsDisplay);
           let coords = directionsDisplay.getDirections().routes[0].overview_polyline;
           let markerCoords = MapUtil.getMarkers(directionsDisplay);
+          wayPoints = MapUtil.getWayPointsWithStartEnd(markerCoords);
           that.state.activity_type === 'WALKING' ? travelMode = google.maps.DirectionsTravelMode.WALKING : travelMode = google.maps.DirectionsTravelMode.BICYCLING;
           let route = {
             distance: distance,
@@ -173,9 +175,9 @@ class RouteBuilder extends React.Component {
         google.maps.event.addListener(this.map, "click", function(evt) {
           if (path.getLength() === 0) {
 
-            origin = evt.latLng;
             path.push(evt.latLng);
             poly.setPath(path);
+            wayPoints.push({location: evt.latLng});
 
             marker = new google.maps.Marker({
               position: evt.latLng,
@@ -187,9 +189,9 @@ class RouteBuilder extends React.Component {
             marker.setMap(null);
             that.state.route.activity_type === 'WALKING' ? travelMode = google.maps.DirectionsTravelMode.WALKING : travelMode = google.maps.DirectionsTravelMode.BICYCLING;
 
-            MapUtil.displayRoute(origin, evt.latLng, service, directionsDisplay, travelMode, wayPoints);
+            MapUtil.displayRoute(wayPoints[0], evt.latLng, service, directionsDisplay, travelMode, MapUtil.getMiddleWayPoints(wayPoints));
 
-            wayPoints.push({location: evt.latLng});
+
           }
 
         });
@@ -198,8 +200,8 @@ class RouteBuilder extends React.Component {
           let distance = MapUtil.getDistance(directionsDisplay);
           let duration = MapUtil.getDuration(directionsDisplay);
           let coords = directionsDisplay.getDirections().routes[0].overview_polyline;
-          // analogous to waypoints
           let markerCoords = MapUtil.getMarkers(directionsDisplay);
+          wayPoints = MapUtil.getWayPointsWithStartEnd(markerCoords);
           that.state.route.activity_type === 'WALKING' ? travelMode = google.maps.DirectionsTravelMode.WALKING : travelMode = google.maps.DirectionsTravelMode.BICYCLING;
           let route = {
             distance: distance,
@@ -210,6 +212,8 @@ class RouteBuilder extends React.Component {
           };
           let updatedRoute = merge({}, that.state.route, route);
           that.setState({ route: updatedRoute, dirDisplay: directionsDisplay });
+          console.log(that.state.route);
+          // console.log(directionsDisplay.getDirections());
         });
 
 
@@ -254,9 +258,9 @@ class RouteBuilder extends React.Component {
         description: this.props.route.description,
         user_id: this.props.route.user_id,
       }, WALKING: "", BICYCLING: "",
-    }, () => {
-      this.setState({activity_type: this.state.route.activity_type, [this.state.route.activity_type]: "selected"})
-    });
+      }, () => {
+        this.setState({activity_type: this.state.route.activity_type, [this.state.route.activity_type]: "selected"})
+      });
       const mapOptions = {
         center: {
           lat: 40.7831,
@@ -280,18 +284,18 @@ class RouteBuilder extends React.Component {
         map: this.map,
       });
       let coords = this.props.route.marker_coordinates
-      let origin = {
-        lat: coords[0],
-        lng: coords[1]
-      };
-      let end = {
-        lat: coords[coords.length-2],
-        lng: coords[coords.length-1]
-      };
+      // let origin = {
+      //   lat: coords[0],
+      //   lng: coords[1]
+      // };
+      // let end = {
+      //   lat: coords[coords.length-2],
+      //   lng: coords[coords.length-1]
+      // };
       that.setState({dirDisplay: directionsDisplay, service: service});
       let travelMode = this.props.route.activity_type;
-      let wayPoints = MapUtil.getWayPoints(coords);
-      MapUtil.displayRoute(origin, end, service, directionsDisplay, travelMode, wayPoints);
+      let wayPoints = MapUtil.getWayPointsWithStartEnd(coords);
+      MapUtil.displayRoute(wayPoints[0], wayPoints[wayPoints.length-1], service, directionsDisplay, travelMode, MapUtil.getMiddleWayPoints(wayPoints));
 
       poly = new google.maps.Polyline({
         strokeColor: '#000000',
@@ -300,14 +304,15 @@ class RouteBuilder extends React.Component {
       });
       poly.setMap(this.map);
       let marker;
-      wayPoints.push({location: end });
+      // wayPoints.push({location: end });
+
       google.maps.event.addListener(this.map, "click", function(evt) {
 
         that.state.activity_type === 'WALKING' ? travelMode = google.maps.DirectionsTravelMode.WALKING : travelMode = google.maps.DirectionsTravelMode.BICYCLING;
 
-        MapUtil.displayRoute(origin, evt.latLng, service, directionsDisplay, travelMode, wayPoints);
+        MapUtil.displayRoute(wayPoints[0], evt.latLng, service, directionsDisplay, travelMode, MapUtil.getMiddleWayPoints(wayPoints));
 
-        wayPoints.push({location: evt.latLng});
+        // wayPoints.push({location: evt.latLng});
       });
 
       directionsDisplay.addListener('directions_changed', function() {
@@ -315,6 +320,8 @@ class RouteBuilder extends React.Component {
         let duration = MapUtil.getDuration(directionsDisplay);
         let coords = directionsDisplay.getDirections().routes[0].overview_polyline;
         let markerCoords = MapUtil.getMarkers(directionsDisplay);
+        wayPoints = MapUtil.getWayPointsWithStartEnd(markerCoords);
+        that.state.activity_type === 'WALKING' ? travelMode = google.maps.DirectionsTravelMode.WALKING : travelMode = google.maps.DirectionsTravelMode.BICYCLING;
         let route = {
           distance: distance,
           coordinates_list: coords,
@@ -324,7 +331,7 @@ class RouteBuilder extends React.Component {
         };
         let updatedRoute = merge({}, that.state.route, route);
         that.setState({ route: updatedRoute });
-    });
+      });
   });
   }
 };
@@ -359,6 +366,8 @@ class RouteBuilder extends React.Component {
       });
     };
   }
+
+
 
   toggleModal() {
     this.state.modal === "hidden" ? this.setState({modal: "modal-background"}) : this.setState({modal: "hidden"})

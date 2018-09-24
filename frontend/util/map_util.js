@@ -128,6 +128,21 @@ export const getWayPoints = (coords) => {
   return output;
 }
 
+export const getWayPointsWithStartEnd = (coords) => {
+  const output = [];
+  coords.forEach((coord, idx) => {
+    if (idx % 2 === 0) {
+      output.push({
+        location: {
+          lat: coords[idx],
+          lng: coords[idx+1]
+        }
+      });
+    }
+  });
+  return output;
+}
+
 export const durationSplit = (duration) => {
   let output = 0;
   switch (duration[1]) {
@@ -162,4 +177,14 @@ export const durationSplit = (duration) => {
     default:
       return output;
   }
+}
+
+export const getMiddleWayPoints = (wayPoints) => {
+  let output = [];
+  wayPoints.forEach((point, idx) => {
+    if (idx !== 0) {
+      output.push(point);
+    }
+  });
+  return output;
 }
