@@ -21,11 +21,13 @@ class RouteBuilder extends React.Component {
       modal: "hidden",
       dirDisplay: "",
       service: "",
+      history: [],
     }
     this.handleSubmit = this.handleSubmit.bind(this);
     this.update = this.update.bind(this);
     this.toggleActivityType =  this.toggleActivityType.bind(this);
     this.toggleModal =  this.toggleModal.bind(this);
+    this.undo = this.undo.bind(this);
   }
 
   componentDidMount() {
@@ -101,7 +103,7 @@ class RouteBuilder extends React.Component {
 
           MapUtil.displayRoute(wayPoints[0], evt.latLng, service, directionsDisplay, travelMode, MapUtil.getMiddleWayPoints(wayPoints));
 
-          // wayPoints.push({location: evt.latLng});
+
         });
 
         directionsDisplay.addListener('directions_changed', function() {
@@ -120,6 +122,9 @@ class RouteBuilder extends React.Component {
           };
           let updatedRoute = merge({}, that.state.route, route);
           that.setState({ route: updatedRoute });
+          let arr = that.state.history;
+          arr.push(markerCoords);
+          that.setState({ history: arr });
         });
       });
       // //////////////////////////////////////////////////
@@ -212,8 +217,11 @@ class RouteBuilder extends React.Component {
           };
           let updatedRoute = merge({}, that.state.route, route);
           that.setState({ route: updatedRoute, dirDisplay: directionsDisplay });
-          console.log(that.state.route);
-          // console.log(directionsDisplay.getDirections());
+
+          let arr = that.state.history;
+          arr.push(markerCoords);
+          that.setState({ history: arr });
+          console.log(that.state.history)
         });
 
 
@@ -331,6 +339,9 @@ class RouteBuilder extends React.Component {
         };
         let updatedRoute = merge({}, that.state.route, route);
         that.setState({ route: updatedRoute });
+        let arr = that.state.history;
+        arr.push(markerCoords);
+        that.setState({ history: arr });
       });
   });
   }
@@ -355,12 +366,11 @@ class RouteBuilder extends React.Component {
     return (e) => {
       let route = { activity_type: type};
       let updatedRoute = merge({}, this.state.route, route);
-      console.log(updatedRoute);
-      console.log(type);
       this.setState({WALKING: "", BICYCLING: "" });
       this.setState({ activity_type: type, [type]: "selected" });
 
       this.setState({route: updatedRoute }, () => {
+        // reroute directions service after button click changes state
         let last = this.state.route.marker_coordinates.length - 1;
         MapUtil.displayRoute(MapUtil.coordsObjFromArray(this.state.route.marker_coordinates[0], this.state.route.marker_coordinates[1]), MapUtil.coordsObjFromArray(this.state.route.marker_coordinates[last-1], this.state.route.marker_coordinates[last]), this.state.service, this.state.dirDisplay, this.state.route.activity_type, MapUtil.getWayPoints(this.state.route.marker_coordinates));
       });
@@ -368,6 +378,26 @@ class RouteBuilder extends React.Component {
   }
 
 
+  undo() {
+    if (this.state.history.length < 2) {
+      return;
+    }
+    const route = { marker_coordinates: this.state.history[this.state.history.length-2]};
+    const blank = { marker_coordinates: "" };
+    const reset = merge({}, this.state.route, blank);
+    const updatedRoute = merge({}, reset, route);
+    console.log(updatedRoute);
+
+    this.setState({route: updatedRoute}, () => {
+      // reroute directions service after button click changes state
+      let last = this.state.route.marker_coordinates.length - 1;
+      MapUtil.displayRoute(MapUtil.coordsObjFromArray(this.state.route.marker_coordinates[0], this.state.route.marker_coordinates[1]), MapUtil.coordsObjFromArray(this.state.route.marker_coordinates[last-1], this.state.route.marker_coordinates[last]), this.state.service, this.state.dirDisplay, this.state.route.activity_type, MapUtil.getWayPoints(this.state.route.marker_coordinates));
+      const arr = this.state.history;
+      arr.pop();
+      arr.pop();
+      this.setState({history: arr});
+    });
+  }
 
   toggleModal() {
     this.state.modal === "hidden" ? this.setState({modal: "modal-background"}) : this.setState({modal: "hidden"})
@@ -396,6 +426,9 @@ class RouteBuilder extends React.Component {
                 </li>
                 <li>
                   <button className={that.state.WALKING} onClick={that.toggleActivityType("WALKING")}><i className="fas fa-shoe-prints"></i>Run</button>
+                </li>
+                <li>
+                  <button onClick={that.undo}><i className="fas fa-undo"></i>Undo</button>
                 </li>
               </ul>
               <ul>

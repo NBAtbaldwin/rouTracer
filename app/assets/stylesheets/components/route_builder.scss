@@ -84,6 +84,16 @@
 
       }
 
+      li:last-child > button:active {
+        background: linear-gradient(#666, #777);
+        transition: all 80ms linear;
+        color: white;
+
+        & > i {
+          color: white;
+        }
+      }
+
       .selected {
         background: linear-gradient(#666, #777);
         transition: all 80ms linear;

@@ -13,7 +13,8 @@
   -get background images to change on each request by adding a randomizer for css class
 
 -routeBuilder to-do:
-  -record elevation gain
   -add undo button
-  -dispay mile markers
-  -fix biking/running toggle bug
+  -add clear button
+  -record elevation gain
+  -display mile markers
+  -add waypoints by clicking on current route
