@@ -221,7 +221,6 @@ class RouteBuilder extends React.Component {
           let arr = that.state.history;
           arr.push(markerCoords);
           that.setState({ history: arr });
-          console.log(that.state.history)
         });
 
 
@@ -386,7 +385,6 @@ class RouteBuilder extends React.Component {
     const blank = { marker_coordinates: "" };
     const reset = merge({}, this.state.route, blank);
     const updatedRoute = merge({}, reset, route);
-    console.log(updatedRoute);
 
     this.setState({route: updatedRoute}, () => {
       // reroute directions service after button click changes state
