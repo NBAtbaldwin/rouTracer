@@ -31,6 +31,42 @@ export const distanceThisWeek = (activities) => {
   return sortedOutput;
 }
 
+export const distanceAllWeeks = (activities) => {
+  const output = [];
+  let oldestSunday = getNearestSunday(getOldestActivity(activities));
+  const sundayArray = makeSundayArray(oldestSunday);
+
+  sundayArray.forEach( sunday => {
+    let week = [];
+    [6,5,4,3,2,1,0].forEach((num,i) => {
+      let day = new Date(sunday - (1000*60*60*24*num));
+      week.push({ date: day.getDay(), distance: 0, formattedDate: day, weekday: DAYS[day.getDay()], duration: 0, elevation: 0, });
+    });
+
+    activities.forEach((activity) => {
+      let workoutDate = parseDate(activity.date);
+      if (daysBetween(workoutDate, sunday) <= 7) {
+
+        week.forEach((obj, idx) => {
+          if (obj.formattedDate.getDate() === workoutDate.getDate()) {
+            week[idx].distance += activity.distance;
+            week[idx].duration += activity.duration;
+            week[idx].elevation += activity.elevation;
+          }
+        })
+
+      }
+    });
+
+    output.push(week);
+
+  });
+
+  return output;
+}
+
+
+
 export const totalField = (activities, field) => {
   let output = 0;
   activities.forEach((activity) => {
@@ -79,4 +115,31 @@ export const emptyDateData = () => {
   });
 
   return output;
+}
+
+export const getNearestSunday = (date) => {
+  let millisecs = date.getTime();
+  while (new Date(millisecs).getDay() !== 0) {
+    millisecs = millisecs + (1000*60*60*24);
+  }
+  return new Date(millisecs);
+}
+
+export const getOldestActivity = (activities) => {
+  const sorted = activities.sort((a, b) => {
+    if (new Date(a.date) > new Date(b.date)) return 1;
+    if (new Date(a.date) < new Date(b.date)) return -1;
+    return 0;
+  });
+  let oldest = sorted[0];
+  return new Date(oldest.date)
+}
+
+const makeSundayArray = (oldestSunday) => {
+  const sundays = [oldestSunday];
+  while (oldestSunday < getNearestSunday(new Date())) {
+    oldestSunday = new Date(oldestSunday.getTime() + (1000*60*60*24*7))
+    sundays.push(oldestSunday)
+  }
+  return sundays;
 }

@@ -111,7 +111,7 @@ class LowerPanel extends React.Component {
 
   }
 }
-"fas fa-walking"
+// "fas fa-walking"
 
 
 export default LowerPanel;

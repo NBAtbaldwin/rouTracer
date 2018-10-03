@@ -60,7 +60,7 @@ class NavBar extends React.Component {
                 </ul>
                 <ul onMouseOver={this.makeHidden("training")} onMouseOut={this.makeDisplayed("training")}><Link to="/training">Training<i className="fas fa-chevron-down"></i></Link>
                   <ul className={this.state.training}>
-                    <li><Link to="/dashboard">Training Log</Link></li>
+                    <li><Link to="/training_log">Training Log</Link></li>
                     <li><Link to="/routes">My Activities</Link></li>
                   </ul>
                 </ul>
