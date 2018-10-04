@@ -23,7 +23,17 @@ export const hrsMins = (seconds) => {
   return hrs+"h"+mins+"m";
 }
 
-
+export const activityChartTime = (seconds) => {
+  let hrsFl = seconds/3600;
+  let minsFl = (hrsFl - parseInt(hrsFl))*60;
+  let secsFl = (minsFl - parseInt(minsFl))*60;
+  let hrs = "";
+  let mins = "";
+  let secs = "";
+  hrs = `${parseInt(hrsFl).toString()}`;
+  mins = `${parseInt(minsFl).toString()}`;
+  return hrs+"h "+mins+"m";
+}
 
 export const hrs = (seconds) => {
   return parseInt(seconds/3600)

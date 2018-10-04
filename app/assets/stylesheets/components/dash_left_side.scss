@@ -78,6 +78,10 @@
 
     p {
       font-size: 14px;
+
+      a {
+        color: black;
+      }
     }
 
     i {
@@ -85,6 +89,18 @@
       margin-top: 0px;
       font-size: 20px;
       color: #606065;
+    }
+  }
+
+  & div:last-child:hover > {
+    p {
+      a {
+        color: #005b83;
+      }
+    }
+
+    i {
+      color: #005b83;
     }
   }
 

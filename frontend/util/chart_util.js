@@ -4,7 +4,7 @@ export const distanceThisWeek = (activities) => {
 
   [6,5,4,3,2,1,0].forEach((num,i) => {
     let day = new Date(today - (1000*60*60*24*num));
-    output.push({ date: day.getDay(), distance: 0, formattedDate: day, weekday: DAYS[day.getDay()], duration: 0, elevation: 0, });
+    output.push({ date: day.getDay(), distance: 0, formattedDate: day, weekday: DAYS[day.getDay()], duration: 0, elevation: 0 });
   });
 
   activities.forEach((activity) => {
@@ -31,7 +31,7 @@ export const distanceThisWeek = (activities) => {
   return sortedOutput;
 }
 
-export const distanceAllWeeks = (activities) => {
+export const distanceAllWeeks = (activities, type) => {
   const output = [];
   let oldestSunday = getNearestSunday(getOldestActivity(activities));
   const sundayArray = makeSundayArray(oldestSunday);
@@ -40,7 +40,7 @@ export const distanceAllWeeks = (activities) => {
     let week = [];
     [6,5,4,3,2,1,0].forEach((num,i) => {
       let day = new Date(sunday - (1000*60*60*24*num));
-      week.push({ date: day.getDay(), distance: 0, formattedDate: day, weekday: DAYS[day.getDay()], duration: 0, elevation: 0, });
+      week.push({ date: day.getDay(), distance: 0, formattedDate: day, weekday: DAYS[day.getDay()], duration: 0, elevation: 0, index: 1 });
     });
 
     activities.forEach((activity) => {
@@ -48,10 +48,12 @@ export const distanceAllWeeks = (activities) => {
       if (daysBetween(workoutDate, sunday) <= 7) {
 
         week.forEach((obj, idx) => {
-          if (obj.formattedDate.getDate() === workoutDate.getDate()) {
-            week[idx].distance += activity.distance;
+          if (obj.formattedDate.getDate() === workoutDate.getDate() && activity.activity_type === type) {
+            week[idx].distance += parseInt(activity.distance);
             week[idx].duration += activity.duration;
             week[idx].elevation += activity.elevation;
+            week[idx].id = activity.id;
+            week[idx].title = activity.title
           }
         })
 
@@ -62,7 +64,7 @@ export const distanceAllWeeks = (activities) => {
 
   });
 
-  return output;
+  return output.reverse();
 }
 
 
@@ -141,5 +143,40 @@ const makeSundayArray = (oldestSunday) => {
     oldestSunday = new Date(oldestSunday.getTime() + (1000*60*60*24*7))
     sundays.push(oldestSunday)
   }
+  if (sundays[sundays.length-1].getDate() > getNearestSunday(new Date()).getDate()) {
+    sundays.pop();
+    return sundays;
+  }
   return sundays;
+}
+
+export const parseDomain = (data, metric) => {
+  return [
+    0,
+    Math.max.apply(null, [
+      data.map(entry => entry[metric])
+    ])
+  ];
+};
+
+export const chartDateRangeLabel = (week) => {
+  const month1 = week[0].formattedDate.toString().split(" ")[1].toUpperCase();
+  const month2 = week[week.length-1].formattedDate.toString().split(" ")[1].toUpperCase();
+  return `${month1} ${week[0].formattedDate.getDate()}-${month2} ${week[week.length-1].formattedDate.getDate()}`;
+}
+
+export const chartDistLabel = (week) => {
+  let acc = 0
+  week.forEach(el => {
+    acc += el.distance
+  });
+  return acc;
+}
+
+export const chartTimeLabel = (week) => {
+  let acc = 0
+  week.forEach(el => {
+    acc += el.duration;
+  });
+  return acc;
 }

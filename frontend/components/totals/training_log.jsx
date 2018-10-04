@@ -2,33 +2,69 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import { withRouter } from 'react-router';
 import * as ConversionUtil from "./../../util/conversion_util";
-import { ScatterChart, Scatter, Line, XAxis, YAxis, ZAxis, Tooltip, Legend, Bar} from 'recharts';
+import { CartesianGrid, LabelList, ScatterChart, Scatter, Line, XAxis, YAxis, ZAxis, Tooltip, Legend, Bar} from 'recharts';
 import * as ChartUtil from "./../../util/chart_util";
 import NavbarLoggedInContainer from "./../navbar_loggedIn_container";
 import FooterContainer from "./../footer_container";
-
+import ActivityChart from './training_chart';
 
 class TrainingLog extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      open: false,
+      activityType: 'WALKING',
+      metric: 'distance'
+    };
+  }
 
   componentDidMount() {
     this.props.fetchActivities();
   }
 
-  renderTooltip(props) {
-    const { active, payload } = props;
+  toggleDropdown() {
+    this.setState({ open: !this.state.open });
+  }
 
-    if (active && payload && payload.length) {
-      const data = payload[0].payload;
-
-      return (
-        <div style={{ backgroundColor: '#ccc', border: '5px solid #999', margin: 0, padding: 10 }}>
-          <p>{data.formattedDate.toString()}</p>
-          <p><span>distance: </span>{data.distance}</p>
-        </div>
-      );
+  toggleActivity(type) {
+    return () => {
+      this.setState({activityType: type});
     }
+  }
 
-    return null;
+  toggleMetric(type) {
+    return () => {
+      this.setState({metric: type});
+    }
+  }
+
+  createMetricDropdown() {
+    return (
+      <section
+        onBlur={() => this.toggleDropdown()}
+        onFocus={() => this.toggleDropdown()}
+        tabIndex="0"
+        ><span>{this.state.metric}<i className="fas fa-caret-down"></i></span>
+        <div>
+          {this.state.open && (
+            <ul>
+              <li onClick={this.toggleMetric("duration")}>Duration</li>
+              <li onClick={this.toggleMetric("distance")}>Distance</li>
+            </ul>
+          )}
+        </div>
+
+      </section>
+    );
+  }
+
+  createActivityButtons() {
+    return (
+      <div>
+        <div onClick={this.toggleActivity("WALKING")} className={this.state.activityType === 'WALKING' ? 'selected' : ''}>Running</div>
+        <div onClick={this.toggleActivity("BICYCLING")} className={this.state.activityType === 'BICYCLING' ? 'selected' : ''}>Cycling</div>
+      </div>
+    )
   }
 
   render() {
@@ -37,32 +73,73 @@ class TrainingLog extends React.Component {
         <div className="traininglog-master">
           <NavbarLoggedInContainer />
           <div className="traininglog-container">
-
+            <div>
+              <div>
+                <h1>Training Log</h1>
+                {this.createActivityButtons()}
+              </div>
+              <div>
+                {this.createMetricDropdown()}
+                <ul>
+                  <li>Mon</li>
+                  <li>Tue</li>
+                  <li>Wed</li>
+                  <li>Thu</li>
+                  <li>Fri</li>
+                  <li>Sat</li>
+                  <li>Sun</li>
+                </ul>
+              </div>
+            </div>
           </div>
           <FooterContainer />
         </div>
       )
     } else {
-      // const weeklyTotal = ChartUtil.distanceThisWeek(this.props.activities);
-      const allActivities = ChartUtil.distanceAllWeeks(this.props.activities);
+      const activities = this.props.activities
+      const domain = ChartUtil.parseDomain(activities)
+      const allActivities = ChartUtil.distanceAllWeeks(activities, this.state.activityType);
+
       return (
         <div className="traininglog-master">
           <NavbarLoggedInContainer />
           <div className="traininglog-container">
             <div>
-              {
-                allActivities.map( (week, idx) => {
-                  return(
-                    <ScatterChart width={500} height={60} margin={{top: 10, right: 0, bottom: 0, left: 0}}>
-                      <XAxis type="category" dataKey="weekday" interval={0} tick={{ fontSize: 0 }} tickLine={{ transform: 'translate(0, -6)' }} />
-                      <YAxis type="number" dataKey="distance" name={week[0].formattedDate.getDate()} height={10} width={80} tick={false} tickLine={false} axisLine={false} label={{ value: `${week[0].formattedDate.getDate()}`, position: 'insideRight' }}/>
-                      <ZAxis type="number" dataKey="distance" domain={10} range={[10, 225]} />
-                      <Tooltip cursor={{strokeDasharray: '3 3'}} wrapperStyle={{ zIndex: 100 }} content={this.renderTooltip} />
-                      <Scatter data={week} fill='#8884d8'/>
-                    </ScatterChart>
-                  );
-                })
-              }
+              <div>
+                <h1>Training Log</h1>
+                {this.createActivityButtons()}
+              </div>
+              <div>
+                {this.createMetricDropdown()}
+                <ul>
+                  <li>Mon</li>
+                  <li>Tue</li>
+                  <li>Wed</li>
+                  <li>Thu</li>
+                  <li>Fri</li>
+                  <li>Sat</li>
+                  <li>Sun</li>
+                </ul>
+              </div>
+              <section>
+                {
+                  allActivities.map( (week, idx) => {
+                    const timeTotal = ChartUtil.chartTimeLabel(week);
+                    const distTotal = ChartUtil.chartDistLabel(week);
+                    const dateRange = ChartUtil.chartDateRangeLabel(week);
+                    return(
+                      <div className="week-container">
+                        <ul>
+                          <li>{dateRange}</li>
+                          <li>{this.state.metric === "distance" ? timeTotal > 0 ? `${ConversionUtil.activityChartTime(timeTotal)}` : "--:--" : `${distTotal} mi`}</li>
+                          <li>{this.state.metric === "duration" ? timeTotal > 0 ? `${ConversionUtil.activityChartTime(timeTotal)}` : "--:--" : `${distTotal} mi`}</li>
+                        </ul>
+                        <ActivityChart week={week} activities={activities} activityType = {this.state.activityType} metric={this.state.metric} />
+                      </div>
+                    );
+                  })
+                }
+              </section>
             </div>
           </div>
           <FooterContainer />

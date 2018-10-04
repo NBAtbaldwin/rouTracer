@@ -27,8 +27,8 @@ const TopPanel = ({activities, currentUser, routeNum}) => {
             <p><strong>{activities[0].title} —</strong> {activities[0].date}</p>
           </div>
           <div>
-            <p>Your Training Log</p>
-            <i className="fas fa-chevron-right"></i>
+            <p><Link to="/training_log">Your Training Log</Link></p>
+            <Link to="/training_log"><i className="fas fa-chevron-right"></i></Link>
           </div>
         </div>
       )
