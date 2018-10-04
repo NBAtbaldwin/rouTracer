@@ -10,7 +10,6 @@ const ActivityChart = ({week, activities, activityType, metric}) => {
 
     if (active && payload && payload.length) {
       const data = payload[0].payload;
-      console.log(data)
 
       return (
         <div style={{ backgroundColor: 'white', border: '1px solid #999', margin: 0, padding: 10, fontSize: 12, }}>
