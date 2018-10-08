@@ -30,7 +30,7 @@ export const logout = () => {
 export const receiveCurrentUser = (currentUser) => {
   return {
     type: RECEIVE_CURRENT_USER,
-    currentUser
+    payload: currentUser
   };
 };
 

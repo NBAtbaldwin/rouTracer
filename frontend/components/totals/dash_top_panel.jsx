@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { withRouter } from 'react-router';
 import * as ConversionUtil from "./../../util/conversion_util";
 
-const TopPanel = ({activities, currentUser, routeNum}) => {
+const TopPanel = ({activities, currentUser, routeNum, friends}) => {
   const activitiesFetched = () => {
     if(activities.length > 0) {
       return(
@@ -17,8 +17,8 @@ const TopPanel = ({activities, currentUser, routeNum}) => {
                 <li>{activities.length}</li>
               </ul>
               <ul>
-                <li>Routes</li>
-                <li>{routeNum}</li>
+                <li>Friends</li>
+                <li>{Object.keys(friends).length}</li>
               </ul>
             </div>
           </div>

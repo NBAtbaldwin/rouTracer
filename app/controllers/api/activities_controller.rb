@@ -1,8 +1,14 @@
 class Api::ActivitiesController < ApplicationController
 
   def index
-    @activities = current_user.activities
-    @routes = current_user.routes
+    friend_activities = []
+    friend_routes = []
+    current_user.friends.each do |friend|
+      friend_activities.concat(friend.activities)
+      friend_routes.concat(friend.routes)
+    end
+    @activities = friend_activities.concat(current_user.activities)
+    @routes = friend_routes.concat(current_user.routes)
   end
 
   def show

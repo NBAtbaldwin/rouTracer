@@ -54,6 +54,65 @@
       .workout-feed {
         width: 592px;
         margin: 0px auto;
+        position: relative;
+
+        & > .dropdown:hover, .active {
+          box-shadow: 4px 4px 20px rgba(13,13,18,0.08), -1px -1px 8px rgba(13,13,18,0.02);
+          background-color: white;
+        }
+
+        & > .dropdown {
+          position: absolute;
+          top: -40px;
+          left: -5px;
+          font-weight: 300;
+          width: 144px;
+          height: 40px;
+          display: flex;
+          align-items: center;
+          justify-content: space-around;
+
+          & > section {
+            position: relative;
+            outline: none;
+            width: 144px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            // justify-content: space-around;
+            text-indent: 15px;
+
+            > span > i {
+              margin-left: -10px;
+            }
+
+            > div {
+              position: absolute;
+              left: 0px;
+              top: 40px;
+              background-color: white;
+              z-index: 1;
+
+              > ul {
+                width: 144px;
+                height: 40px;
+                border-top: 1px solid #ccccd1;
+                box-shadow: 4px 4px 20px rgba(13,13,18,0.08), -1px -1px 8px rgba(13,13,18,0.02);
+
+                > li {
+                  margin: auto;
+                  padding: 8px 8px;
+                  text-indent: 8px;
+                }
+
+                > li:hover {
+                  background-color: #f5f5fa;
+                }
+
+              }
+            }
+          }
+        }
       }
 
     }

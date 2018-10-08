@@ -1,10 +1,11 @@
 import { connect } from 'react-redux';
 import TrainingLog from './training_log';
 import { fetchActivities } from "./../../actions/activity_actions";
+import { userActivitySelector } from "./../../reducers/selectors";
 
 const mapStateToProps = (state, ownProps) => ({
   currentUser: state.entities.users[state.session.id],
-  activities: Object.values(state.entities.activities)
+  activities: userActivitySelector(state),
 })
 
 

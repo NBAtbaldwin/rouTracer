@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import * as MapUtil from './../../util/map_util';
 import * as ConversionUtil from "./../../util/conversion_util";
 
-const ActivityShowItem = ({route, activity, currentUser, feed}) => {
+const ActivityShowItem = ({route, activity, currentUser, feed, friends, friendActivities}) => {
   const hasRoute = () => {
     const decodedPoly = google.maps.geometry.encoding.decodePath(route.coordinates_list);
     const codedPoly=route.coordinates_list;

@@ -17,10 +17,19 @@ class User < ApplicationRecord
   validates :password, length: { minimum: 6, allow_nil: true }
 
   after_initialize :ensure_session_token
-  attr_reader :password
+  attr_reader :password, :friends
 
   has_many :routes
   has_many :activities
+
+  has_many :friend_requests,
+  foreign_key: :requestee_id,
+  class_name: :Friendship
+
+  has_many :requested_friends,
+  foreign_key: :requester_id,
+  class_name: :Friendship
+
 
   def self.find_by_credentials(email, password)
     user = User.find_by(email: email)
@@ -41,6 +50,22 @@ class User < ApplicationRecord
     self.session_token = User.generate_session_token
     save!
     self.session_token
+  end
+
+  def friends
+    friends = []
+    friendships = Friendship.where("requestee_id = ? OR requester_id = ?", self.id, self.id).where(status: 'accepted')
+    return [] unless friendships
+    friendships.each do |friendship|
+      friendship.requestee_id == self.id ? friends << User.where(id: friendship.requester_id).includes(:activities).includes(:routes).first : friends << User.where(id: friendship.requestee_id).includes(:activities).includes(:routes).first
+    end
+    friends
+  end
+
+  def friend_ids
+    ids = []
+    self.friends.each { |friend| ids << friend.id }
+    {friend_ids: ids}
   end
 
   private

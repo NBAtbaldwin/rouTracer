@@ -7,12 +7,12 @@
 #  duration      :integer          not null
 #  elevation     :integer
 #  activity_type :string           not null
-#  date          :datetime         not null
 #  title         :string           not null
 #  user_id       :integer          not null
 #  route_id      :integer
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
+#  date          :string           not null
 #
 
 class Activity < ApplicationRecord
