@@ -17,7 +17,7 @@ class User < ApplicationRecord
   validates :password, length: { minimum: 6, allow_nil: true }
 
   after_initialize :ensure_session_token
-  attr_reader :password, :friends
+  attr_reader :password
 
   has_many :routes
   has_many :activities
@@ -30,6 +30,11 @@ class User < ApplicationRecord
   foreign_key: :requester_id,
   class_name: :Friendship
 
+  has_many :requestees,
+  through: :requested_friends
+
+  has_many :requesters,
+  through: :friend_requests
 
   def self.find_by_credentials(email, password)
     user = User.find_by(email: email)
@@ -62,10 +67,42 @@ class User < ApplicationRecord
     friends
   end
 
+  def received_requesters
+    pending_friends = []
+    pending_friendships = Friendship.where("requestee_id = ?", self.id).where(status: 'pending')
+    return [] unless pending_friendships
+    pending_friendships.each do |friendship|
+      pending_friends << self.requesters.where(id: friendship.requester_id).includes(:activities).includes(:routes).first
+    end
+    pending_friends
+  end
+
+  def sent_requestees
+    pending_friends = []
+    pending_friendships = Friendship.where("requester_id = ?", self.id).where(status: 'pending')
+    return [] unless pending_friendships
+    pending_friendships.each do |friendship|
+      pending_friends << self.requestees.where(id: friendship.requestee_id).includes(:activities).includes(:routes).first
+    end
+    pending_friends
+  end
+
   def friend_ids
     ids = []
     self.friends.each { |friend| ids << friend.id }
     {friend_ids: ids}
+  end
+
+  def requester_ids
+    ids = []
+    self.received_requesters.each { |requester| ids << requester.id }
+    return {requester_ids: ids}
+  end
+
+  def requested_ids
+    ids = []
+    self.sent_requestees.each { |requestee| ids << requestee.id }
+    return {requested_ids: ids}
   end
 
   private

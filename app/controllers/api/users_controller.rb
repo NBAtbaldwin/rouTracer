@@ -5,6 +5,8 @@ class Api::UsersController < ApplicationController
      login(@user)
      @friends = @user.friends
      @friend_ids = @user.friend_ids
+     @requested_ids = @user.requested_ids
+     @requester_ids = @user.requester_ids
      render :show
    else
      render json: @user.errors.full_messages, status: 422
@@ -15,6 +17,8 @@ class Api::UsersController < ApplicationController
     @user = User.find(params[:id])
     @friends = @user.friends
     @friend_ids = @user.friend_ids
+    @requested_ids = @user.requested_ids
+    @requester_ids = @user.requester_ids
     render :show
   end
 

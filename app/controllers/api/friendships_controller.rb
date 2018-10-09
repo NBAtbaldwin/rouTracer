@@ -7,18 +7,27 @@ class Api::FriendshipsController < ApplicationController
     if friendship.save
       @friends = @user.friends
       @friend_ids = @user.friend_ids
+      @requester_ids = @user.requester_ids
+      @requested_ids = @user.requested_ids
       render 'api/users/show'
     else
       render json: friendship.errors.full_messages
     end
   end
 
-  def update
-    friendship = Friendship.find(params[:id])
+  def index
+    @user = current_user
+    @pending_friends = @user.received_requesters
+  end
 
+  def update
+    friendship = Friendship.where(requester_id: params[:friendship][:requester_id]).where(requestee_id: params[:friendship][:requestee_id])
+    @user = current_user
     if friendship.update(friendship_params)
       @friends = @user.friends
       @friend_ids = @user.friend_ids
+      @requester_ids = @user.requester_ids
+      @requested_ids = @user.requested_ids
       render 'api/users/show'
     else
       render json: friendship.errors.full_messages
@@ -27,7 +36,14 @@ class Api::FriendshipsController < ApplicationController
 
   def destroy
     friendship = Friendship.find(params[:id])
-    friendship.destroy
+    if friendship.destroy
+      @user = current_user
+      @friends = @user.friends
+      @friend_ids = @user.friend_ids
+      @requester_ids = @user.requester_ids
+      @requested_ids = @user.requested_ids
+      render 'api/users/show'
+    end
   end
 
 private

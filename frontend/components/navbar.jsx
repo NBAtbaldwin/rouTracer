@@ -72,7 +72,7 @@ class NavBar extends React.Component {
                 </div>
                 <i className="fas fa-chevron-down"></i>
                 <ul className={this.state.profPic}>
-                  <li><Link to="/profile">My Profile</Link></li>
+                  <li><Link to={`/profile/${this.props.currentUser.id}`}>My Profile</Link></li>
                   <li onClick={this.props.logout}>Log Out</li>
                 </ul>
               </li>

@@ -13,12 +13,13 @@ const usersReducer = (oldState = {}, action) => {
       friends = action.payload.friends;
       currentUser = { [action.payload.user.id]: action.payload.user };
       newState = merge({}, friends, currentUser);
-      console.log(newState);
       return merge({}, oldState, newState);
     case LOGOUT_CURRENT_USER:
       return {};
     case RECEIVE_USER:
-      newState = action.payload.friends;
+      friends = action.payload.friends;
+      currentUser = { [action.payload.user.id]: action.payload.user };
+      newState = merge({}, friends, currentUser);
       return merge({}, oldState, newState);
     case RECEIVE_USERS:
       newState = action.users;

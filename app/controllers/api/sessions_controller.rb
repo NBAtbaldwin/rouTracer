@@ -9,6 +9,8 @@ class Api::SessionsController < ApplicationController
       login(@user)
       @friends = @user.friends
       @friend_ids = @user.friend_ids
+      @requested_ids = @user.requested_ids
+      @requester_ids = @user.requester_ids
       render 'api/users/show'
     else
       render json: ["invalid credentials"], status: 401

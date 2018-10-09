@@ -16,6 +16,7 @@ import ActivityFormContainer from "./activities/activity_form_container";
 import EditActivityFormContainer from "./activities/edit_activity_form_container";
 import ActivityShowContainer from "./activities/activity_show_container";
 import TrainingLogContainer from "./totals/training_log_container";
+import ProfileContainer from "./profile/profile_container";
 
   const App = () => (
     <div id="main">
@@ -33,6 +34,7 @@ import TrainingLogContainer from "./totals/training_log_container";
       <ProtectedRoute exact path='/edit_activity/:activityId' component={EditActivityFormContainer} />
       <ProtectedRoute exact path='/activities/:activityId' component={ActivityShowContainer} />
       <ProtectedRoute exact path='/training_log' component={TrainingLogContainer} />
+      <ProtectedRoute exact path='/profile/:userId' component={ProfileContainer} />
       <AuthRoute path='/login' component={LoginFormContainer} />
       <AuthRoute path='/signup' component={SignupFormContainer} />
       <Route exact path='/' component={GreetingContainer} />

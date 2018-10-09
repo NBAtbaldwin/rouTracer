@@ -19,3 +19,20 @@ export const fetchUser = (id) => dispatch => (
 export const fetchUsers = () => dispatch => (
   UserUtil.getUsers().then((users) => (dispatch(receiveUsers(users))))
 );
+
+export const fetchPendingFriends = () => dispatch => (
+  UserUtil.getPendingFriendshipUsers().then((users) => (dispatch(receiveUsers(users))))
+);
+
+export const createFriendship = friendship => dispatch => (
+  UserUtil.createFriendship(friendship).then((payload) => (dispatch(receiveUser(payload))))
+);
+
+export const updateFriendship = friendship => dispatch => (
+  UserUtil.updateFriendship(friendship).then((payload) => (dispatch(receiveUser(payload))))
+);
+
+export const deleteFriendship = id => dispatch => (
+  ApiUtil.deleteFriendship(id).then((payload) => (dispatch(receieveUser(payload))
+  ))
+);
