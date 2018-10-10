@@ -28,10 +28,11 @@ export const updateFriendship = (friendship) => {
   });
 }
 
-export const deleteFriendship = (id) => {
+export const deleteFriendship = (friendship) => {
   return $.ajax({
     method: "DELETE",
-    url:`/api/friendships/${id}`
+    url:`/api/friendships/${friendship.id}`,
+    data: { friendship }
   });
 }
 

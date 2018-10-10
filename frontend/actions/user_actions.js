@@ -32,7 +32,7 @@ export const updateFriendship = friendship => dispatch => (
   UserUtil.updateFriendship(friendship).then((payload) => (dispatch(receiveUser(payload))))
 );
 
-export const deleteFriendship = id => dispatch => (
-  ApiUtil.deleteFriendship(id).then((payload) => (dispatch(receieveUser(payload))
+export const deleteFriendship = friendship => dispatch => (
+  ApiUtil.deleteFriendship(friendship).then((payload) => (dispatch(receieveUser(payload))
   ))
 );

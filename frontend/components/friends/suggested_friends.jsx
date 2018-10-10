@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 class SuggestedFriends extends React.Component {
   constructor(props) {
     super(props);
-    this.handleConfirm = this.handleCreate.bind(this);
+    this.handleCreate = this.handleCreate.bind(this);
   }
 
   componentDidMount() {

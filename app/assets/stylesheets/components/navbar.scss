@@ -132,11 +132,56 @@
       position: relative;
     }
 
+    > .bell {
+      margin-right: 40px;
+
+      > div {
+        position: relative;
+
+        > i {
+          margin-top: 6px;
+          color: $rt-orange;
+          font-size: 20px;
+        }
+
+        > span {
+          position: absolute;
+          height: 15px;
+          width: 15px;
+          border-radius: 8px;
+          background-color: red;
+          color: white;
+          font-size: 10px;
+          line-height: 16px;
+          text-align: center;
+          font-weight: 300;
+          top: 15px;
+          left: 14px;
+        }
+
+      }
+    }
+
+    & > .bell > .show {
+      width: 158px;
+      display: flex;
+      flex-direction: column;
+      line-height: normal;
+      border: none;
+      z-index: 1;
+      position: absolute;
+      left: -115px;
+      top: 0px;
+    }
+
+
     & > li {
       padding: 0px 15px;
       display: flex;
       align-items: center;
       height: 56px;
+      position: relative;
+
 
       & > .prof-pic {
         height: 34px;

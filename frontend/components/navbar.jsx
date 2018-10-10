@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from "react-router-dom";
+import RequestsContainer from "./friends/requests_container";
 
 class NavBar extends React.Component {
   constructor(props) {
@@ -9,9 +10,14 @@ class NavBar extends React.Component {
       training: "hidden",
       profPic: "hidden",
       addActivity: "hidden",
+      bell: "hidden",
     }
     this.makeHidden = this.makeHidden.bind(this);
     this.makeDisplayed = this.makeDisplayed.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.fetchPendingFriends();
   }
 
   makeHidden(field) {
@@ -61,12 +67,22 @@ class NavBar extends React.Component {
                 <ul onMouseOver={this.makeHidden("training")} onMouseOut={this.makeDisplayed("training")}><Link to="/training">Training<i className="fas fa-chevron-down"></i></Link>
                   <ul className={this.state.training}>
                     <li><Link to="/training_log">Training Log</Link></li>
-                    <li><Link to="/routes">My Activities</Link></li>
                   </ul>
                 </ul>
               </ul>
             </div>
             <div className="profile">
+              <li onMouseOver={this.makeHidden("bell")} onMouseOut={this.makeDisplayed("bell")} className='bell'>
+                <div>
+                  <i className="far fa-bell"></i>
+                  {this.props.pendingFriends && (
+                    <span>{this.props.pendingFriends.length}</span>
+                  )}
+                </div>
+                <ul className={this.state.bell}>
+                  <RequestsContainer />
+                </ul>
+              </li>
               <li onMouseOver={this.makeHidden("profPic")} onMouseOut={this.makeDisplayed("profPic")}>
                 <div className="prof-pic">
                 </div>
