@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Requests from './requests';
-import { fetchUser, fetchPendingFriends, updateFriendship } from "./../../actions/user_actions";
+import { fetchUser, fetchPendingFriends, updateFriendship, deleteFriendship } from "./../../actions/user_actions";
 import { friendsSelector, strangersSelector, pendingFriendsSelector } from "./../../reducers/selectors";
 
 const mapStateToProps = (state, ownProps) => ({
@@ -13,7 +13,7 @@ const mapDispatchToProps = (dispatch) => ({
   fetchUser: (id) => dispatch(fetchUser(id)),
   fetchPendingFriends: () => dispatch(fetchPendingFriends()),
   updateFriendship: (friendship) => dispatch(updateFriendship(friendship)),
-  deleteFriendship: (friendship) => ispatch(deleteFriendship(friendship)),
+  deleteFriendship: (friendship) => dispatch(deleteFriendship(friendship)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Requests);

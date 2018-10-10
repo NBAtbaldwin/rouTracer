@@ -77,7 +77,7 @@ class NavBar extends React.Component {
               <li onMouseOver={this.makeHidden("bell")} onMouseOut={this.makeDisplayed("bell")} className='bell'>
                 <div>
                   <i className="far fa-bell"></i>
-                  {this.props.pendingFriends && (
+                  {this.props.pendingFriends && this.props.pendingFriends.length > 0 && (
                     <span>{this.props.pendingFriends.length}</span>
                   )}
                 </div>

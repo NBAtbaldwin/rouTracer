@@ -11,6 +11,20 @@ Route.destroy_all
 Activity.destroy_all
 Friendship.destroy_all
 
+def adjective
+  text=File.readlines("synonyms.txt").each do |line|
+    line = line.delete("/n")
+  end
+  text.sample
+end
+
+def workout_synonym
+  text=File.readlines("workout-synonyms.txt").each do |line|
+    line = line.delete("/n")
+  end
+  text.sample
+end
+
 def gen_route_name
   Faker::Dota.item
 end
@@ -35,8 +49,9 @@ def gen_description
 end
 
 def gen_activity_name
-  num = rand(2)
-  num == 1 ? Faker::Commerce.promotion_code(digits = 2) : Faker::Cat.registry
+  adj = adjective
+  workout = workout_synonym
+  "#{adj} #{workout}"
 end
 
 def gen_dist

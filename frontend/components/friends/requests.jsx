@@ -21,7 +21,7 @@ class Requests extends React.Component {
 
   handleDelete(userId, pendingId) {
     return () => {
-      this.props.deleteFriendship({requestee_id: userId, requester_id: friendId, status: 'denied' })
+      this.props.deleteFriendship({requestee_id: userId, requester_id: pendingId, status: 'denied' })
     }
   }
 
