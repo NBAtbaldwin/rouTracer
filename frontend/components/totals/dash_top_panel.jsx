@@ -10,7 +10,7 @@ const TopPanel = ({activities, currentUser, routeNum, friends}) => {
         <div className="dash-top-container">
           <div>
             <div></div>
-            <p>{currentUser.email}</p>
+            <p><Link to={`profile/${currentUser.id}`}>{currentUser.email}</Link></p>
             <div>
               <ul>
                 <li>Activities</li>

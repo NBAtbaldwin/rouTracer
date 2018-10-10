@@ -23,8 +23,12 @@
 
     & > p {
       margin-top: 12px;
-      font-weight: 400;
-      font-size: 18px;
+      
+        > a {
+        font-weight: 400;
+        font-size: 18px;
+        color: black;
+      }
     }
 
     & > div:last-child {

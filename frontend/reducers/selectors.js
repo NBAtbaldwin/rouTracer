@@ -24,11 +24,12 @@ export const friendsRouteSelector = (state) => {
   return output;
 }
 
-export const routeSelectorHash = (state) => {
-  let routes = state.entities.routes;
+export const routeSelectorHash = (state, userId) => {
+  if (!userId) { userId = state.session.id };
   const output = {};
+  let routes = state.entities.routes;
   Object.keys(routes).forEach( key => {
-    if (routes[key].user_id == state.session.id) {
+    if (routes[key].user_id == userId) {
       output[key] = routes[key];
     }
   });
@@ -72,12 +73,28 @@ export const friendsActivitySelector = (state) => {
   return output;
 }
 
-export const friendsSelector = (state) => {
+export const agnosticActivitySelector = (state, userId) => {
   let users = state.entities.users;
-  let currentUser = users[state.session.id];
+  let currentUser = users[userId];
+  let vals = values(state.entities.activities);
+  const output = [];
+  if (!currentUser) { return output };
+  vals.forEach( val => {
+    if (val.user_id == currentUser.id) {
+      output.push(val)
+    }
+  });
+  return output;
+}
+
+export const friendsSelector = (state, userId) => {
+  if (!userId) { userId = state.session.id };
+  let users = state.entities.users;
+  let currentUser = users[userId];
   const output = {};
+  if (!currentUser || !currentUser.friend_ids) { return output }
   Object.keys(users).forEach( id => {
-    if (id != state.session.id && currentUser.friend_ids.includes(parseInt(id))) {
+    if (id != userId && currentUser.friend_ids.includes(parseInt(id))) {
       output[id] = users[id];
     }
   });

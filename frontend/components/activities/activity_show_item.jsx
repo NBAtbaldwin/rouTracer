@@ -27,7 +27,7 @@ const ActivityShowItem = ({route, activity, currentUser, feed, friends, friendAc
           </div>
           <ul>
             <ul>
-              <header>{currentUser.email}</header>
+              <header><Link to={`profile/${currentUser.id}`}>{currentUser.email}</Link></header>
               <li>On {activity.date}</li>
               <li><Link to={`/activities/${activity.id}`}>{activity.title}</Link></li>
               <li>{route.description}</li>

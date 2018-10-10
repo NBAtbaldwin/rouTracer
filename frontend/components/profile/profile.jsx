@@ -10,22 +10,44 @@ class Profile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      overview: false,
-      friends: true,
+      overview: true,
+      friends: false,
       followRequests: false,
     }
     this.handleConfirm = this.handleConfirm.bind(this);
+    this.handleCreate = this.handleCreate.bind(this);
   }
 
   componentDidMount() {
-    this.props.fetchPendingFriends();
     this.props.fetchUser(this.props.match.params.userId);
+    this.props.fetchPendingFriends();
     this.props.fetchActivities()
+  }
+
+  componentWillReceiveProps(nextProps){
+    if (this.props.match.params.userId !== nextProps.match.params.userId) {
+      this.props.fetchUser(nextProps.match.params.userId);
+      this.props.fetchPendingFriends();
+      this.props.fetchActivities();
+      this.setState({
+        overview: false,
+        friends: true,
+        followRequests: false,
+      });
+    }
   }
 
   handleConfirm(userId, friendId) {
     return () => {
       this.props.updateFriendship({requestee_id: userId, requester_id: friendId, status: 'accepted' }).then(() => (
+        this.props.fetchPendingFriends()
+      ))
+    }
+  }
+
+  handleCreate(userId, suggestedId) {
+    return () => {
+      this.props.createFriendship({requester_id: userId, requestee_id: suggestedId, status: 'pending' }).then(() => (
         this.props.fetchPendingFriends()
       ))
     }
@@ -64,6 +86,21 @@ class Profile extends React.Component {
         }
       }
 
+      const isCurrentUserFriend = (id) => {
+        if (parseInt(id) === this.props.currentUser.id) {
+          return
+        }
+        if (this.props.currentUser.requester_ids.includes(parseInt(id))) {
+          return (
+            <div onClick={this.handleCreate(this.props.currentUser.id, id)}>Confirm</div>
+          )
+        } else if (!this.props.currentUser.friend_ids.includes(parseInt(id)) && !this.props.currentUser.requested_ids.includes(parseInt(id))){
+          return (
+            <div onClick={this.handleCreate(this.props.currentUser.id, id)}>Request to Follow</div>
+          )
+        }
+      }
+
       return (
         <div className='profile-master'>
           <NavbarloggedInContainer />
@@ -91,17 +128,30 @@ class Profile extends React.Component {
                   </ul>
                   <div>
                     <div className={this.state.overview ? "overview" : "hidden"}>
+                      <ul className="feed-items">
+                        {sortedActivities.map((activity, idx) => {
+                          let route = this.props.routes[activity.route_id];
+                          let user = this.props.user
+
+                          return (
+                            <ActivityShowItem key={idx} route={route} activity={activity} currentUser = {user} feed={true} friends={this.props.friends} friendActivities={this.props.friendActivities} />
+                          );
+                        })}
+                      </ul>
                     </div>
                     <div className={this.state.friends ? "friends" : "hidden"}>
                       <ul>
                         {Object.keys(this.props.friends).map((id, idx) => {
                           return (
                             <li key={idx}>
-                              <div className='prof-pic'></div>
-                              <div>
-                                <p><Link to={`${id}`}>{this.props.friends[id].email}</Link></p>
-                                <div></div>
-                              </div>
+                              <section>
+                                <div className='prof-pic'></div>
+                                <div>
+                                  <p><Link to={`${id}`}>{this.props.friends[id].email}</Link></p>
+                                  <div></div>
+                                </div>
+                              </section>
+                              {isCurrentUserFriend(id)}
                             </li>
                           )
                         })}
@@ -126,7 +176,7 @@ class Profile extends React.Component {
                     </div>
                   </div>
                 </div>
-                <div className="dash-lower-left">
+                <div className="lower-left-container">
                   <DashLowerPanelContainer activities={this.props.activities} />
                 </div>
               </section>
@@ -146,7 +196,7 @@ class Profile extends React.Component {
 
     return (
       <div>
-        {this.props.activities && this.props.user ? loaded() : waitingForProps()}
+        {this.props.activities && this.props.user && this.props.user.friend_ids ? loaded() : waitingForProps()}
       </div>
     )
   }
