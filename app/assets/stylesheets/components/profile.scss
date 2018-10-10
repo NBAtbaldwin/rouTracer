@@ -1,0 +1,218 @@
+.profile-master {
+  width: 100%;
+  min-width: 1258px;
+
+  & > .nav-container {
+    background-color: white;
+    // position: fixed;
+    width: 100%;
+
+
+    & > .nav-master-div {
+      margin: auto 20px auto 20px;
+    }
+  }
+}
+
+.profile-body {
+  width: 1258px;
+  min-height: 720px;
+  margin: auto;
+
+  & > div {
+    width: 1218px;
+    margin: auto 20px;
+    display: flex;
+    flex-direction: column;
+
+    & > section:first-child {
+      margin-top: 40px;
+      height: 370px;
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+
+      & > div:first-child {
+        height: 136px;
+        width: 136px;
+        border-radius: 68px;
+        background-image: image_url("profile_placeholder.jpg");
+      }
+
+      & > div:last-child {
+        margin-top: 30px;
+        display: flex;
+        justify-content: space-between;
+
+        > h1 {
+          font-size: 26px;
+          font-weight: 300;
+        }
+
+        > ul {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+
+          > li {
+            font-size: 12px;
+          }
+
+          > li:nth-child(2) {
+            font-size: 50px;
+            font-weight: 400;
+          }
+        }
+      }
+    }
+
+    & > section:nth-child(2) {
+      display: flex;
+      justify-content: space-between;
+
+      & > .tabs {
+        display: flex;
+        flex-direction: column;
+        width: 750px;
+
+        & > ul {
+          display: flex;
+          justify-content: left;
+          border-bottom: 1px solid #ccccd1;
+
+          & > li {
+            padding: 5px 15px;
+            font-size: 14px;
+          }
+
+          & .hidden {
+            display: none;
+          }
+
+          & > .selected {
+            border: 1px solid #ccccd1;
+            border-top: 2px solid $rt-orange;
+            border-bottom: 1px solid white;
+            margin-bottom: -1px;
+            z-index: 1;
+          }
+        }
+
+        & > div {
+
+          > .hidden {
+            display: none;
+          }
+
+          > .friends {
+
+            & > ul {
+              margin-top: 18px;
+              margin-bottom: 10px;
+
+              > li {
+                  display: flex;
+                  justify-content: left;
+                  margin-bottom: 20px;
+                  align-items: center;
+
+
+                & > div:first-child {
+                  height: 50px;
+                  width: 50px;
+                  border-radius: 25px;
+                  background-image: image_url("profile_placeholder.jpg");
+
+                }
+
+                & > div:nth-child(2) {
+                  margin-left: 15px;
+
+                  > p {
+                    font-size: 14px;
+                    font-weight: 500;
+
+                    > a {
+                      color: black;
+                    }
+                  }
+
+                  > div {
+                    font-size: 12px;
+                    font-weight: 700;
+                    color: $rt-orange;
+                    cursor: pointer;
+                  }
+                }
+              }
+            }
+          }
+
+          > .follow-requests {
+            & > ul {
+              margin-top: 18px;
+              margin-bottom: 10px;
+
+              > li {
+                  display: flex;
+                  justify-content: space-between;
+                  margin-bottom: 20px;
+                  align-items: center;
+
+                & > section {
+                  display: flex;
+                  justify-content: left;
+                  align-items: center;
+
+                  & > div:first-child {
+                    height: 50px;
+                    width: 50px;
+                    border-radius: 25px;
+                    background-image: image_url("profile_placeholder.jpg");
+
+                  }
+
+                  & > div:nth-child(2) {
+                    margin-left: 15px;
+
+                    > p {
+                      font-size: 14px;
+                      font-weight: 500;
+
+                      > a {
+                        color: black;
+                      }
+                    }
+
+                  }
+
+                }
+                > div:last-child {
+                  padding: 6px 12px;
+                  border: 1px solid #ccccd1;
+                  margin-right: 0px;
+                  font-size: 14px;
+                  font-weight: 400;
+                  color: white;
+                  background-color: $rt-orange;
+                  cursor: pointer;
+                  border-radius: 2px;
+                }
+
+                > div:last-child:hover {
+                  background-color: $rt-orange-hover;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .dash-lower-left {
+    border-bottom: 1px solid #ccccd1;
+    border-top: 1px solid #ccccd1;
+    margin-top: 32px;
+  }
+}

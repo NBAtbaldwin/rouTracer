@@ -7,6 +7,7 @@ import * as ConversionUtil from "./../util/conversion_util";
 import DashTopPanel from "./totals/dash_top_panel";
 import DashLowerPanelContainer from "./totals/dash_lower_panel_container";
 import * as ChartUtil from "./../util/chart_util";
+import SuggestedFriendsContainer from "./friends/suggested_friends_container";
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -105,6 +106,7 @@ class Dashboard extends React.Component {
                 })}
               </ul>
             </div>
+            <SuggestedFriendsContainer />
           </div>
         </div>
       </div>

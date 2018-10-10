@@ -6,6 +6,7 @@ import { routeSelectorHash, friendsRouteSelectorHash, userActivitySelector, frie
 
 const mapStateToProps = (state, ownProps) => ({
   currentUser: state.entities.users[state.session.id],
+  user: state.entities.users[ownProps.match.params.userId],
   friends: friendsSelector(state),
   activities: userActivitySelector(state),
   friendActivities: friendsActivitySelector(state),

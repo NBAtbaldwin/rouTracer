@@ -17,7 +17,6 @@ import EditActivityFormContainer from "./activities/edit_activity_form_container
 import ActivityShowContainer from "./activities/activity_show_container";
 import TrainingLogContainer from "./totals/training_log_container";
 import ProfileContainer from "./profile/profile_container";
-
   const App = () => (
     <div id="main">
       <header id="master-header">

@@ -89,7 +89,7 @@ export const pendingFriendsSelector = (state) => {
   let currentUser = users[state.session.id];
   const output = [];
   Object.keys(users).forEach( id => {
-    if (currentUser.requester_ids.includes(id)) {
+    if (currentUser.requester_ids.includes(parseInt(id))) {
       output.push(users[id]);
     }
   });
@@ -101,21 +101,22 @@ export const requestedFriendsSelector = (state) => {
   let currentUser = users[state.session.id];
   const output = [];
   Object.keys(users).forEach( id => {
-    if (currentUser.requested_ids.includes(id)) {
+    if (currentUser.requested_ids.includes(parseInt(id))) {
       output.push(users[id]);
     }
   });
   return output;
 }
 
-// export const strangersSelector = (state) => {
-//   let users = state.entities.users;
-//   let currentUser = users[state.session.id];
-//   const output = [];
-//   Object.keys(users).forEach( id => {
-//     if (!currentUser.friend_ids.includes(parseInt(id)) && id != currentUser.id) {
-//       output.push(users[id]);
-//     }
-//   });
-//   return output;
-// }
+export const strangersSelector = (state) => {
+  let users = state.entities.users;
+  let currentUser = users[state.session.id];
+  let associatedIds = currentUser.friend_ids.concat(currentUser.requester_ids).concat(currentUser.requested_ids)
+  const output = [];
+  Object.keys(users).forEach( id => {
+    if (!associatedIds.includes(parseInt(id)) && id != currentUser.id) {
+      output.push(users[id]);
+    }
+  });
+  return output;
+}

@@ -11,8 +11,7 @@ const mapStateToProps = (state, ownProps) => ({
   friendActivities: friendsActivitySelector(state),
   routes: routeSelectorHash(state),
   friendRoutes: friendsRouteSelectorHash(state),
-})
-
+});
 
 const mapDispatchToProps = (dispatch) => ({
   fetchActivities: () => dispatch(fetchActivities()),
