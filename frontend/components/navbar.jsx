@@ -17,7 +17,9 @@ class NavBar extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchPendingFriends();
+    if(this.props.currentUser) {
+      this.props.fetchPendingFriends();
+    }
   }
 
   makeHidden(field) {
