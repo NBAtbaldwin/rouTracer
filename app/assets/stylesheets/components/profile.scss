@@ -44,10 +44,36 @@
         display: flex;
         justify-content: space-between;
 
-        > h1 {
-          font-size: 26px;
-          font-weight: 300;
+        > div:first-child {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+
+          > h1 {
+            font-size: 26px;
+            font-weight: 300;
+            margin-bottom: 10px;
+          }
+
+          > div {
+            padding: 6px 12px;
+            border: 1px solid #ccccd1;
+            margin-right: 0px;
+            font-size: 14px;
+            font-weight: 400;
+            color: white;
+            background-color: $rt-orange;
+            cursor: pointer;
+            border-radius: 2px;
+            text-align: center;
+          }
+
+          > div:hover {
+            background-color: $rt-orange-hover;
+          }
+
         }
+
 
         > ul {
           display: flex;

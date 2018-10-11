@@ -20,7 +20,7 @@ class SearchBar extends Component {
   showUl() {
     let output = false;
     this.props.users.forEach(user => {
-      if (user.email.includes(this.state.searchTerm) && this.state.searchTerm.length > 0) {
+      if (user.email.toLowerCase().includes(this.state.searchTerm) && this.state.searchTerm.length > 0) {
         output = true;
       }
     })
@@ -37,7 +37,7 @@ class SearchBar extends Component {
         return (
           <ul className={this.showUl() === false ? "hidden" : ""}>
             {filteredUsers.map(user => {
-              if (user.email.includes(term) && term.length > 0) {
+              if (user.email.toLowerCase().includes(term) && term.length > 0) {
                 return (
                   <li>
                     <div className='prof-pic'></div>
@@ -76,6 +76,7 @@ class SearchBar extends Component {
 
   }
   searchUpdated (term) {
+    term = term.toLowerCase()
     this.setState({searchTerm: term})
   }
 

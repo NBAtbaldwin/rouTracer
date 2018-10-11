@@ -126,7 +126,10 @@ class Profile extends React.Component {
                   <div className="prof-pic"></div>
                 </div>
                 <div>
-                  <h1>{this.props.user.email}</h1>
+                  <div>
+                    <h1>{this.props.user.email}</h1>
+                    {isCurrentUserFriend(this.props.user.id)}
+                  </div>
                   <ul>
                     <li>Last 4 Weeks</li>
                     <li>{this.props.activities.length}</li>
