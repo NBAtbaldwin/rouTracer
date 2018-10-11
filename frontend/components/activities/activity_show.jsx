@@ -15,7 +15,6 @@ class ActivityShow extends React.Component {
 
   componentDidMount() {
     this.props.fetchActivity(this.props.match.params.activityId).then(() => {
-      console.log(this.props.activity)
       this.props.fetchUser(this.props.activity.user_id)
     })
   }
@@ -23,7 +22,6 @@ class ActivityShow extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (this.props.match.params.activityId !== nextProps.match.params.activityId) {
     this.props.fetchActivity(nextProps.match.params.activityId).then(() => {
-      console.log(this.props.activity)
       this.props.fetchUser(this.props.activity.user_id)
     })
     }

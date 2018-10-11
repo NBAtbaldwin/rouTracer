@@ -23,9 +23,7 @@ class SuggestedFriends extends React.Component {
   }
 
   render() {
-    // console.log(this.props.pendingFriends)
     const noProps = () => {
-      console.log(this.props.friends)
       return (
         <div className="suggested-friends-master">
 

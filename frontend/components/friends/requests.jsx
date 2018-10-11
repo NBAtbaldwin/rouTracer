@@ -26,7 +26,6 @@ class Requests extends React.Component {
   }
 
   render() {
-    // console.log(this.props.pendingFriends)
     const noProps = () => {
       return (
         <ul className="request-master empty">
