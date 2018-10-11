@@ -19,6 +19,7 @@ const mapDispatchToProps = (dispatch) => ({
   fetchPendingFriends: () => dispatch(fetchPendingFriends()),
   updateFriendship: (friendship) => dispatch(updateFriendship(friendship)),
   createFriendship: (friendship) => dispatch(createFriendship(friendship)),
+  deleteFriendship: (friendship) => dispatch(deleteFriendship(friendship)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

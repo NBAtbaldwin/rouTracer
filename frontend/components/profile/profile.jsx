@@ -16,6 +16,7 @@ class Profile extends React.Component {
     }
     this.handleConfirm = this.handleConfirm.bind(this);
     this.handleCreate = this.handleCreate.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   componentDidMount() {
@@ -50,6 +51,12 @@ class Profile extends React.Component {
       this.props.createFriendship({requester_id: userId, requestee_id: suggestedId, status: 'pending' }).then(() => (
         this.props.fetchPendingFriends()
       ))
+    }
+  }
+
+  handleDelete(userId, pendingId) {
+    return () => {
+      this.props.deleteFriendship({requestee_id: userId, requester_id: pendingId, status: 'denied' })
     }
   }
 
@@ -97,6 +104,14 @@ class Profile extends React.Component {
         } else if (!this.props.currentUser.friend_ids.includes(parseInt(id)) && !this.props.currentUser.requested_ids.includes(parseInt(id))){
           return (
             <div onClick={this.handleCreate(this.props.currentUser.id, id)}>Request to Follow</div>
+          )
+        } else if (this.props.currentUser.requested_ids.includes(parseInt(id))) {
+          return (
+            <div onClick={this.handleDelete(this.props.currentUser.id, id)}>Rescind Request</div>
+          )
+        } else if (this.props.currentUser.friend_ids.includes(parseInt(id))) {
+          return (
+            <div onClick={this.handleDelete(this.props.currentUser.id, id)}>Remove Friend</div>
           )
         }
       }
