@@ -35,7 +35,7 @@ class Api::FriendshipsController < ApplicationController
   end
 
   def destroy
-    friendship = Friendship.where(requester_id: params[:friendship][:requester_id]).where(requestee_id: params[:friendship][:requestee_id]).first
+    friendship = Friendship.where(requester_id: params[:friendship][:requester_id]).where(requestee_id: params[:friendship][:requestee_id]).first || Friendship.where(requester_id: params[:friendship][:requestee_id]).where(requestee_id: params[:friendship][:requester_id]).first
     @user = current_user
     if friendship.destroy
       @friends = @user.friends

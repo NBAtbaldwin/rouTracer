@@ -99,7 +99,7 @@ class Profile extends React.Component {
         }
         if (this.props.currentUser.requester_ids.includes(parseInt(id))) {
           return (
-            <div onClick={this.handleCreate(this.props.currentUser.id, id)}>Confirm</div>
+            <div onClick={this.handleConfirm(this.props.currentUser.id, id)}>Confirm</div>
           )
         } else if (!this.props.currentUser.friend_ids.includes(parseInt(id)) && !this.props.currentUser.requested_ids.includes(parseInt(id))){
           return (
