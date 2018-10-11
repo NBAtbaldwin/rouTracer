@@ -1,5 +1,14 @@
 import values from 'lodash/values';
 
+export const allUsersSelector = (state) => {
+  let vals = values(state.entities.users);
+  const output = [];
+  vals.forEach( val => {
+    output.push(val)
+  });
+  return output;
+}
+
 export const routeSelector = (state) => {
   let vals = values(state.entities.routes);
   const output = [];

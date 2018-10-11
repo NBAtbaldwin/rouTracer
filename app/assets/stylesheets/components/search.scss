@@ -1,0 +1,92 @@
+.nav-search {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  > .fa-search {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+
+  > i {
+    margin-left: -24px;
+    margin-right: 36px;
+    z-index: 1;
+    color: #606065;
+  }
+
+  > .search-master {
+    margin-right: 0px;
+    margin-left: 15px;
+    position: relative;
+
+    & > div {
+      height: 40px;
+      display: flex;
+      align-items: center;
+      padding: 0px 36px 0px 10px;
+
+      > .search-input > input {
+        height: 37px;
+        width: 150px;
+        -webkit-appearance: none;
+        border: 1px solid #ccccd1;
+        text-indent: 10px;
+      }
+
+      > .search-input > input:focus {
+        border-color: #007FB6;
+        outline: none;
+      }
+
+      > .hidden {
+        display: none;
+      }
+
+      > ul {
+        position: absolute;
+        top: 38px;
+        background-color: white;
+        width: 350px;
+        border: 1px solid #ccccd1;
+
+        > li {
+            display: flex;
+            justify-content: left;
+            padding: 10px;
+            align-items: center;
+
+          & > div:first-child {
+            height: 50px;
+            width: 50px;
+            border-radius: 25px;
+            background-image: image_url("profile_placeholder.jpg");
+
+          }
+
+          & > div:nth-child(2) {
+            margin-left: 15px;
+
+            > p {
+              font-size: 14px;
+              font-weight: 500;
+
+              > a {
+                color: black;
+              }
+            }
+
+            > div {
+              font-size: 12px;
+              font-weight: 700;
+              color: $rt-orange;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+
+    }
+
+  }
+}
