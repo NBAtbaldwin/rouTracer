@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import RequestsContainer from "./friends/requests_container";
+import SearchContainer from "./search/search_container";
 
 class NavBar extends React.Component {
   constructor(props) {
@@ -11,9 +12,11 @@ class NavBar extends React.Component {
       profPic: "hidden",
       addActivity: "hidden",
       bell: "hidden",
+      search: false,
     }
     this.makeHidden = this.makeHidden.bind(this);
     this.makeDisplayed = this.makeDisplayed.bind(this);
+    this.toggleSearch = this.toggleSearch.bind(this);
   }
 
   componentDidMount() {
@@ -34,6 +37,10 @@ class NavBar extends React.Component {
       this.state.field
       this.setState({[field]: "hidden"});
     }
+  }
+
+  toggleSearch() {
+    this.setState({search: !this.state.search})
   }
 
   render() {
@@ -58,7 +65,17 @@ class NavBar extends React.Component {
               <h1>
                 <Link to="/" className="navbar-logo">RouTracer</Link>
               </h1>
-              <i className="fas fa-search"></i>
+              <div className="nav-search">
+                {!this.state.search && (
+                  <i className="fas fa-search" onClick={this.toggleSearch}></i>
+                )}
+                {this.state.search && (
+                  <SearchContainer />
+                )}
+                {this.state.search && (
+                  <i class="fas fa-times" onClick={this.toggleSearch}></i>
+                )}
+              </div>
               <ul>
                 <ul onMouseOver={this.makeHidden("dashboard")} onMouseOut={this.makeDisplayed("dashboard")}><Link to="/dashboard">Dashboard<i className="fas fa-chevron-down"></i></Link>
                   <ul className={this.state.dashboard}>
