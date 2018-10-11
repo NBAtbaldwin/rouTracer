@@ -28,10 +28,9 @@ class Requests extends React.Component {
   render() {
     // console.log(this.props.pendingFriends)
     const noProps = () => {
-      console.log(this.props.friends)
       return (
-        <ul className="request-master">
-          <li>No pending friend requests</li>
+        <ul className="request-master empty">
+          <li className="empty-requests">No pending friend requests</li>
         </ul>
       )
     }
@@ -44,7 +43,7 @@ class Requests extends React.Component {
                 <li key={idx}>
                   <section>
                     <div className='prof-pic'></div>
-                    <p>{pending.email} requests to follow</p>
+                    <p><Link to={`profile/${pending.id}`}>{pending.email}</Link> wants to follow you</p>
                   </section>
                   <div>
                     <div onClick={this.handleConfirm(this.props.currentUser.id, pending.id)}>Confirm</div>

@@ -43,7 +43,7 @@ class SuggestedFriends extends React.Component {
                   <li key={idx}>
                     <div className='prof-pic'></div>
                     <div>
-                      <p>{suggested.email}</p>
+                      <p><Link to={`profile/${suggested.id}`}>{suggested.email}</Link></p>
                       <div onClick={this.handleCreate(this.props.currentUser.id, suggested.id)}>Request to Follow</div>
                     </div>
                   </li>

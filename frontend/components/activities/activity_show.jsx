@@ -14,12 +14,18 @@ class ActivityShow extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchActivity(this.props.match.params.activityId);
+    this.props.fetchActivity(this.props.match.params.activityId).then(() => {
+      console.log(this.props.activity)
+      this.props.fetchUser(this.props.activity.user_id)
+    })
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.match.params.activityId !== nextProps.match.params.activityId) {
-    this.props.fetchActivity(nextProps.match.params.activityId)
+    this.props.fetchActivity(nextProps.match.params.activityId).then(() => {
+      console.log(this.props.activity)
+      this.props.fetchUser(this.props.activity.user_id)
+    })
     }
   }
 
@@ -30,11 +36,11 @@ class ActivityShow extends React.Component {
   render() {
     const that = this;
     const activityPanel = () => {
-      if (this.props.activity !== undefined) {
+      if (this.props.activity !== undefined && this.props.users[this.props.activity.user_id] !== undefined) {
         return (
           <div className="activity-show-item">
             <ActivityShowDropdownContainer id={this.props.activity.id} />
-            <ActivityShowItem route={this.props.route} activity={this.props.activity} currentUser = {this.props.currentUser} />
+            <ActivityShowItem route={this.props.route} activity={this.props.activity} currentUser = {this.props.users[this.props.activity.user_id]} />
           </div>
         );
       } else {

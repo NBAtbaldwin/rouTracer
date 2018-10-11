@@ -13,8 +13,8 @@ class Api::ActivitiesController < ApplicationController
 
   def show
     @activity = Activity.find(params[:id])
-    @routes = current_user.routes
-    if @activity.user_id == current_user.id
+    @routes = User.find(@activity.user_id).routes
+    if @activity
       render :show
     else
       render json: ["Unauthorized activity request"], status: 401

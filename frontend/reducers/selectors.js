@@ -4,9 +4,7 @@ export const routeSelector = (state) => {
   let vals = values(state.entities.routes);
   const output = [];
   vals.forEach( val => {
-    if (val.user_id === state.session.id) {
-      output.push(val)
-    }
+    output.push(val)
   });
   return output;
 }
