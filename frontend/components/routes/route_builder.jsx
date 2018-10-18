@@ -22,6 +22,7 @@ class RouteBuilder extends React.Component {
       dirDisplay: "",
       service: "",
       history: [],
+      wayPoints: [],
     }
     this.handleSubmit = this.handleSubmit.bind(this);
     this.update = this.update.bind(this);
@@ -75,18 +76,13 @@ class RouteBuilder extends React.Component {
           map: this.map,
         });
         let coords = this.props.route.marker_coordinates
-        // let origin = {
-        //   lat: coords[0],
-        //   lng: coords[1]
-        // };
-        // let end = {
-        //   lat: coords[coords.length-2],
-        //   lng: coords[coords.length-1]
-        // };
+
         that.setState({dirDisplay: directionsDisplay, service: service});
         let travelMode = this.props.route.activity_type;
-        let wayPoints = MapUtil.getWayPointsWithStartEnd(coords);
-        MapUtil.displayRoute(wayPoints[0], wayPoints[wayPoints.length-1], service, directionsDisplay, travelMode, MapUtil.getMiddleWayPoints(wayPoints));
+        this.setState({
+          wayPoints: MapUtil.getWayPointsWithStartEnd(coords)
+        });
+        MapUtil.displayRoute(this.state.wayPoints[0], this.state.wayPoints[this.state.wayPoints.length-1], service, directionsDisplay, travelMode, MapUtil.getMiddleWayPoints(this.state.wayPoints));
 
         poly = new google.maps.Polyline({
           strokeColor: '#000000',
@@ -95,46 +91,18 @@ class RouteBuilder extends React.Component {
         });
         poly.setMap(this.map);
         let marker;
-        // wayPoints.push({location: end });
 
         google.maps.event.addListener(this.map, "click", function(evt) {
 
           that.state.activity_type === 'WALKING' ? travelMode = google.maps.DirectionsTravelMode.WALKING : travelMode = google.maps.DirectionsTravelMode.BICYCLING;
 
-          MapUtil.displayRoute(wayPoints[0], evt.latLng, service, directionsDisplay, travelMode, MapUtil.getMiddleWayPoints(wayPoints));
+          MapUtil.displayRoute(this.state.wayPoints[0], evt.latLng, service, directionsDisplay, travelMode, MapUtil.getMiddleWayPoints(this.state.wayPoints));
 
 
         });
 
-        directionsDisplay.addListener('directions_changed', function() {
-          let distance = MapUtil.getDistance(directionsDisplay);
-          let duration = MapUtil.getDuration(directionsDisplay);
-          let coords = directionsDisplay.getDirections().routes[0].overview_polyline;
-          let markerCoords = MapUtil.getMarkers(directionsDisplay);
-          wayPoints = MapUtil.getWayPointsWithStartEnd(markerCoords);
-          that.state.activity_type === 'WALKING' ? travelMode = google.maps.DirectionsTravelMode.WALKING : travelMode = google.maps.DirectionsTravelMode.BICYCLING;
-          let route = {
-            distance: distance,
-            coordinates_list: coords,
-            est_duration: duration,
-            marker_coordinates: markerCoords,
-            activity_type: travelMode,
-          };
-          let updatedRoute = merge({}, that.state.route, route);
-          that.setState({ route: updatedRoute });
-          let arr = that.state.history;
-          arr.push(markerCoords);
-          that.setState({ history: arr });
-        });
+        directionsDisplay.addListener('directions_changed', this.updateRoute.bind(this, this.state.wayPoints));
       });
-      // //////////////////////////////////////////////////
-      // /////////////////too//////////////////////////////
-      // //////////////////much////////////////////////////
-      // ///////////////////code///////////////////////////
-      // //////////////////////////////////////////////////
-      // //////////////////////////////////////////////////
-      // //////////////////////////////////////////////////
-      // //////////////////////////////////////////////////
         } else {
           // logic for creating new route
         const that = this;
@@ -172,7 +140,7 @@ class RouteBuilder extends React.Component {
         });
         poly.setMap(this.map);
 
-        let wayPoints = []
+        
         let origin = ""
         let marker;
         let travelMode = this.props.defaultRoute.activity_type;
@@ -201,27 +169,7 @@ class RouteBuilder extends React.Component {
 
         });
 
-        directionsDisplay.addListener('directions_changed', function() {
-          let distance = MapUtil.getDistance(directionsDisplay);
-          let duration = MapUtil.getDuration(directionsDisplay);
-          let coords = directionsDisplay.getDirections().routes[0].overview_polyline;
-          let markerCoords = MapUtil.getMarkers(directionsDisplay);
-          wayPoints = MapUtil.getWayPointsWithStartEnd(markerCoords);
-          that.state.route.activity_type === 'WALKING' ? travelMode = google.maps.DirectionsTravelMode.WALKING : travelMode = google.maps.DirectionsTravelMode.BICYCLING;
-          let route = {
-            distance: distance,
-            coordinates_list: coords,
-            est_duration: duration,
-            marker_coordinates: markerCoords,
-            activity_type: travelMode,
-          };
-          let updatedRoute = merge({}, that.state.route, route);
-          that.setState({ route: updatedRoute, dirDisplay: directionsDisplay });
-
-          let arr = that.state.history;
-          arr.push(markerCoords);
-          that.setState({ history: arr });
-        });
+        directionsDisplay.addListener('directions_changed', this.updateRoute.bind(this, wayPoints));
 
 
         // sets geolocation
@@ -291,14 +239,7 @@ class RouteBuilder extends React.Component {
         map: this.map,
       });
       let coords = this.props.route.marker_coordinates
-      // let origin = {
-      //   lat: coords[0],
-      //   lng: coords[1]
-      // };
-      // let end = {
-      //   lat: coords[coords.length-2],
-      //   lng: coords[coords.length-1]
-      // };
+
       that.setState({dirDisplay: directionsDisplay, service: service});
       let travelMode = this.props.route.activity_type;
       let wayPoints = MapUtil.getWayPointsWithStartEnd(coords);
@@ -322,29 +263,33 @@ class RouteBuilder extends React.Component {
         // wayPoints.push({location: evt.latLng});
       });
 
-      directionsDisplay.addListener('directions_changed', function() {
-        let distance = MapUtil.getDistance(directionsDisplay);
-        let duration = MapUtil.getDuration(directionsDisplay);
-        let coords = directionsDisplay.getDirections().routes[0].overview_polyline;
-        let markerCoords = MapUtil.getMarkers(directionsDisplay);
-        wayPoints = MapUtil.getWayPointsWithStartEnd(markerCoords);
-        that.state.activity_type === 'WALKING' ? travelMode = google.maps.DirectionsTravelMode.WALKING : travelMode = google.maps.DirectionsTravelMode.BICYCLING;
-        let route = {
-          distance: distance,
-          coordinates_list: coords,
-          est_duration: duration,
-          marker_coordinates: markerCoords,
-          activity_type: travelMode,
-        };
-        let updatedRoute = merge({}, that.state.route, route);
-        that.setState({ route: updatedRoute });
-        let arr = that.state.history;
-        arr.push(markerCoords);
-        that.setState({ history: arr });
-      });
+      directionsDisplay.addListener('directions_changed', this.updateRoute.bind(this, waypoints));
   });
   }
 };
+
+  updateRoute(wayPoints) {
+    let distance = MapUtil.getDistance(this.state.dirDisplay);
+    let duration = MapUtil.getDuration(this.state.dirDisplay);
+    let coords = this.state.dirDisplay.getDirections().routes[0].overview_polyline;
+    let markerCoords = MapUtil.getMarkers(this.state.dirDisplay);
+    wayPoints = MapUtil.getWayPointsWithStartEnd(markerCoords);
+    let travelMode;
+    this.state.activity_type === 'WALKING' ? travelMode = google.maps.DirectionsTravelMode.WALKING : travelMode = google.maps.DirectionsTravelMode.BICYCLING;
+    let route = {
+      distance: distance,
+      coordinates_list: coords,
+      est_duration: duration,
+      marker_coordinates: markerCoords,
+      activity_type: travelMode,
+    };
+    let updatedRoute = merge({}, this.state.route, route);
+    this.setState({ route: updatedRoute });
+    let arr = this.state.history;
+    arr.push(markerCoords);
+    this.setState({ history: arr });
+    console.log(wayPoints);
+  }
 
   update(field) {
     return (e) => {
