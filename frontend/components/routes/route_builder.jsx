@@ -92,7 +92,7 @@ class RouteBuilder extends React.Component {
         poly.setMap(this.map);
         let marker;
 
-        google.maps.event.addListener(this.map, "click", function(evt) {
+        google.maps.event.addListener(this.map, "click", (evt) => {
 
           that.state.activity_type === 'WALKING' ? travelMode = google.maps.DirectionsTravelMode.WALKING : travelMode = google.maps.DirectionsTravelMode.BICYCLING;
 
