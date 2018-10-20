@@ -188,3 +188,35 @@ export const getMiddleWayPoints = (wayPoints) => {
   });
   return output;
 }
+
+export function currentPosition() {
+  let infoWindow;
+  infoWindow = new google.maps.InfoWindow;
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition((position) => {
+      let pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+      infoWindow.setPosition(pos);
+      infoWindow.setContent('Current position.');
+      infoWindow.open(this.map);
+      this.map.setCenter(pos);
+    }, () => {
+      handleLocationError(true, infoWindow, this.map.getCenter())
+    })} else {
+      handleLocationError(false, infoWindow, this.map.getCenter());
+    }
+}
+
+export const mapOptions = {
+  center: {
+    lat: 40.7831,
+    lng: -73.9712
+  },
+  zoom: 14,
+  zoomControl: true,
+  zoomControlOptions: {
+      position: google.maps.ControlPosition.LEFT_TOP
+  },
+};
