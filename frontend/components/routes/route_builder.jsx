@@ -246,8 +246,10 @@ class RouteBuilder extends React.Component {
 
       that.setState({dirDisplay: directionsDisplay, service: service});
       let travelMode = this.props.route.activity_type;
-      let wayPoints = MapUtil.getWayPointsWithStartEnd(coords);
-      MapUtil.displayRoute(wayPoints[0], wayPoints[wayPoints.length-1], service, directionsDisplay, travelMode, MapUtil.getMiddleWayPoints(wayPoints));
+      this.setState({
+        wayPoints: MapUtil.getWayPointsWithStartEnd(coords)
+      });
+      MapUtil.displayRoute(this.state.wayPoints[0], this.state.wayPoints[this.state.wayPoints.length-1], service, directionsDisplay, travelMode, MapUtil.getMiddleWayPoints(this.state.wayPoints));
 
       poly = new google.maps.Polyline({
         strokeColor: '#000000',
@@ -258,16 +260,16 @@ class RouteBuilder extends React.Component {
       let marker;
       // wayPoints.push({location: end });
 
-      google.maps.event.addListener(this.map, "click", function(evt) {
+      google.maps.event.addListener(this.map, "click", (evt) => {
 
         that.state.activity_type === 'WALKING' ? travelMode = google.maps.DirectionsTravelMode.WALKING : travelMode = google.maps.DirectionsTravelMode.BICYCLING;
 
-        MapUtil.displayRoute(wayPoints[0], evt.latLng, service, directionsDisplay, travelMode, MapUtil.getMiddleWayPoints(wayPoints));
+        MapUtil.displayRoute(this.state.wayPoints[0], evt.latLng, service, directionsDisplay, travelMode, MapUtil.getMiddleWayPoints(this.state.wayPoints));
 
-        // wayPoints.push({location: evt.latLng});
+
       });
 
-      directionsDisplay.addListener('directions_changed', this.updateRoute.bind(this, waypoints));
+      directionsDisplay.addListener('directions_changed', this.updateRoute.bind(this));
   });
   }
 };
