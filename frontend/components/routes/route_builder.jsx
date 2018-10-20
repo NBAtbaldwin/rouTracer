@@ -44,15 +44,15 @@ class RouteBuilder extends React.Component {
         // listens for change in direction directly after user's click
         directionsDisplay.addListener('directions_changed', this.updateRoute.bind(this));
       });
-        } else {
-        // sets geolocation
-        let directionsDisplay = this.initializeMapState.bind(this)();
-        MapUtil.currentPosition.bind(this)();
-        // listens for user's click on map
-        this.mapClickListener.bind(this)();
-        // listens for change in direction directly after user's click
-        directionsDisplay.addListener('directions_changed', this.updateRoute.bind(this));
-      }
+      } else {
+      // sets geolocation
+      let directionsDisplay = this.initializeMapState.bind(this)();
+      MapUtil.currentPosition.bind(this)();
+      // listens for user's click on map
+      this.mapClickListener.bind(this)();
+      // listens for change in direction directly after user's click
+      directionsDisplay.addListener('directions_changed', this.updateRoute.bind(this));
+    }
   };
 
   componentWillReceiveProps(nextProps) {
