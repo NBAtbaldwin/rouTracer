@@ -277,6 +277,7 @@ class RouteBuilder extends React.Component {
                 <input type="hidden" value={that.state.route.est_duration} />
                 <input type="hidden" value={that.state.route.distance} />
                 <input type="hidden" value={that.state.route.marker_coordinates} />
+                <input type="hidden" value={that.state.route.elevation} />
                 <div>
                   <li className="modal-click" onClick={that.toggleModal}>Cancel</li>
                   <button type="submit" value="save">Save</button>

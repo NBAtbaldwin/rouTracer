@@ -7,13 +7,14 @@ export const getElevationPromise = (dirDisplay) => {
     const path = []; dirDisplay.getDirections().routes[0].overview_path.forEach(coordPair => {
       path.push(MapUtil.getCoordsObj(coordPair));
     })
-    let samples = Math.ceil(MapUtil.getDistance(dirDisplay)*20);
+    let samples = Math.ceil(MapUtil.getDistance(dirDisplay)*10);
     if (samples < 2) samples = 2;
     elevator.getElevationAlongPath({
       'path': path,
       'samples': samples
     }, function(results, status) {
       if (status === 'OK') {
+        console.log(results);
         resolve(results)
       } else {
         alert('Could not display elevation due to: ' + status);
@@ -26,16 +27,19 @@ export const parseElevationGain = (elevationResponse) => {
   let total = 0;
   elevationResponse.forEach((elev, idx) => {
     if (idx !== elevationResponse.length -1 && elev.elevation < elevationResponse[idx+1].elevation) {
-      total += elevationResponse[idx+1].elevation - elev.elevation;
+      total += (elevationResponse[idx+1].elevation - elev.elevation)*3.28084;
     }
   });
   return total.toFixed(2);
 }
 
 export const makeElevationObject = (elevationResponse) => {
-  const output = elevationResponse;
-  output.forEach((obj, idx) => {
-    obj.miles = (idx * 0.05).toFixed(2);
+  const output = [];
+  elevationResponse.forEach((obj, idx) => {
+    let dataPoint = {};
+    dataPoint.miles = (idx * 0.1).toFixed(2);
+    dataPoint.elevation = obj.elevation * 3.28084;
+    output.push(dataPoint);
   })
   return output;
 }
