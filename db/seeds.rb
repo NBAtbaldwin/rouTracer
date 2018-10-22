@@ -73,7 +73,18 @@ def gen_dur(route)
   rand(4001)
 end
 
-dates = ['2018-10-09', '2018-10-08', '2018-10-07', '2018-10-06', '2018-10-05', '2018-10-04', '2018-10-03', '2018-10-02', '2018-10-01', '2018-09-30', '2018-09-28', '2018-09-29', '2018-09-25', '2018-09-26', '2018-09-27', '2018-09-23', '2018-09-25', '2018-09-24', '2018-09-22', '2018-09-21', '2018-09-20', '2018-09-18', '2018-09-17', '2018-09-16', '2018-09-06', '2018-09-07', '2018-09-13', '2018-09-15', '2018-09-14', '2018-09-12', '2018-09-11', '2018-09-09', '2018-09-08', '2018-09-07', '2018-09-01', '2018-09-03', '2018-08-21', '2018-08-21', '2018-08-30']
+def gen_dates
+  output = []
+  i = 0
+  40.times do
+    str = "#{(Date::today-i).year}-#{(Date::today-i).month}-#{(Date::today-i).day}"
+    output.push(str)
+    i += 1
+  end
+  output
+end
+
+dates = gen_dates
 
 user_hash = {}
 
@@ -134,6 +145,7 @@ demo_user_friendship_hash = {}
 
 end
 
+# user_hash[rand(21)].id
 
 route1 = Route.create(
   route_name: gen_route_name,
@@ -143,7 +155,7 @@ route1 = Route.create(
   user_id: user_hash[rand(21)].id,
   description: workout_quote,
   est_duration: 8220,
-  elevation: gen_elev,
+  elevation: 364,
   distance: 7.1,
   marker_coordinates:
   [40.7727517,
@@ -173,7 +185,7 @@ route1 = Route.create(
     user_id: user_hash[rand(21)].id,
     description: workout_quote,
     est_duration: 240,
-    elevation: gen_elev,
+    elevation: 847,
     distance: 16.5,
     marker_coordinates:
      [40.8091506,
@@ -194,7 +206,7 @@ route3 = Route.create(
   user_id: user_hash[rand(21)].id,
   description: workout_quote,
   est_duration: 120,
-  elevation: gen_elev,
+  elevation: 594,
   distance: 24.2,
   marker_coordinates: [40.7228638, -74.0047253, 40.6094442, -73.9223133, 40.7340533, -73.9889654])
 
@@ -206,7 +218,7 @@ route2 = Route.create(
   user_id: user_hash[rand(21)].id,
   description: workout_quote,
   est_duration: 8220,
-  elevation: gen_elev,
+  elevation: 364,
   distance: 7.1,
   marker_coordinates:
    [40.7727517,
@@ -234,7 +246,7 @@ route15 = Route.create(
   user_id: user_hash[rand(21)].id,
   description: workout_quote,
   est_duration: 6600,
-  elevation: gen_elev,
+  elevation: 428,
   distance: 20.4,
   marker_coordinates:
    [40.8137626,
@@ -255,7 +267,7 @@ route4 = Route.create(
   user_id: user_hash[rand(21)].id,
   description: workout_quote,
   est_duration: 4500,
-  elevation: gen_elev,
+  elevation: 431,
   distance: 12.6,
   marker_coordinates:
    [42.3951876,
@@ -275,7 +287,7 @@ route5 = Route.create(
   user_id: user_hash[rand(21)].id,
   description: workout_quote,
   est_duration: 3420,
-  elevation: gen_elev,
+  elevation: 206,
   distance: 2.8,
   marker_coordinates:
    [40.7683557,
@@ -296,7 +308,7 @@ route5 = Route.create(
     description: workout_quote,
 
     est_duration: 60,
-    elevation: gen_elev,
+    elevation: 171,
     distance: 5.5,
     marker_coordinates: [40.7621481, -73.9740042, 40.7638628, -73.8990322])
 
@@ -308,8 +320,8 @@ route7 = Route.create(
   user_id: user_hash[rand(21)].id,
   description: workout_quote,
   est_duration: 7020,
-  elevation: gen_elev,
-  distance: 18.6,
+  elevation: 850,
+  distance: 18.9,
   marker_coordinates:
    [40.7581055,
     -73.9858797,
@@ -329,7 +341,7 @@ route8 = Route.create(
   user_id: user_hash[rand(21)].id,
   description: workout_quote,
   est_duration: 5340,
-  elevation: gen_elev,
+  elevation: 908,
   distance: 27.0,
   marker_coordinates:
    [40.6277983,
@@ -349,8 +361,8 @@ route9 = Route.create(
   user_id: user_hash[rand(21)].id,
   description: workout_quote,
   est_duration: 5760,
-  elevation: gen_elev,
-  distance: 14.3,
+  elevation: 1255,
+  distance: 14.2,
   marker_coordinates:
    [40.7531569,
     -74.1524943,
@@ -369,7 +381,7 @@ route10 = Route.create(
   user_id: user_hash[rand(21)].id,
   description: workout_quote,
   est_duration: 120,
-  elevation: gen_elev,
+  elevation: 659,
   distance: 27.2,
   marker_coordinates: [40.7442497, -74.1755147, 40.6995616, -73.7940599])
 
@@ -381,7 +393,7 @@ route11 = Route.create(
   user_id: user_hash[rand(21)].id,
   description: workout_quote,
   est_duration: 3360,
-  elevation: gen_elev,
+  elevation: 206,
   distance: 2.8,
   marker_coordinates:
    [40.7310386,
@@ -403,7 +415,7 @@ route12 = Route.create(
   user_id: user_hash[rand(21)].id,
   description: workout_quote,
   est_duration: 2400,
-  elevation: gen_elev,
+  elevation: 205,
   distance: 5.9,
   marker_coordinates: [40.7411855, -73.9962383, 40.7768829, -73.9533669, 40.7555646, -73.9721751])
 
@@ -415,8 +427,8 @@ route13 = Route.create(
   user_id: user_hash[rand(21)].id,
   description: workout_quote,
   est_duration: 4320,
-  elevation: gen_elev,
-  distance: 29.4,
+  elevation: 820,
+  distance: 28.9,
   marker_coordinates:
    [40.7917436,
     -73.9689011,
@@ -435,7 +447,7 @@ route14 = Route.create(
   user_id: user_hash[rand(21)].id,
   description: workout_quote,
   est_duration: 5820,
-  elevation: gen_elev,
+  elevation: 450,
   distance: 17.3,
   marker_coordinates:
    [40.7117084,
@@ -455,7 +467,7 @@ route14 = Route.create(
     user_id: demo_user.id,
     description: workout_quote,
     est_duration: 2400,
-    elevation: gen_elev,
+    elevation: 205,
     distance: 5.9,
     marker_coordinates: [40.7411855, -73.9962383, 40.7768829, -73.9533669, 40.7555646, -73.9721751])
 
@@ -467,8 +479,8 @@ route14 = Route.create(
     user_id: demo_user.id,
     description: workout_quote,
     est_duration: 4320,
-    elevation: gen_elev,
-    distance: 29.4,
+    elevation: 820,
+    distance: 28.9,
     marker_coordinates:
      [40.7917436,
       -73.9689011,
@@ -487,7 +499,7 @@ route14 = Route.create(
     user_id: demo_user.id,
     description: workout_quote,
     est_duration: 5820,
-    elevation: gen_elev,
+    elevation: 450,
     distance: 17.3,
     marker_coordinates:
      [40.7117084,
@@ -507,7 +519,7 @@ route14 = Route.create(
         user_id: user_hash[rand(21)].id,
         description: workout_quote,
         est_duration: 8220,
-        elevation: gen_elev,
+        elevation: 364,
         distance: 7.1,
         marker_coordinates:
         [40.7727517,
@@ -537,7 +549,7 @@ route14 = Route.create(
           user_id: user_hash[rand(21)].id,
           description: workout_quote,
           est_duration: 240,
-          elevation: gen_elev,
+          elevation: 847,
           distance: 16.5,
           marker_coordinates:
            [40.8091506,
@@ -558,7 +570,7 @@ route14 = Route.create(
         user_id: user_hash[rand(21)].id,
         description: workout_quote,
         est_duration: 120,
-        elevation: gen_elev,
+        elevation: 594,
         distance: 24.2,
         marker_coordinates: [40.7228638, -74.0047253, 40.6094442, -73.9223133, 40.7340533, -73.9889654])
 
@@ -570,7 +582,7 @@ route14 = Route.create(
         user_id: user_hash[rand(21)].id,
         description: workout_quote,
         est_duration: 8220,
-        elevation: gen_elev,
+        elevation: 364,
         distance: 7.1,
         marker_coordinates:
          [40.7727517,
@@ -598,7 +610,7 @@ route14 = Route.create(
         user_id: user_hash[rand(21)].id,
         description: workout_quote,
         est_duration: 6600,
-        elevation: gen_elev,
+        elevation: 428,
         distance: 20.4,
         marker_coordinates:
          [40.8137626,
@@ -619,7 +631,7 @@ route14 = Route.create(
         user_id: user_hash[rand(21)].id,
         description: workout_quote,
         est_duration: 4500,
-        elevation: gen_elev,
+        elevation: 431,
         distance: 12.6,
         marker_coordinates:
          [42.3951876,
@@ -639,7 +651,7 @@ route14 = Route.create(
         user_id: user_hash[rand(21)].id,
         description: workout_quote,
         est_duration: 3420,
-        elevation: gen_elev,
+        elevation: 206,
         distance: 2.8,
         marker_coordinates:
          [40.7683557,
@@ -660,7 +672,7 @@ route14 = Route.create(
           description: workout_quote,
 
           est_duration: 60,
-          elevation: gen_elev,
+          elevation: 171,
           distance: 5.5,
           marker_coordinates: [40.7621481, -73.9740042, 40.7638628, -73.8990322])
 
@@ -672,8 +684,8 @@ route14 = Route.create(
         user_id: user_hash[rand(21)].id,
         description: workout_quote,
         est_duration: 7020,
-        elevation: gen_elev,
-        distance: 18.6,
+        elevation: 850,
+        distance: 18.9,
         marker_coordinates:
          [40.7581055,
           -73.9858797,
@@ -693,7 +705,7 @@ route14 = Route.create(
         user_id: user_hash[rand(21)].id,
         description: workout_quote,
         est_duration: 5340,
-        elevation: gen_elev,
+        elevation: 908,
         distance: 27.0,
         marker_coordinates:
          [40.6277983,
@@ -713,8 +725,8 @@ route14 = Route.create(
         user_id: user_hash[rand(21)].id,
         description: workout_quote,
         est_duration: 5760,
-        elevation: gen_elev,
-        distance: 14.3,
+        elevation: 1255,
+        distance: 14.2,
         marker_coordinates:
          [40.7531569,
           -74.1524943,

@@ -148,7 +148,8 @@ class RouteBuilder extends React.Component {
   displayFetchedRoute() {
     let coords = this.props.route.marker_coordinates;
     this.setState({
-      wayPoints: MapUtil.getWayPointsWithStartEnd(coords)
+      wayPoints: MapUtil.getWayPointsWithStartEnd(coords),
+      elevationToggle: true,
     });
     MapUtil.displayRoute(this.state.wayPoints[0], this.state.wayPoints[this.state.wayPoints.length-1], this.state.service, this.state.dirDisplay, this.props.route.activity_type, MapUtil.getMiddleWayPoints(this.state.wayPoints));
   }

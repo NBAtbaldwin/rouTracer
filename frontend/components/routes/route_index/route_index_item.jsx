@@ -38,7 +38,7 @@ class RouteIndexItem extends React.Component {
               <p>Distance</p>
             </li>
             <li>
-              <div><strong>100</strong> ft</div>
+              <div><strong>{route.elevation}</strong> ft</div>
               <p>Elevation Gain</p>
             </li>
           </ul>
