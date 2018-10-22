@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Link } from "react-router-dom";
 import { withRouter } from 'react-router-dom';
 import * as MapUtil from './../../util/map_util';
+import * as ElevationUtil from './../../util/elevation_util';
 import * as ConversionUtil from './../../util/conversion_util';
 import { merge } from 'lodash';
 
@@ -80,20 +81,25 @@ class RouteBuilder extends React.Component {
     let coords = this.state.dirDisplay.getDirections().routes[0].overview_polyline;
     let travelMode;
     this.state.activity_type === 'WALKING' ? travelMode = google.maps.DirectionsTravelMode.WALKING : travelMode = google.maps.DirectionsTravelMode.BICYCLING;
-    let route = {
-      distance: distance,
-      coordinates_list: coords,
-      est_duration: duration,
-      marker_coordinates: markerCoords,
-      activity_type: travelMode,
-    };
-    let updatedRoute = merge({}, this.state.route, route);
-    this.setState({ route: updatedRoute });
-    let arr = this.state.history;
-    arr.push(markerCoords);
-    this.setState({ history: arr });
-    console.log(this.state.wayPoints);
+    let elevationPromise = ElevationUtil.getElevationPromise(this.state.dirDisplay);
+    elevationPromise.then(response => {
+      const elevation = ElevationUtil.parseElevationGain(response);
+      let route = {
+        distance: distance,
+        coordinates_list: coords,
+        est_duration: duration,
+        marker_coordinates: markerCoords,
+        activity_type: travelMode,
+        elevation: elevation,
+      };
+      let updatedRoute = merge({}, this.state.route, route);
+      this.setState({ route: updatedRoute });
+      let arr = this.state.history;
+      arr.push(markerCoords);
+      this.setState({ history: arr });
+    })
   }
+
 
   mapClickListener() {
     google.maps.event.addListener(this.map, "click", (evt) => {

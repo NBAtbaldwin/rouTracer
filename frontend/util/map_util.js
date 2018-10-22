@@ -70,7 +70,6 @@ export const displayRoute = (origin, destination, service, display, travelMode, 
   }, function(response, status) {
     if (status === 'OK') {
       display.setDirections(response);
-      console.log(response);
     } else {
       alert('Could not display directions due to: ' + status);
     }
@@ -82,7 +81,6 @@ export const getDistance = (dirDisplay) => {
   dirDisplay.getDirections().routes[0].legs.forEach((leg) => {
     if (leg.distance.text.split(" ")[1] === 'ft') {
       distance += parseFloat(( parseFloat(leg.distance.text.split(" ")[0]) / 5280).toFixed(2));
-      console.log(distance);
     } else {
       distance += parseFloat(leg.distance.text.split(" ")[0]);
     }
@@ -97,6 +95,7 @@ export const getDuration = (dirDisplay) => {
   });
   return parseInt(time);
 }
+
 
 
 export const getMarkers = (dirDisplay) => {
