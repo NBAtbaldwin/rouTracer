@@ -7,7 +7,7 @@ export const getElevationPromise = (dirDisplay) => {
     const path = []; dirDisplay.getDirections().routes[0].overview_path.forEach(coordPair => {
       path.push(MapUtil.getCoordsObj(coordPair));
     })
-    let samples = Math.ceil(MapUtil.getDistance(dirDisplay)*16);
+    let samples = Math.ceil(MapUtil.getDistance(dirDisplay)*20);
     if (samples < 2) samples = 2;
     elevator.getElevationAlongPath({
       'path': path,
@@ -30,4 +30,12 @@ export const parseElevationGain = (elevationResponse) => {
     }
   });
   return total.toFixed(2);
+}
+
+export const makeElevationObject = (elevationResponse) => {
+  const output = elevationResponse;
+  output.forEach((obj, idx) => {
+    obj.miles = (idx * 0.05).toFixed(2);
+  })
+  return output;
 }

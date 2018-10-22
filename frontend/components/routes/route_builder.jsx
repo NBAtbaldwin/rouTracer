@@ -6,6 +6,7 @@ import * as MapUtil from './../../util/map_util';
 import * as ElevationUtil from './../../util/elevation_util';
 import * as ConversionUtil from './../../util/conversion_util';
 import { merge } from 'lodash';
+import ElevationGraph from './elevation_graph';
 
 function parseDist(str) {
   return parseFloat(str.split(" ")[0]);
@@ -25,11 +26,14 @@ class RouteBuilder extends React.Component {
       history: [],
       wayPoints: [],
       startMarker: null,
+      elevationArray: [],
+      elevationToggle: true,
     }
     this.handleSubmit = this.handleSubmit.bind(this);
     this.update = this.update.bind(this);
     this.toggleActivityType =  this.toggleActivityType.bind(this);
-    this.toggleModal =  this.toggleModal.bind(this);
+    this.toggleModal = this.toggleModal.bind(this);
+    this.toggleElevation = this.toggleElevation.bind(this);
     this.undo = this.undo.bind(this);
   }
 
@@ -81,8 +85,8 @@ class RouteBuilder extends React.Component {
     let coords = this.state.dirDisplay.getDirections().routes[0].overview_polyline;
     let travelMode;
     this.state.activity_type === 'WALKING' ? travelMode = google.maps.DirectionsTravelMode.WALKING : travelMode = google.maps.DirectionsTravelMode.BICYCLING;
-    let elevationPromise = ElevationUtil.getElevationPromise(this.state.dirDisplay);
-    elevationPromise.then(response => {
+    ElevationUtil.getElevationPromise(this.state.dirDisplay).then(response => {
+      this.setState({elevationArray: response});
       const elevation = ElevationUtil.parseElevationGain(response);
       let route = {
         distance: distance,
@@ -214,6 +218,10 @@ class RouteBuilder extends React.Component {
     this.state.modal === "hidden" ? this.setState({modal: "modal-background"}) : this.setState({modal: "hidden"})
   }
 
+  toggleElevation() {
+    this.setState({elevationToggle: !this.state.elevationToggle});
+  }
+
   render() {
 
     const that = this;
@@ -278,22 +286,40 @@ class RouteBuilder extends React.Component {
             <div id='map-container' ref={ map => that.mapNode = map }>
             </div>
             <ul className="dynamic-totals">
+              {this.state.elevationToggle && (
+                <div>
+                  <ElevationGraph elevationArray={this.state.elevationArray} />
+                </div>
+              )}
+              {!this.state.elevationToggle && (
+                <div></div>
+              )}
               <div>
+                <section>
+                  <ul>
+                    <li>{that.state.route.activity_type.toLowerCase()}</li>
+                    <li>Route Type</li>
+                  </ul>
+                  <ul>
+                    <li>{(that.state.route.distance).toFixed(2)}</li>
+                    <li>Distance</li>
+                  </ul>
+                  <ul>
+                    <li>{that.state.route.elevation}</li>
+                    <li>Elevation Gain</li>
+                  </ul>
+                  <ul>
+                    <li>{ConversionUtil.hrsMinsSecs(that.state.route.est_duration)}</li>
+                    <li>Est. Moving Time</li>
+                  </ul>
+                </section>
                 <ul>
-                  <li>{that.state.route.activity_type.toLowerCase()}</li>
-                  <li>Route Type</li>
-                </ul>
-                <ul>
-                  <li>{(that.state.route.distance).toFixed(2)}</li>
-                  <li>Distance</li>
-                </ul>
-                <ul>
-                  <li>{that.state.route.elevation}</li>
-                  <li>Elevation Gain</li>
-                </ul>
-                <ul>
-                  <li>{ConversionUtil.hrsMinsSecs(that.state.route.est_duration)}</li>
-                  <li>Est. Moving Time</li>
+                  {this.state.elevationToggle && (
+                    <li onClick={this.toggleElevation}>elevation on <i className="fas fa-caret-down"></i></li>
+                  )}
+                  {!this.state.elevationToggle && (
+                    <li onClick={this.toggleElevation}>elevation off <i className="fas fa-caret-up"></i></li>
+                  )}
                 </ul>
               </div>
             </ul>
