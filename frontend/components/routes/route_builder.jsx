@@ -37,7 +37,7 @@ class RouteBuilder extends React.Component {
       this.props.fetchRoute(this.props.match.params.routeId).then(() => {
         // logic for editing route
         this.getInitialRouteState();
-        let directionsDisplay = this.initializeMapState.bind(this)();
+        const directionsDisplay = this.initializeMapState.bind(this)();
         this.displayFetchedRoute.bind(this)();
         // listens for user's click on map
         this.mapClickListener.bind(this)();
@@ -45,13 +45,13 @@ class RouteBuilder extends React.Component {
         directionsDisplay.addListener('directions_changed', this.updateRoute.bind(this));
       });
       } else {
-      // sets geolocation
-      let directionsDisplay = this.initializeMapState.bind(this)();
-      MapUtil.currentPosition.bind(this)();
-      // listens for user's click on map
-      this.mapClickListener.bind(this)();
-      // listens for change in direction directly after user's click
-      directionsDisplay.addListener('directions_changed', this.updateRoute.bind(this));
+        // sets geolocation
+        const directionsDisplay = this.initializeMapState.bind(this)();
+        MapUtil.currentPosition.bind(this)();
+        // listens for user's click on map
+        this.mapClickListener.bind(this)();
+        // listens for change in direction directly after user's click
+        directionsDisplay.addListener('directions_changed', this.updateRoute.bind(this));
     }
   };
 
@@ -60,7 +60,7 @@ class RouteBuilder extends React.Component {
     this.props.fetchRoute(nextProps.match.params.routeId).then(() => {
       // switch route url manually
       this.getInitialRouteState();
-      let directionsDisplay = this.initializeMapState.bind(this)();
+      const directionsDisplay = this.initializeMapState.bind(this)();
       this.displayFetchedRoute.bind(this)();
       // listens for user's click on map
       this.mapClickListener.bind(this)();
