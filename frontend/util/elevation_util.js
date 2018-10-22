@@ -7,14 +7,18 @@ export const getElevationPromise = (dirDisplay) => {
     const path = []; dirDisplay.getDirections().routes[0].overview_path.forEach(coordPair => {
       path.push(MapUtil.getCoordsObj(coordPair));
     })
-    let samples = Math.ceil(MapUtil.getDistance(dirDisplay)*10);
+    let samples;
+    if (dirDisplay.getDirections().routes[0].overview_path.length > 100) {
+      samples = 500;
+    } else {
+      samples = Math.ceil(MapUtil.getDistance(dirDisplay)*10);
+    }
     if (samples < 2) samples = 2;
     elevator.getElevationAlongPath({
       'path': path,
       'samples': samples
     }, function(results, status) {
       if (status === 'OK') {
-        console.log(results);
         resolve(results)
       } else {
         alert('Could not display elevation due to: ' + status);

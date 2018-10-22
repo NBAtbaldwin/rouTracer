@@ -27,7 +27,7 @@ class RouteBuilder extends React.Component {
       wayPoints: [],
       startMarker: null,
       elevationArray: [],
-      elevationToggle: true,
+      elevationToggle: false,
     }
     this.handleSubmit = this.handleSubmit.bind(this);
     this.update = this.update.bind(this);
