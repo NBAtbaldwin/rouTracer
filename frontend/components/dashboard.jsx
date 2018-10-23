@@ -8,6 +8,7 @@ import DashTopPanel from "./totals/dash_top_panel";
 import DashLowerPanelContainer from "./totals/dash_lower_panel_container";
 import * as ChartUtil from "./../util/chart_util";
 import SuggestedFriendsContainer from "./friends/suggested_friends_container";
+import FooterContainer from './footer_container';
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -106,7 +107,10 @@ class Dashboard extends React.Component {
                 })}
               </ul>
             </div>
-            <SuggestedFriendsContainer />
+            <div>
+              <SuggestedFriendsContainer />
+              <FooterContainer />
+            </div>
           </div>
         </div>
       </div>
