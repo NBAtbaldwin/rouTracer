@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom';
 import {ResponsiveContainer, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip} from 'recharts';
 import * as ElevationUtil from './../../util/elevation_util';
 
-const ElevationGraph = ({elevationArray}) => {
+const ElevationGraph = ({elevationArray, distance}) => {
   const yFormatter = (value) => `${value}ft`;
   const xFormatter = (value) => `${value}mi`;
-  elevationArray = ElevationUtil.makeElevationObject(elevationArray);
+  elevationArray = ElevationUtil.makeElevationObject(elevationArray, distance);
 
   return (
     <ResponsiveContainer width="100%" height={200}>

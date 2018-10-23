@@ -290,7 +290,7 @@ class RouteBuilder extends React.Component {
             <ul className="dynamic-totals">
               {this.state.elevationToggle && (
                 <div>
-                  <ElevationGraph elevationArray={this.state.elevationArray} />
+                  <ElevationGraph elevationArray={this.state.elevationArray} distance={this.state.route.distance} />
                 </div>
               )}
               {!this.state.elevationToggle && (

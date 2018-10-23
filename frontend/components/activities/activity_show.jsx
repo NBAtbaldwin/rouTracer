@@ -38,7 +38,7 @@ class ActivityShow extends React.Component {
         return (
           <div className="activity-show-item">
             <ActivityShowDropdownContainer id={this.props.activity.id} />
-            <ActivityShowItem route={this.props.route} activity={this.props.activity} currentUser = {this.props.users[this.props.activity.user_id]} />
+            <ActivityShowItem route={this.props.route} activity={this.props.activity} user = {this.props.users[this.props.activity.user_id]}  nestedInProfile={false} />
           </div>
         );
       } else {

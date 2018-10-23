@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import * as MapUtil from './../../util/map_util';
 import * as ConversionUtil from "./../../util/conversion_util";
 
-const ActivityShowItem = ({route, activity, currentUser, feed, friends, friendActivities}) => {
+const ActivityShowItem = ({route, activity, user, feed, friends, friendActivities, nestedInProfile}) => {
   const hasRoute = () => {
     const decodedPoly = google.maps.geometry.encoding.decodePath(route.coordinates_list);
     const codedPoly=route.coordinates_list;
@@ -14,7 +14,7 @@ const ActivityShowItem = ({route, activity, currentUser, feed, friends, friendAc
     feed ? mapSize = "550x180" : mapSize = "800x350";
     return (
       <div className="show-item-container">
-        <header>{currentUser.email} - Workout</header>
+        <header>{user.email} - Workout</header>
         <div>
           <div>
             <div className="user-img"></div>
@@ -27,7 +27,9 @@ const ActivityShowItem = ({route, activity, currentUser, feed, friends, friendAc
           </div>
           <ul>
             <ul>
-              <header><Link to={`profile/${currentUser.id}`}>{currentUser.email}</Link></header>
+              <header>
+                <Link to={ nestedInProfile ? `${user.id}` : `profile/${user.id}`}>{user.email}</Link>
+              </header>
               <li>On {activity.date}</li>
               <li><Link to={`/activities/${activity.id}`}>{activity.title}</Link></li>
               <li>{route.description}</li>
@@ -61,7 +63,7 @@ const ActivityShowItem = ({route, activity, currentUser, feed, friends, friendAc
     activity.activity_type === 'WALKING' ? type = 'fas fa-shoe-prints' : type = 'fas fa-bicycle';
     return (
       <div className="show-item-container">
-        <header>{currentUser.email} - Workout</header>
+        <header>{user.email} - Workout</header>
         <div>
           <div>
             <div className="user-img"></div>
@@ -74,7 +76,7 @@ const ActivityShowItem = ({route, activity, currentUser, feed, friends, friendAc
           </div>
           <ul>
             <ul>
-              <header>{currentUser.email}</header>
+              <header>{user.email}</header>
               <li>On {activity.date}</li>
               <li><Link to={`/activities/${activity.id}`}>{activity.title}</Link></li>
               <li></li>
