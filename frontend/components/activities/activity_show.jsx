@@ -35,10 +35,16 @@ class ActivityShow extends React.Component {
     const that = this;
     const activityPanel = () => {
       if (this.props.activity !== undefined && this.props.users[this.props.activity.user_id] !== undefined) {
+        const user = this.props.users[this.props.activity.user_id];
         return (
           <div className="activity-show-item">
-            <ActivityShowDropdownContainer id={this.props.activity.id} />
-            <ActivityShowItem route={this.props.route} activity={this.props.activity} user = {this.props.users[this.props.activity.user_id]}  nestedInProfile={false} />
+            {user === this.props.currentUser && (
+              <ActivityShowDropdownContainer id={this.props.activity.id} />
+            )}
+            {user !== this.props.currentUser && (
+              <section></section>
+            )}
+            <ActivityShowItem route={this.props.route} activity={this.props.activity} user = {user}  nestedInProfile={false} />
           </div>
         );
       } else {
