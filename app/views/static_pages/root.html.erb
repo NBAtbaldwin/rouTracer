@@ -6,7 +6,7 @@
       requester_ids: current_user.requester_ids,
       requested_ids: current_user.requested_ids,
       friends: current_user.friends,
-      friend_ids: current_user.friend_ids,
+      friend_ids: current_user.friend_ids(current_user.friends),
     ).html_safe %>
   <% end %>
   window.phoneImage = "<%= asset_path("phone.png")%>"

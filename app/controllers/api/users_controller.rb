@@ -4,7 +4,7 @@ class Api::UsersController < ApplicationController
    if @user.save
      login(@user)
      @friends = @user.friends
-     @friend_ids = @user.friend_ids
+     @friend_ids = @user.friend_ids(@friends)
      @requested_ids = @user.requested_ids
      @requester_ids = @user.requester_ids
      render :show
@@ -16,7 +16,7 @@ class Api::UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @friends = @user.friends
-    @friend_ids = @user.friend_ids
+    @friend_ids = @user.friend_ids(@friends)
     @requested_ids = @user.requested_ids
     @requester_ids = @user.requester_ids
     render :show

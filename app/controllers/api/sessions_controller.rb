@@ -8,7 +8,7 @@ class Api::SessionsController < ApplicationController
     if @user
       login(@user)
       @friends = @user.friends
-      @friend_ids = @user.friend_ids
+      @friend_ids = @user.friend_ids(@friends)
       @requested_ids = @user.requested_ids
       @requester_ids = @user.requester_ids
       render 'api/users/show'

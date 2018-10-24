@@ -22,19 +22,30 @@ class User < ApplicationRecord
   has_many :routes
   has_many :activities
 
-  has_many :friend_requests,
+  has_many :friend_requests, -> {Friendship.pending},
   foreign_key: :requestee_id,
   class_name: :Friendship
 
-  has_many :requested_friends,
+  has_many :requested_friends, -> {Friendship.pending},
   foreign_key: :requester_id,
   class_name: :Friendship
 
-  has_many :requestees,
-  through: :requested_friends
+  has_many :accepted_friend_requests, -> {Friendship.accepted},
+  foreign_key: :requestee_id,
+  class_name: :Friendship
 
-  has_many :requesters,
-  through: :friend_requests
+  has_many :accepted_requested_friends, -> {Friendship.accepted},
+  foreign_key: :requester_id,
+  class_name: :Friendship
+
+  has_many :requestees, :through => :requested_friends
+
+  has_many :requesters, :through => :friend_requests
+
+  has_many :accepted_requestees, :through => :accepted_requested_friends
+
+  has_many :accepted_requesters, :through => :accepted_friend_requests
+
 
   def self.find_by_credentials(email, password)
     user = User.find_by(email: email)
@@ -58,50 +69,38 @@ class User < ApplicationRecord
   end
 
   def friends
-    friends = []
-    friendships = Friendship.where("requestee_id = ? OR requester_id = ?", self.id, self.id).where(status: 'accepted')
-    return [] unless friendships
-    friendships.each do |friendship|
-      friendship.requestee_id == self.id ? friends << User.where(id: friendship.requester_id).includes(:activities).includes(:routes).first : friends << User.where(id: friendship.requestee_id).includes(:activities).includes(:routes).first
-    end
+    friends = self.accepted_requestees + self.accepted_requesters
+    friends
+  end
+
+  def friends_with_activities
+    friends = self.accepted_requestees.includes(:routes).includes(:activities) + self.accepted_requesters.includes(:routes).includes(:activities)
     friends
   end
 
   def received_requesters
-    pending_friends = []
-    pending_friendships = Friendship.where("requestee_id = ?", self.id).where(status: 'pending')
-    return [] unless pending_friendships
-    pending_friendships.each do |friendship|
-      pending_friends << self.requesters.where(id: friendship.requester_id).includes(:activities).includes(:routes).first
-    end
-    pending_friends
+    self.requesters.includes(:activities).includes(:routes)
   end
 
   def sent_requestees
-    pending_friends = []
-    pending_friendships = Friendship.where("requester_id = ?", self.id).where(status: 'pending')
-    return [] unless pending_friendships
-    pending_friendships.each do |friendship|
-      pending_friends << self.requestees.where(id: friendship.requestee_id).includes(:activities).includes(:routes).first
-    end
-    pending_friends
+    self.requestees.includes(:activities).includes(:routes)
   end
 
-  def friend_ids
+  def friend_ids(friends)
     ids = []
-    self.friends.each { |friend| ids << friend.id }
+    friends.each { |friend| ids << friend.id }
     {friend_ids: ids}
   end
 
   def requester_ids
     ids = []
-    self.received_requesters.each { |requester| ids << requester.id }
+    self.requesters.each { |requester| ids << requester.id }
     return {requester_ids: ids}
   end
 
   def requested_ids
     ids = []
-    self.sent_requestees.each { |requestee| ids << requestee.id }
+    self.requestees.each { |requestee| ids << requestee.id }
     return {requested_ids: ids}
   end
 

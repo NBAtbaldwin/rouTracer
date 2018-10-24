@@ -6,7 +6,7 @@ class Api::FriendshipsController < ApplicationController
 
     if friendship.save
       @friends = @user.friends
-      @friend_ids = @user.friend_ids
+      @friend_ids = @user.friend_ids(@friends)
       @requester_ids = @user.requester_ids
       @requested_ids = @user.requested_ids
       render 'api/users/show'
@@ -25,7 +25,7 @@ class Api::FriendshipsController < ApplicationController
     @user = current_user
     if friendship.update(friendship_params)
       @friends = @user.friends
-      @friend_ids = @user.friend_ids
+      @friend_ids = @user.friend_ids(@friends)
       @requester_ids = @user.requester_ids
       @requested_ids = @user.requested_ids
       render 'api/users/show'
@@ -39,7 +39,7 @@ class Api::FriendshipsController < ApplicationController
     @user = current_user
     if friendship.destroy
       @friends = @user.friends
-      @friend_ids = @user.friend_ids
+      @friend_ids = @user.friend_ids(@friends)
       @requester_ids = @user.requester_ids
       @requested_ids = @user.requested_ids
       render 'api/users/show'

@@ -20,4 +20,15 @@ class Friendship < ApplicationRecord
   foreign_key: :requestee_id,
   class_name: :User
 
+  belongs_to :accepted_requester,
+  foreign_key: :requester_id,
+  class_name: :User
+
+  belongs_to :accepted_requestee,
+  foreign_key: :requestee_id,
+  class_name: :User
+
+  scope :accepted, -> { where(status: 'accepted') }
+  scope :pending, -> { where(status: 'pending') }
+
 end
