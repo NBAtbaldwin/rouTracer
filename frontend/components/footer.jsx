@@ -23,9 +23,9 @@ const Footer = ({ currentUser, login, signup }) => {
         <li><h2>RouTracer</h2></li>
         <li><p>2018 Tyler Baldwin</p></li>
         <ul>
-          <li><a href="https://github.com/NBAtbaldwin"><i class="fab fa-github"></i></a></li>
-          <li><a href="https://www.linkedin.com/in/tyler-baldwin-47482391/"><i class="fab fa-linkedin"></i></a></li>
-          <li><a href="mailto:tzadoroznybaldwin@gmail.com"><i class="fas fa-envelope"></i></a></li>
+          <li><a href="https://github.com/NBAtbaldwin"><i className="fab fa-github"></i></a></li>
+          <li><a href="https://www.linkedin.com/in/tyler-baldwin-47482391/"><i className="fab fa-linkedin"></i></a></li>
+          <li><a href="mailto:tzadoroznybaldwin@gmail.com"><i className="fas fa-envelope"></i></a></li>
         </ul>
       </ul>
       {loginLinks()}

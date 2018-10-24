@@ -9,15 +9,17 @@ class SessionForm extends React.Component {
     this.state = {
       email: "",
       password: "",
+      disabled: false,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.updateField = this.updateField.bind(this);
-    this.demoLogin = this.demoLogin.bind(this);
+    this.loginDemoUser = this.loginDemoUser.bind(this);
   }
 
   handleSubmit(e) {
     e.preventDefault();
     const user = Object.assign({}, {email: this.state.email, password: this.state.password});
+    this.setState({disabled: true});
     this.props.processForm(user);
   }
 // then(() => this.props.history.push('/'))
@@ -32,14 +34,15 @@ class SessionForm extends React.Component {
     };
   }
 
-  demoLogin() {
-
+  loginDemoUser() {
+    this.props.loginDemoUser();
+    this.setState({disabled: true});
   }
 
   render() {
     let demoUserButton;
     if (this.props.formTitle === "Log In") {
-      demoUserButton = <button className="demo-user-button" onClick={() => this.props.loginDemoUser()}>Demo User</button>;
+      demoUserButton = <button className="demo-user-button" onClick={this.loginDemoUser} disabled={this.state.disabled}>Demo User</button>;
     } else {
       demoUserButton = <span></span>;
     }
@@ -66,7 +69,7 @@ class SessionForm extends React.Component {
                 })}
               </ul>
               <li>
-                <input className="session-form-submit" type='submit' value={this.props.formTitle}/>
+                <input className="session-form-submit" type='submit' value={this.props.formTitle} disabled={this.state.disabled} />
               </li>
               <li className="session-form-line"></li>
             </ul>
