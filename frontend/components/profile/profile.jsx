@@ -123,7 +123,7 @@ class Profile extends React.Component {
             <div>
               <section>
                 <div>
-                  <div className="prof-pic"></div>
+                  <img src={this.props.user.photoUrl}></img>
                 </div>
                 <div>
                   <div>
@@ -163,7 +163,7 @@ class Profile extends React.Component {
                           return (
                             <li key={idx}>
                               <section>
-                                <div className='prof-pic'></div>
+                                <img src={this.props.friends[id].photoUrl} className="prof-pic"></img>
                                 <div>
                                   <p><Link to={`${id}`}>{this.props.friends[id].email}</Link></p>
                                   <div></div>
@@ -181,7 +181,7 @@ class Profile extends React.Component {
                           return (
                             <li key={idx}>
                               <section>
-                                <div className='prof-pic'></div>
+                                <img src={friend.photoUrl} className="prof-pic"></img>
                                 <div>
                                   <p><Link to={`${friend.id}`}>{friend.email}</Link></p>
                                 </div>

@@ -39,7 +39,7 @@ class SuggestedFriends extends React.Component {
               if (idx < 6) {
                 return (
                   <li key={idx}>
-                    <div className='prof-pic'></div>
+                    <img src={suggested.photoUrl} className="prof-pic"></img>
                     <div>
                       <p><Link to={`profile/${suggested.id}`}>{suggested.email}</Link></p>
                       <div onClick={this.handleCreate(this.props.currentUser.id, suggested.id)}>Request to Follow</div>

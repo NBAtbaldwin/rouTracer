@@ -10,12 +10,10 @@
     align-items: center;
     border-bottom: 1px solid #e6e6eb;
 
-    & > div:first-child {
+    & > .user-img {
       height: 72px;
       width: 72px;
       border-radius: 36px;
-      background-image: image_url("profile_placeholder.jpg");
-      background-size: contain;
       box-shadow: 0px 8px 24px rgba(13,13,18,0.16);
       margin-top: -36px;
 
@@ -23,7 +21,7 @@
 
     & > p {
       margin-top: 12px;
-      
+
         > a {
         font-weight: 400;
         font-size: 18px;

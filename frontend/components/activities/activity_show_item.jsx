@@ -17,7 +17,7 @@ const ActivityShowItem = ({route, activity, user, feed, friends, friendActivitie
         <header>{user.email} - Workout</header>
         <div>
           <div>
-            <div className="user-img"></div>
+            <img src={user.photoUrl} className="user-img"></img>
             <div><i className={type}></i></div>
             <ul>
               <li>On {activity.date}</li>
@@ -66,7 +66,7 @@ const ActivityShowItem = ({route, activity, user, feed, friends, friendActivitie
         <header>{user.email} - Workout</header>
         <div>
           <div>
-            <div className="user-img"></div>
+            <img src={user.photoUrl} className="user-img"></img>
             <div><i className={type}></i></div>
             <ul>
               <li>On {activity.date}</li>

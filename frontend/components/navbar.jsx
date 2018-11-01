@@ -103,8 +103,7 @@ class NavBar extends React.Component {
                 </ul>
               </li>
               <li onMouseOver={this.makeHidden("profPic")} onMouseOut={this.makeDisplayed("profPic")}>
-                <div className="prof-pic">
-                </div>
+                <img src={this.props.currentUser.photoUrl} className="prof-pic"></img>
                 <i className="fas fa-chevron-down"></i>
                 <ul className={this.state.profPic}>
                   <li><Link to={`/profile/${this.props.currentUser.id}`}>My Profile</Link></li>

@@ -9,7 +9,7 @@ const TopPanel = ({activities, currentUser, routeNum, friends}) => {
       return(
         <div className="dash-top-container">
           <div>
-            <div></div>
+            <img src={currentUser.photoUrl} className="user-img"></img>
             <p><Link to={`profile/${currentUser.id}`}>{currentUser.email}</Link></p>
             <div>
               <ul>
@@ -36,7 +36,7 @@ const TopPanel = ({activities, currentUser, routeNum, friends}) => {
       return (
         <div className="dash-top-container">
           <div>
-            <div></div>
+            <img src={currentUser.photoUrl} className="user-img"></img>
             <p>{currentUser.email}</p>
             <div>
               <ul>
@@ -54,8 +54,8 @@ const TopPanel = ({activities, currentUser, routeNum, friends}) => {
             <p><strong></strong> --/--/-- </p>
           </div>
           <div>
-            <p>Your Training Log</p>
-            <i className="fas fa-chevron-right"></i>
+            <p><Link to="/training_log">Your Training Log</Link></p>
+            <Link to="/training_log"><i className="fas fa-chevron-right"></i></Link>
           </div>
         </div>
       );
