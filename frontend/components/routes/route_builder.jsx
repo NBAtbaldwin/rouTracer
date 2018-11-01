@@ -50,6 +50,7 @@ class RouteBuilder extends React.Component {
         directionsDisplay.addListener('directions_changed', this.updateRoute.bind(this));
       });
       } else {
+        // logic for creating route from scratch
         // sets geolocation
         const directionsDisplay = this.initializeMapState.bind(this)();
         MapUtil.currentPosition.bind(this)();
