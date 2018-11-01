@@ -10,6 +10,8 @@
 #  updated_at      :datetime         not null
 #  name            :string
 #
+require 'open-uri'
+require 'open_uri_redirections'
 
 class User < ApplicationRecord
   validates :email, :password_digest, :email, presence: true
@@ -18,6 +20,8 @@ class User < ApplicationRecord
 
   after_initialize :ensure_session_token
   attr_reader :password
+
+  has_one_attached :photo
 
   has_many :routes
   has_many :activities
@@ -102,6 +106,13 @@ class User < ApplicationRecord
     ids = []
     self.requestees.each { |requestee| ids << requestee.id }
     return {requested_ids: ids}
+  end
+
+  def gen_default_photo
+    photo_url = Faker::LoremFlickr.image("400x400", ['sports', 'fitness'])
+    url = URI.parse(photo_url)
+    file = open(url, :allow_redirections => :safe)
+    self.photo.attach(io: file, filename: "temp-photo.#{file.content_type_parse.first.split("/").last}", content_type: file.content_type_parse.first)
   end
 
   private

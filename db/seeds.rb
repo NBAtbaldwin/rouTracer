@@ -5,6 +5,8 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+require 'open-uri'
+require 'open_uri_redirections'
 
 User.destroy_all
 Route.destroy_all
@@ -42,8 +44,8 @@ end
 
 def username_password
   name = Faker::Name.middle_name
-  villain = Faker::Food.fruits
-  "#{name} #{villain}"
+  fruit = Faker::Food.fruits
+  "#{name} #{fruit}"
 end
 
 def gen_name
@@ -90,10 +92,20 @@ user_hash = {}
 
 demo_user = User.create(email: "user@example.com", password: "demouser", name: "Demo User" )
 
+photo_url = Faker::LoremFlickr.image("400x400", ['sports', 'fitness'])
+url = URI.parse(photo_url)
+file = open(url, :allow_redirections => :safe)
+demo_user.photo.attach(io: file, filename: "temp-photo.#{file.content_type_parse.first.split("/").last}", content_type: file.content_type_parse.first)
+
 (0..20).to_a.each do |num|
   usr_eml = username_password
 
   user_hash[num] = User.create(email: usr_eml, password: usr_eml, name: gen_name )
+
+  photo_url = Faker::LoremFlickr.image("400x400", ['sports', 'fitness'])
+  url = URI.parse(photo_url)
+  file = open(url, :allow_redirections => :safe)
+  user_hash[num].photo.attach(io: file, filename: "temp-photo.#{file.content_type_parse.first.split("/").last}", content_type: file.content_type_parse.first)
 
 end
 
@@ -127,7 +139,7 @@ demo_user_friendship_hash = {}
 
   id_arr = [user_id, other_id]
   requestee_id = id_arr.sample
-  requester_id = id_arr.sample
+  requestee_id == user_id ? requester_id = other_id : requester_id = user_id
 
   while demo_user_friendship_hash.keys.include?([requestee_id, requester_id].sort)
     other_id = user_hash.values.sample.id

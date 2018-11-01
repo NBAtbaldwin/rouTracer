@@ -2,6 +2,7 @@ class Api::UsersController < ApplicationController
   def create
    @user = User.new(user_params)
    if @user.save
+     @user.gen_default_photo
      login(@user)
      @friends = @user.friends
      @friend_ids = @user.friend_ids(@friends)
