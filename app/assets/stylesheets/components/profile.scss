@@ -38,6 +38,42 @@
         border-radius: 68px;
       }
 
+      & > div:first-child > div {
+        position: relative;
+
+        label:hover {
+          background-color: white;
+          
+        }
+
+        label {
+          height: 25px;
+          width: 25px;
+          background-color: #c3c3c39c;
+          border-radius: 20px;
+          position: absolute;
+          line-height: 25px;
+          text-align: center;
+          font-weight: 700;
+          color: #80808087;
+          font-size: 25px;
+          left: 102px;
+          top: -30px;
+          cursor: pointer;
+
+          input {
+            width: 0.1px;
+            height: 0.1px;
+            opacity: 0;
+            overflow: hidden;
+            position: absolute;
+            z-index: -1;
+          }
+        }
+      }
+
+
+
       & > div:last-child {
         margin-top: 30px;
         display: flex;

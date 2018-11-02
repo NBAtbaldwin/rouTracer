@@ -140,8 +140,10 @@ class Profile extends React.Component {
       const photoForm = () => {
         return (
           <div>
-            <input type="file"
-              onChange={this.handleFile}/>
+            <label>+
+              <input type="file" name="file"
+                onChange={this.handleFile}/>
+            </label>
           </div>
         )
       }
