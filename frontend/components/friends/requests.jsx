@@ -41,7 +41,7 @@ class Requests extends React.Component {
               return (
                 <li key={idx}>
                   <section>
-                    <div className='prof-pic'></div>
+                    <img src={pending.photoUrl} className='prof-pic'></img>
                     <p><Link to={`profile/${pending.id}`}>{pending.email}</Link> wants to follow you</p>
                   </section>
                   <div>

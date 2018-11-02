@@ -12,6 +12,16 @@ export const getUsers = () => {
   });
 };
 
+export const updateUser = (userData) => {
+  return $.ajax({
+    url: `/api/users/${userData.getAll('user[id]')}`,
+    method: 'PATCH',
+    data: userData,
+    contentType: false,
+    processData: false
+  });
+}
+
 export const createFriendship = (friendship) => {
   return $.ajax({
     method: 'POST',

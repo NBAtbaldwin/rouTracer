@@ -13,10 +13,14 @@ class Profile extends React.Component {
       overview: true,
       friends: false,
       followRequests: false,
+      photoFile: null,
+      photoUrl: null,
     }
     this.handleConfirm = this.handleConfirm.bind(this);
     this.handleCreate = this.handleCreate.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
+    this.photoSubmit = this.photoSubmit.bind(this);
+    this.handleFile = this.handleFile.bind(this);
   }
 
   componentDidMount() {
@@ -71,6 +75,23 @@ class Profile extends React.Component {
     }
   }
 
+  handleFile(e) {
+    const file = e.currentTarget.files[0];
+    const fileReader = new FileReader();
+    this.setState({photoFile: file, photoUrl: fileReader.result}, () => {
+      this.photoSubmit();
+    });
+  }
+
+  photoSubmit() {
+    const formData = new FormData();
+    formData.append('user[id]', this.props.currentUser.id)
+    if (this.state.photoFile) {
+      formData.append('user[photo]', this.state.photoFile);
+    }
+    this.props.updateUser(formData);
+  }
+
   render() {
 
 
@@ -116,6 +137,15 @@ class Profile extends React.Component {
         }
       }
 
+      const photoForm = () => {
+        return (
+          <div>
+            <input type="file"
+              onChange={this.handleFile}/>
+          </div>
+        )
+      }
+
       return (
         <div className='profile-master'>
           <NavbarloggedInContainer />
@@ -124,6 +154,7 @@ class Profile extends React.Component {
               <section>
                 <div>
                   <img src={this.props.user.photoUrl}></img>
+                  {this.props.user === this.props.currentUser ? photoForm() : ''}
                 </div>
                 <div>
                   <div>

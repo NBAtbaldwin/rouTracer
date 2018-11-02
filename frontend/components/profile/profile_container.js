@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import Profile from './profile';
 import { fetchActivities } from "./../../actions/activity_actions";
-import { fetchUser, createFriendship, updateFriendship, deleteFriendship, fetchPendingFriends } from "./../../actions/user_actions";
+import { fetchUser, updateUser, createFriendship, updateFriendship, deleteFriendship, fetchPendingFriends } from "./../../actions/user_actions";
 import { routeSelectorHash, friendsRouteSelectorHash, agnosticActivitySelector, friendsSelector, pendingFriendsSelector } from "./../../reducers/selectors";
 
 const mapStateToProps = (state, ownProps) => ({
@@ -20,6 +20,7 @@ const mapDispatchToProps = (dispatch) => ({
   updateFriendship: (friendship) => dispatch(updateFriendship(friendship)),
   createFriendship: (friendship) => dispatch(createFriendship(friendship)),
   deleteFriendship: (friendship) => dispatch(deleteFriendship(friendship)),
+  updateUser: (formData) => dispatch(updateUser(formData)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

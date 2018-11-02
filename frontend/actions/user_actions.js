@@ -20,6 +20,12 @@ export const fetchUsers = () => dispatch => (
   UserUtil.getUsers().then((users) => (dispatch(receiveUsers(users))))
 );
 
+export const updateUser = (userData) => dispatch => (
+  UserUtil.updateUser(userData).then((payload) => {
+    dispatch(receiveUser(payload))
+  })
+)
+
 export const fetchPendingFriends = () => dispatch => (
   UserUtil.getPendingFriendshipUsers().then((users) => (dispatch(receiveUsers(users))))
 );
