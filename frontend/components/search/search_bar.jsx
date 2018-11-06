@@ -36,11 +36,11 @@ class SearchBar extends Component {
       const displayField = (term) => {
         return (
           <ul className={this.showUl() === false ? "hidden" : ""}>
-            {filteredUsers.map(user => {
+            {filteredUsers.map((user, idx) => {
               if (user.email.toLowerCase().includes(term) && term.length > 0) {
                 return (
-                  <li>
-                    <div className='prof-pic'></div>
+                  <li key={idx}>
+                    <img src={user.photoUrl} className='prof-pic'></img>
                     <div>
                       <p><Link to={`profile/${user.id}`}>{user.email}</Link></p>
                     </div>

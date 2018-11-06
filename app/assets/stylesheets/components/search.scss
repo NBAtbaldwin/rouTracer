@@ -58,13 +58,19 @@
             padding: 10px;
             align-items: center;
 
-          & > div:first-child {
+          & > .prof-pic {
             height: 50px;
             width: 50px;
             border-radius: 25px;
-            background-image: image_url("profile_placeholder.jpg");
-
           }
+
+          // & > div:first-child {
+          //   height: 50px;
+          //   width: 50px;
+          //   border-radius: 25px;
+          //   background-image: image_url("profile_placeholder.jpg");
+          //
+          // }
 
           & > div:nth-child(2) {
             margin-left: 15px;
