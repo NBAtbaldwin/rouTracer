@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import * as MapUtil from './../../util/map_util';
 import * as ConversionUtil from "./../../util/conversion_util";
 
-const ActivityShowItem = ({route, activity, user, feed, friends, friendActivities, nestedInProfile}) => {
+const ActivityShowItem = ({route, activity, user, currentUser, feed, friends, friendActivities, nestedInProfile}) => {
   const hasRoute = () => {
     const decodedPoly = google.maps.geometry.encoding.decodePath(route.coordinates_list);
     const codedPoly=route.coordinates_list;
@@ -12,6 +12,17 @@ const ActivityShowItem = ({route, activity, user, feed, friends, friendActivitie
     activity.activity_type === 'WALKING' ? type = 'fas fa-shoe-prints' : type = 'fas fa-bicycle';
     let mapSize;
     feed ? mapSize = "550x180" : mapSize = "800x350";
+    const mapForCurrentUser = () => {
+      if (user === currentUser) {
+        return (
+          <Link to={`/routes/${route.id}`} ><img src={`https://maps.googleapis.com/maps/api/staticmap?center=${center}&size=${mapSize}&key=${window.googleAPIKey}&path=weight:4%7Ccolor:red%7Cenc:${codedPoly}`}/></Link>
+        )
+      } else {
+        return (
+          <img src={`https://maps.googleapis.com/maps/api/staticmap?center=${center}&size=${mapSize}&key=${window.googleAPIKey}&path=weight:4%7Ccolor:red%7Cenc:${codedPoly}`}/>
+        )
+      }
+    }
     return (
       <div className="show-item-container">
         <header>{user.email} - Workout</header>
@@ -53,7 +64,7 @@ const ActivityShowItem = ({route, activity, user, feed, friends, friendActivitie
           </ul>
         </div>
         <div className="vertical-divide"></div>
-        <img src={`https://maps.googleapis.com/maps/api/staticmap?center=${center}&size=${mapSize}&key=${window.googleAPIKey}&path=weight:4%7Ccolor:red%7Cenc:${codedPoly}`}/>
+        {mapForCurrentUser()}
       </div>
     )
   }

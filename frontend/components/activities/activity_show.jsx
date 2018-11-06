@@ -44,7 +44,7 @@ class ActivityShow extends React.Component {
             {user !== this.props.currentUser && (
               <section></section>
             )}
-            <ActivityShowItem route={this.props.route} activity={this.props.activity} user = {user}  nestedInProfile={false} />
+            <ActivityShowItem route={this.props.route} activity={this.props.activity} user = {user} currentUser = {this.props.currentUser} nestedInProfile={false} />
           </div>
         );
       } else {
