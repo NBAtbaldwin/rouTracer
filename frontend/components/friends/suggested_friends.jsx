@@ -53,7 +53,7 @@ class SuggestedFriends extends React.Component {
       )
     }
     return (
-      <div>
+      <div className="suggested-friends-container">
         {this.props.suggestedFriends.length > 0 ? hasProps() : noProps()}
       </div>
     )

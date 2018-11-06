@@ -1,54 +1,56 @@
-.suggested-friends-master {
+.suggested-friends-container {
   position: sticky;
   top: -10px;
-  z-index: 0;
-  width: 240px;
-  margin-left: 34px;
-  display: flex;
-  flex-direction: column;
-  border-bottom: 1px solid #e6e6eb;
-  border-top: 1px solid #e6e6eb;
-  margin-top: 10px;
 
-  > div:first-child {
-    font-size: 20px;
-    font-weight: 300;
-    margin-top: 30px;
-  }
+  > .suggested-friends-master {
+    width: 240px;
+    margin-left: 34px;
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid #e6e6eb;
+    border-top: 1px solid #e6e6eb;
+    margin-top: 10px;
 
-  & > ul {
-    margin-top: 18px;
-    margin-bottom: 10px;
+    > div:first-child {
+      font-size: 20px;
+      font-weight: 300;
+      margin-top: 30px;
+    }
 
-    > li {
+    & > ul {
+      margin-top: 18px;
+      margin-bottom: 10px;
+
+      > li {
         display: flex;
         justify-content: left;
         margin-bottom: 20px;
 
 
-      & > .prof-pic {
-        height: 50px;
-        width: 50px;
-        border-radius: 25px;
-      }
-
-      & > div:nth-child(2) {
-        margin-left: 15px;
-
-        > p {
-          font-size: 14px;
-          font-weight: 500;
-
-          > a {
-            color: black;
-          }
+        & > .prof-pic {
+          height: 50px;
+          width: 50px;
+          border-radius: 25px;
         }
 
-        > div {
-          font-size: 12px;
-          font-weight: 700;
-          color: $rt-orange;
-          cursor: pointer;
+        & > div:nth-child(2) {
+          margin-left: 15px;
+
+          > p {
+            font-size: 14px;
+            font-weight: 500;
+
+            > a {
+              color: black;
+            }
+          }
+
+          > div {
+            font-size: 12px;
+            font-weight: 700;
+            color: $rt-orange;
+            cursor: pointer;
+          }
         }
       }
     }
