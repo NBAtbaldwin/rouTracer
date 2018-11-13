@@ -97,8 +97,30 @@
     font-size: 13px;
   }
 
-  & > .delete:hover {
+  & > .edit {
+    position: absolute;
+    top: 56px;
+    right: -105px;
+    z-index: 1;
+    height: 30px;
+    width: 100px;
+    border-color: $light-gray;
+
+    a {
+      font-size: 13px;
+      color: black;
+      text-decoration: none;
+      font-weight: 400;
+    }
+
+    a:hover {
+      text-decoration: none;
+    }
+  }
+
+  & > .delete:hover, .edit:hover {
     background-color: #e6e6eb;
+    text-decoration: none;
   }
 
   & > .hidden {

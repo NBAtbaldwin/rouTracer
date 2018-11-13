@@ -7,13 +7,14 @@ class RouteIndexItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      deleteButton: "hidden"
+      deleteButton: "hidden",
+      editButton: "hidden",
     }
     this.toggleDelete = this.toggleDelete.bind(this);
   }
 
   toggleDelete() {
-    this.state.deleteButton === 'hidden' ? this.setState({ deleteButton: "delete"}) : this.setState({ deleteButton: "hidden"});
+    this.state.deleteButton === 'hidden' ? this.setState({ deleteButton: "delete", editButton: "edit"}) : this.setState({ deleteButton: "hidden", editButton: "hidden" });
   }
 
   render() {
@@ -29,6 +30,8 @@ class RouteIndexItem extends React.Component {
         <button onClick={() => this.toggleDelete()}><i className="fas fa-wrench"></i></button>
 
         <button className={this.state.deleteButton} onClick={(() => deleteRoute(route.id))}>Delete Route</button>
+
+        <button className={this.state.editButton}><Link to={`/edit_route/${route.id}`}>Edit Route</Link></button>
 
         <div className="route-index-stats">
           <Link to={`routes/${route.id}`}>{route.route_name}</Link>
