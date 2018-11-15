@@ -40,12 +40,13 @@ class SessionForm extends React.Component {
   }
 
   render() {
-    let demoUserButton;
-    if (this.props.formTitle === "Log In") {
-      demoUserButton = <button className="demo-user-button" onClick={this.loginDemoUser} disabled={this.state.disabled}>Demo User</button>;
-    } else {
-      demoUserButton = <span></span>;
-    }
+    const demoUserButton = <button className="demo-user-button" onClick={this.loginDemoUser} disabled={this.state.disabled}>Demo User</button>;
+    // let demoUserButton;
+    // if (this.props.formTitle === "Log In") {
+    //   demoUserButton = <button className="demo-user-button" onClick={this.loginDemoUser} disabled={this.state.disabled}>Demo User</button>;
+    // } else {
+    //   demoUserButton = <span></span>;
+    // }
     return(
       <div className="session-form-background">
         <div className="session-form-main">
