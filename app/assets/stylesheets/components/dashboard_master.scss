@@ -49,6 +49,7 @@
           border-radius: 4px;
           margin-top: 12px;
         }
+
       }
 
       .workout-feed {
@@ -113,6 +114,53 @@
             }
           }
         }
+
+        .empty-feed {
+          display: flex;
+          align-items: center;
+          flex-direction: column;
+
+          section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px;
+
+            div {
+              background-color: #fc4c02;
+              border-radius: 2px;
+              border: 0px;
+              width: 140px;
+              height: 40px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+
+              a {
+                color: white;
+                font-size: 14px;
+              }
+            }
+
+            p {
+              margin: 0px 20px;
+            }
+
+            div:hover {
+              background-color: #e34402;
+            }
+          }
+
+          p {
+            font-size: 20px;
+            color: $light-gray;
+            text-align: center;
+            font-weight: 300;
+          }
+
+
+        }
+
       }
 
     }

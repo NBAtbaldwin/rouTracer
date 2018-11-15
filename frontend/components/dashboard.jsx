@@ -76,6 +76,42 @@ class Dashboard extends React.Component {
       return 0;
     });
 
+    const feedItems = () => {
+      if (sortedActivities.length > 0) {
+        return (
+          <ul className="feed-items">
+            {sortedActivities.map((activity, idx) => {
+              let route;
+              let user;
+              if (this.state.friendFeed) {
+                user = this.props.friends[activity.user_id];
+                route = this.props.friendRoutes[activity.route_id];
+              } else {
+                user = this.props.currentUser;
+                route = this.props.routes[activity.route_id];
+              }
+
+              return (
+                <ActivityShowItem key={idx} route={route} activity={activity} user = {user} currentUser={this.props.currentUser} feed={true} friends={this.props.friends} friendActivities={this.props.friendActivities} nestedInProfile={false} />
+              );
+            })}
+          </ul>
+        )
+      } else {
+        return (
+          <ul className="empty-feed">
+            <p>There's nothing here yet...</p>
+            <section>
+              <div><Link to={"/new_route"}>Create a Route</Link></div>
+              <p>or</p>
+              <div><Link to={"/upload"}>Create an Activity</Link></div>
+            </section>
+
+          </ul>
+        )
+      }
+    }
+
     let active;
     this.state.open ? active = 'active' : active = ''
     return(
@@ -89,23 +125,7 @@ class Dashboard extends React.Component {
             </aside>
             <div className="workout-feed">
               <div className={`dropdown ${active}`}>{this.createFriendDropdown()}</div>
-              <ul className="feed-items">
-                {sortedActivities.map((activity, idx) => {
-                  let route;
-                  let user;
-                  if (this.state.friendFeed) {
-                    user = this.props.friends[activity.user_id];
-                    route = this.props.friendRoutes[activity.route_id];
-                  } else {
-                    user = this.props.currentUser;
-                    route = this.props.routes[activity.route_id];
-                  }
-
-                  return (
-                    <ActivityShowItem key={idx} route={route} activity={activity} user = {user} currentUser={this.props.currentUser} feed={true} friends={this.props.friends} friendActivities={this.props.friendActivities} nestedInProfile={false} />
-                  );
-                })}
-              </ul>
+              {feedItems()}
             </div>
             <div>
               <SuggestedFriendsContainer />
