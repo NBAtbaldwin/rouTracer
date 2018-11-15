@@ -41,12 +41,6 @@ class SessionForm extends React.Component {
 
   render() {
     const demoUserButton = <button className="demo-user-button" onClick={this.loginDemoUser} disabled={this.state.disabled}>Demo User</button>;
-    // let demoUserButton;
-    // if (this.props.formTitle === "Log In") {
-    //   demoUserButton = <button className="demo-user-button" onClick={this.loginDemoUser} disabled={this.state.disabled}>Demo User</button>;
-    // } else {
-    //   demoUserButton = <span></span>;
-    // }
     return(
       <div className="session-form-background">
         <div className="session-form-main">
@@ -85,12 +79,3 @@ class SessionForm extends React.Component {
 }
 
 export default withRouter(SessionForm);
-
-
-// const demoUser = {email: "user@example.com", password: "demouser"};
-// let demoUserButton;
-// if (this.props.formTitle === "Log In") {
-//   demoUserButton = <button className="demo-user-button" onClick={() => this.props.processForm(demoUser)}>Demo User</button>;
-// } else {
-//   demoUserButton = <span></span>;
-// }

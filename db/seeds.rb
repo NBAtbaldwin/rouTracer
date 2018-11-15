@@ -12,6 +12,7 @@ User.destroy_all
 Route.destroy_all
 Activity.destroy_all
 Friendship.destroy_all
+Comment.destroy_all
 
 def adjective
   text=File.readlines("synonyms.txt").each do |line|
@@ -797,4 +798,9 @@ user_activity_hash = {}
     date: dates.sample,
     title: gen_activity_name
   )
+end
+
+demo_user.activities.each do |activity|
+  friends = demo_user.friends
+  
 end

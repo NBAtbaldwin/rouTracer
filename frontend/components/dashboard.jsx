@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import { withRouter } from 'react-router';
 import NavbarLoggedInContainer from "./navbar_loggedIn_container";
-import ActivityShowItem from "./activities/activity_show_item";
+import ActivityShowItemContainer from "./activities/activity_show_item_container";
 import * as ConversionUtil from "./../util/conversion_util";
 import DashTopPanel from "./totals/dash_top_panel";
 import DashLowerPanelContainer from "./totals/dash_lower_panel_container";
@@ -92,7 +92,7 @@ class Dashboard extends React.Component {
               }
 
               return (
-                <ActivityShowItem key={idx} route={route} activity={activity} user = {user} currentUser={this.props.currentUser} feed={true} friends={this.props.friends} friendActivities={this.props.friendActivities} nestedInProfile={false} />
+                <ActivityShowItemContainer key={idx} route={route} activity={activity} user = {user} currentUser={this.props.currentUser} feed={true} friends={this.props.friends} friendActivities={this.props.friendActivities} nestedInProfile={false} />
               );
             })}
           </ul>

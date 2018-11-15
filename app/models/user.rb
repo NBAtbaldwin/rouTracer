@@ -25,6 +25,7 @@ class User < ApplicationRecord
 
   has_many :routes
   has_many :activities
+  has_many :comments
 
   has_many :friend_requests, -> {Friendship.pending},
   foreign_key: :requestee_id,
@@ -79,6 +80,11 @@ class User < ApplicationRecord
 
   def friends_with_activities
     friends = self.accepted_requestees.includes(:routes).includes(:activities) + self.accepted_requesters.includes(:routes).includes(:activities)
+    friends
+  end
+
+  def friends_with_comments
+    friends = self.accepted_requestees.includes(:comments) + self.accepted_requesters.includes(:comments)
     friends
   end
 

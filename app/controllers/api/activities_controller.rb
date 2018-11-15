@@ -13,6 +13,7 @@ class Api::ActivitiesController < ApplicationController
 
   def show
     @activity = Activity.find(params[:id])
+    @comments = @activity.comments
     @routes = User.find(@activity.user_id).routes
     if @activity
       render :show

@@ -144,3 +144,12 @@ export const strangersSelector = (state) => {
   });
   return output;
 }
+
+export const commentSelector = (state, activity_id) => {
+  let comments = state.entities.comments;
+  const output = [];
+  Object.keys(comments).forEach(id => {
+    if (comments[id].activity_id == activity_id) output.push(comments[id]);
+  });
+  return output;
+}
