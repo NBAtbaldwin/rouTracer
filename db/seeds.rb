@@ -811,3 +811,13 @@ demo_user.activities.each do |activity|
     Comment.create(user_id: friends.sample.id, activity_id: activity.id, body: gen_comment)
   end
 end
+
+(0..20).to_a.each do |num|
+  user = user_hash[num]
+  friends = user.friends
+  user.activities.each do |activity|
+    rand(4).times do
+      Comment.create(user_id: friends.sample.id, activity_id: activity.id, body: gen_comment)
+    end
+  end
+end

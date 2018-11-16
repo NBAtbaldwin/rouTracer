@@ -31,9 +31,9 @@ class CommentForm extends React.Component {
 
   onSubmit() {
     if(this.props.formType === 'new') {
-      this.props.createComment(this.state)
+      this.props.createComment(this.state);
     } else {
-      this.props.updateComment(this.state)
+      this.props.updateComment(this.state);
     }
   }
 

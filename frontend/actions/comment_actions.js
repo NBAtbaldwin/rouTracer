@@ -1,6 +1,6 @@
 import * as ApiUtil from './../util/comment_util';
 export const RECEIVE_COMMENT = 'RECEIVE_COMMENT';
-export const RECEIVE_COMMENTS = 'RECEIVE_COMMENT';
+export const RECEIVE_COMMENTS = 'RECEIVE_COMMENTS';
 export const DELETE_COMMENT = 'DELETE_COMMENT';
 
 export const receiveComment = (comment) => ({
@@ -20,8 +20,6 @@ export const removeComment = (commentId) => ({
 
 export const fetchComment = id => dispatch => (
   ApiUtil.getComment(id).then((comment) => (dispatch(receiveComment(comment))
-  ), err => (
-    dispatch(receiveErrors(err.responseJSON))
   ))
 );
 

@@ -22,6 +22,12 @@ class Comment extends React.Component {
     this.setState({edit: true});
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.comment !== prevProps.comment) {
+      this.setState({edit: false, body: this.props.comment.body});
+    }
+  }
+
   render() {
     const form = () => {
       if(this.state.new) {
@@ -35,7 +41,7 @@ class Comment extends React.Component {
       } else {
         return (
           <div>
-            <h3>{this.props.user.email}</h3>
+            <h3>{this.props.user ? this.props.user.email : ""}</h3>
             <p>{this.state.body}</p>
           </div>
         )
@@ -63,7 +69,7 @@ class Comment extends React.Component {
       <main className='comment-main'>
         <div>
           <section>
-            <img src={this.props.user.photoUrl} className="user-img"></img>
+            <img src={this.props.user ? this.props.user.photoUrl : ""} className="user-img"></img>
             {form()}
           </section>
           {deleteButton()}
