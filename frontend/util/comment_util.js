@@ -1,3 +1,10 @@
+export const getComments = () => {
+  return $.ajax({
+    method: "GET",
+    url: "/api/comments/",
+  })
+}
+
 export const getComment = (id) => {
   return $.ajax({
     method: "GET",

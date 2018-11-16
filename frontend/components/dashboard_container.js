@@ -3,6 +3,7 @@ import Dashboard from './dashboard';
 import { fetchActivities } from "./../actions/activity_actions";
 import { fetchUser } from "./../actions/user_actions";
 import { routeSelectorHash, friendsRouteSelectorHash, userActivitySelector, friendsActivitySelector, friendsSelector } from "./../reducers/selectors";
+import { fetchComments } from "./../actions/comment_actions";
 
 const mapStateToProps = (state, ownProps) => ({
   currentUser: state.entities.users[state.session.id],
@@ -15,6 +16,7 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   fetchActivities: () => dispatch(fetchActivities()),
+  fetchComments: () => dispatch(fetchComments()),
   fetchUser: (id) => dispatch(fetchUser(id)),
 });
 

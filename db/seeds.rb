@@ -14,6 +14,7 @@ Activity.destroy_all
 Friendship.destroy_all
 Comment.destroy_all
 
+
 def adjective
   text=File.readlines("synonyms.txt").each do |line|
     line = line.delete("/n")
@@ -85,6 +86,10 @@ def gen_dates
     i += 1
   end
   output
+end
+
+def gen_comment
+  Faker::Lorem.sentence
 end
 
 dates = gen_dates
@@ -802,5 +807,7 @@ end
 
 demo_user.activities.each do |activity|
   friends = demo_user.friends
-  
+  rand(6).times do
+    Comment.create(user_id: friends.sample.id, activity_id: activity.id, body: gen_comment)
+  end
 end

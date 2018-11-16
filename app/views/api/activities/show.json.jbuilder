@@ -10,8 +10,8 @@ json.routes do
   end
 end
 
-json.comment do
-  @comments.each do |comment|
-    json.extract! comment, :id, :body
-  end
-end
+# json.comment do
+#   @comments.each do |comment|
+#     json.extract! comment, :id, :body
+#   end
+# end

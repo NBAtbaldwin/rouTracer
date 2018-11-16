@@ -1,7 +1,7 @@
 class Api::CommentsController < ApplicationController
 
   def index
-    
+    @comments = Comment.friend_comments(current_user.id) + current_user.comments.to_a
   end
   #
   def show

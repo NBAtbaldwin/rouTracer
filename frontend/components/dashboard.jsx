@@ -22,6 +22,7 @@ class Dashboard extends React.Component {
 
   componentDidMount() {
     this.props.fetchActivities();
+    this.props.fetchComments();
     this.props.fetchUser(this.props.currentUser.id);
   }
 

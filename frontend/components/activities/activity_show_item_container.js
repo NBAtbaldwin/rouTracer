@@ -8,7 +8,7 @@ import { commentSelector } from "./../../reducers/selectors";
 const mapStateToProps = (state, ownProps) => ({
   currentUser: state.entities.users[state.session.id],
   users: state.entities.users,
-  // comments: commentSelector(state, ownProps.activity.id),
+  comments: commentSelector(state, ownProps.activity.id),
   activity: ownProps.activity,
 });
 
