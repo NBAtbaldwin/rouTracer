@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import * as MapUtil from './../../util/map_util';
 import * as ConversionUtil from "./../../util/conversion_util";
+import CommentContainer from "./../comments/comment_container";
 
 class ActivityShowItem extends React.Component {
   constructor(props) {
@@ -14,8 +15,8 @@ class ActivityShowItem extends React.Component {
   }
 
   render() {
-    let route, activity, user, currentUser, feed, friends, friendActivities, nestedInProfile;
-    ({route, activity, user, currentUser, feed, friends, friendActivities, nestedInProfile} = {route: this.props.route, activity: this.props.activity, user: this.props.user, currentUser: this.props.currentUser, feed: this.props.feed, friends: this.props.friends, friendActivities: this.props.friendActivities, nestedInProfile: this.props.nestedInProfile});
+    let route, activity, user, currentUser, feed, friends, friendActivities, nestedInProfile, comments;
+    ({route, activity, user, currentUser, feed, friends, friendActivities, nestedInProfile, comments} = {route: this.props.route, activity: this.props.activity, user: this.props.user, currentUser: this.props.currentUser, feed: this.props.feed, friends: this.props.friends, friendActivities: this.props.friendActivities, nestedInProfile: this.props.nestedInProfile, comments: this.props.comments});
 
     const hasRoute = () => {
       const decodedPoly = google.maps.geometry.encoding.decodePath(route.coordinates_list);
@@ -25,17 +26,21 @@ class ActivityShowItem extends React.Component {
       activity.activity_type === 'WALKING' ? type = 'fas fa-shoe-prints' : type = 'fas fa-bicycle';
       let mapSize;
       feed ? mapSize = "550x180" : mapSize = "800x350";
+
       const mapForCurrentUser = () => {
         if (user === currentUser) {
+
           return (
             <Link to={`/routes/${route.id}`} ><img src={`https://maps.googleapis.com/maps/api/staticmap?center=${center}&size=${mapSize}&key=${window.googleAPIKey}&path=weight:4%7Ccolor:red%7Cenc:${codedPoly}`}/></Link>
           )
         } else {
+
           return (
             <img src={`https://maps.googleapis.com/maps/api/staticmap?center=${center}&size=${mapSize}&key=${window.googleAPIKey}&path=weight:4%7Ccolor:red%7Cenc:${codedPoly}`}/>
           )
         }
       }
+
       return (
         <div className="show-item-container">
           <header>{user.email} - Workout</header>
@@ -78,6 +83,16 @@ class ActivityShowItem extends React.Component {
           </div>
           <div className="vertical-divide"></div>
           {mapForCurrentUser()}
+          <div className="vertical-divide"></div>
+          <footer className="comment-container">
+            {comments.map((comment, idx) => {
+              return (
+                <div key={idx}>
+                  <CommentContainer comment={comment} new={false} activity={activity}/>
+                </div>
+              )
+            })}
+          </footer>
         </div>
       )
     }

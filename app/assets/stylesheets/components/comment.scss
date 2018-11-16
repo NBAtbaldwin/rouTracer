@@ -1,0 +1,44 @@
+.comment-container {
+  padding-bottom: 1px;
+}
+
+.comment-main {
+  margin: 20px;
+  font-size: 14px;
+
+  > div {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+
+    > section {
+      display: flex;
+      font-size: 12px;
+      // justify-content: space-between;
+
+      > img {
+        height: 20px;
+        width: 20px;
+        border-radius: 10px;
+        margin-right: 20px;
+      }
+
+      h3 {
+        font-weight: 500;
+
+      }
+    }
+    .comment-options {
+      display: flex;
+      color: #606065;
+
+      .fa-trash-alt {
+        cursor: pointer;
+        margin-right: 10px;
+      }
+      .fa-edit {
+        cursor: pointer;
+      }
+    }
+  }
+}
