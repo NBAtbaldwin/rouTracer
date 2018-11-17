@@ -821,3 +821,20 @@ end
     end
   end
 end
+
+demo_user.activities.each do |activity|
+  friends = demo_user.friends
+  rand(6).times do
+    Like.create(user_id: friends.sample.id, likeable_id: activity.id, likeable_type: "Activity")
+  end
+end
+
+(0..20).to_a.each do |num|
+  user = user_hash[num]
+  friends = user.friends
+  user.activities.each do |activity|
+    rand(6).times do
+      Like.create(user_id: friends.sample.id, likeable_id: activity.id, likeable_type: "Activity")
+    end
+  end
+end

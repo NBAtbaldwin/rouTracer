@@ -3,17 +3,23 @@ class Api::ActivitiesController < ApplicationController
   def index
     friend_activities = []
     friend_routes = []
+    likes = []
     current_user.friends_with_activities.each do |friend|
-      friend_activities.concat(friend.activities)
+      acts_memo = friend.activities.includes(:likes)
+      friend_activities.concat(acts_memo)
       friend_routes.concat(friend.routes)
+      acts_memo.each do |activity|
+        likes.concat(activity.likes)
+      end
     end
     @activities = friend_activities.concat(current_user.activities)
     @routes = friend_routes.concat(current_user.routes)
+    @likes = likes
   end
 
   def show
     @activity = Activity.find(params[:id])
-    @comments = @activity.comments
+    @likes = @activity.likes
     @routes = User.find(@activity.user_id).routes
     if @activity
       render :show
@@ -25,6 +31,7 @@ class Api::ActivitiesController < ApplicationController
   def create
     @activity = Activity.new(activity_params)
     @routes = current_user.routes
+    @likes = @activity.likes
     if @activity.save
       render :show
     else
@@ -35,6 +42,7 @@ class Api::ActivitiesController < ApplicationController
   def update
     @activity = Activity.find(params[:id])
     @routes = current_user.routes
+    @likes = @activity.likes
     if @activity.update(activity_params)
       render :show
     else
@@ -45,6 +53,7 @@ class Api::ActivitiesController < ApplicationController
   def destroy
     @activity = Activity.find(params[:id])
     @routes = current_user.routes
+    @likes = @activity.likes
 
     if @activity.destroy
       render :show

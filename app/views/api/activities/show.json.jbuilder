@@ -10,8 +10,10 @@ json.routes do
   end
 end
 
-# json.comment do
-#   @comments.each do |comment|
-#     json.extract! comment, :id, :body
-#   end
-# end
+json.like do
+  @likes.each do |like|
+    json.set! like.id do
+      json.extract! like, :id, :user_id, :likeable_id, :likeable_type
+    end
+  end
+end
