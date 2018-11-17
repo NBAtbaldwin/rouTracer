@@ -29,6 +29,10 @@
       border: 1px solid #e6e6eb;
     }
 
+    > div:first-child {
+      display: none;
+    }
+
     > div:hover {
       background-color: white;
     }
