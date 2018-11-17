@@ -7,16 +7,49 @@ import CommentContainer from "./../comments/comment_container";
 class ActivityShowItem extends React.Component {
   constructor(props) {
     super(props)
-    // this.handleDelete = this.handleDelete.bind(this);
+    this.state = {
+      commentForm: false,
+    }
+    this.toggleComment = this.toggleComment.bind(this);
   }
 
   componentDidMount() {
     // this.props.fetchActivity(this.props.activity.id);
   }
 
+  toggleComment() {
+    this.setState({commentForm: !this.state.commentForm});
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.comments !== prevProps.comments) {
+      this.setState({commentForm: false});
+    }
+  }
+
   render() {
-    let route, activity, user, currentUser, feed, friends, friendActivities, nestedInProfile, comments;
-    ({route, activity, user, currentUser, feed, friends, friendActivities, nestedInProfile, comments} = {route: this.props.route, activity: this.props.activity, user: this.props.user, currentUser: this.props.currentUser, feed: this.props.feed, friends: this.props.friends, friendActivities: this.props.friendActivities, nestedInProfile: this.props.nestedInProfile, comments: this.props.comments});
+    let route, activity, user, currentUser, feed, friends, friendActivities, nestedInProfile, nestedInDashboard, comments;
+    ({route, activity, user, currentUser, feed, friends, friendActivities, nestedInProfile, nestedInDashboard, comments} = {route: this.props.route, activity: this.props.activity, user: this.props.user, currentUser: this.props.currentUser, feed: this.props.feed, friends: this.props.friends, friendActivities: this.props.friendActivities, nestedInProfile: this.props.nestedInProfile, nestedInDashboard: this.props.nestedInDashboard, comments: this.props.comments});
+
+    const commentsContent = () => {
+      if(nestedInDashboard) {
+        return(
+          <footer className="comment-container">
+            {comments.map((comment, idx) => {
+              return (
+                <div key={idx}>
+                  <CommentContainer comment={comment} new={false} activity={activity}/>
+                </div>
+              )
+            })}
+          </footer>
+        )
+      } else {
+        return (
+          <footer className="comment-container"></footer>
+        )
+      }
+    }
 
     const hasRoute = () => {
       const decodedPoly = google.maps.geometry.encoding.decodePath(route.coordinates_list);
@@ -83,16 +116,22 @@ class ActivityShowItem extends React.Component {
           </div>
           <div className="vertical-divide"></div>
           {mapForCurrentUser()}
-          <div className="vertical-divide"></div>
-          <footer className="comment-container">
-            {comments.map((comment, idx) => {
-              return (
-                <div key={idx}>
-                  <CommentContainer comment={comment} new={false} activity={activity}/>
-                </div>
-              )
-            })}
-          </footer>
+          {this.props.nestedInDashboard && (
+            <div className="social-buttons">
+              <div></div>
+              <section>
+                <div><i className="far fa-thumbs-up"></i></div>
+                <div onClick={this.toggleComment}><i className="far fa-comment-alt"></i></div>
+              </section>
+            </div>
+          )}
+          {commentsContent()}
+          {this.state.commentForm && (
+            <>
+              <div className="vertical-divide-comment"></div>
+              <CommentContainer comment={null} new={true} activity={activity} />
+            </>
+          )}
         </div>
       )
     }
@@ -138,7 +177,23 @@ class ActivityShowItem extends React.Component {
               </div>
             </ul>
           </div>
-          <div className="vertical-divide-bottom"></div>
+          <div className="vertical-divide"></div>
+            {this.props.nestedInDashboard && (
+              <div className="social-buttons">
+                <div></div>
+                <section>
+                  <div><i className="far fa-thumbs-up"></i></div>
+                  <div onClick={this.toggleComment}><i className="far fa-comment-alt"></i></div>
+                </section>
+              </div>
+            )}
+            {commentsContent()}
+            {this.state.commentForm && (
+              <>
+                <div className="vertical-divide-comment"></div>
+                <CommentContainer comment={null} new={true} activity={activity} />
+              </>
+            )}
         </div>
       );
     }

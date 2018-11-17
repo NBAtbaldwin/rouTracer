@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 class CommentForm extends React.Component {
   constructor(props) {
     super(props);
-    console.log(this.props)
     if(this.props.formType === 'new') {
       this.state = {
         user_id: this.props.currentUser.id,
@@ -29,7 +28,8 @@ class CommentForm extends React.Component {
     };
   }
 
-  onSubmit() {
+  onSubmit(e) {
+    e.preventDefault;
     if(this.props.formType === 'new') {
       this.props.createComment(this.state);
     } else {
@@ -41,11 +41,10 @@ class CommentForm extends React.Component {
 
 
     return(
-      <form onSubmit={this.onSubmit}>
-        <h3>{this.props.currentUser.email}</h3>
+      <form onSubmit={this.onSubmit} className="comment-form">
         <input type="text" value={this.state.body}
-        onChange={this.updateField('body')}/>
-      <input type="submit" value={this.props.formType === 'edit' ? "Edit" : "Post"} />
+        onChange={this.updateField('body')} placeholder="Add a comment" autofocus="autofocus" />
+        <input type="submit" value={this.props.formType === 'edit' ? "Edit" : "Post"} />
       </form>
 
     )

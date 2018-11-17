@@ -1,8 +1,9 @@
 .comment-container {
   padding-bottom: 1px;
+
 }
 
-.comment-main {
+[class^="comment-main"] {
   margin: 20px;
   font-size: 14px;
 
@@ -41,4 +42,5 @@
       }
     }
   }
+
 }

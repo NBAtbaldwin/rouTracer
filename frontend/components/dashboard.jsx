@@ -93,7 +93,7 @@ class Dashboard extends React.Component {
               }
 
               return (
-                <ActivityShowItemContainer key={idx} route={route} activity={activity} user = {user} currentUser={this.props.currentUser} feed={true} friends={this.props.friends} friendActivities={this.props.friendActivities} nestedInProfile={false} />
+                <ActivityShowItemContainer key={idx} route={route} activity={activity} user = {user} currentUser={this.props.currentUser} feed={true} friends={this.props.friends} friendActivities={this.props.friendActivities} nestedInProfile={false} nestedInDashboard={true}/>
               );
             })}
           </ul>

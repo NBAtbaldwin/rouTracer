@@ -185,7 +185,7 @@ class Profile extends React.Component {
                           let user = this.props.user
 
                           return (
-                            <ActivityShowItem key={idx} route={route} activity={activity} user = {user} feed={true} friends={this.props.friends} friendActivities={this.props.friendActivities} currentUser={this.props.currentUser} nestedInProfile={true} />
+                            <ActivityShowItem key={idx} route={route} activity={activity} user = {user} feed={true} friends={this.props.friends} friendActivities={this.props.friendActivities} currentUser={this.props.currentUser} nestedInProfile={true} nestedInDashboard={false} />
                           );
                         })}
                       </ul>

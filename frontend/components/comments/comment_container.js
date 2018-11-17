@@ -5,13 +5,26 @@ import { fetchActivity } from "./../../actions/activity_actions";
 import { commentSelector } from "./../../reducers/selectors";
 
 
-const mapStateToProps = (state, ownProps) => ({
-  currentUser: state.entities.users[state.session.id],
-  user: state.entities.users[ownProps.comment.user_id],
-  comment: ownProps.comment,
-  activity: ownProps.activity,
-  new: ownProps.new,
-});
+const mapStateToProps = (state, ownProps) => {
+  if(!ownProps.comment) {
+    return({
+      currentUser: state.entities.users[state.session.id],
+      user: state.entities.users[state.session.id],
+      comment: {body: ""},
+      activity: ownProps.activity,
+      new: ownProps.new,
+    })
+  } else {
+    return({
+      currentUser: state.entities.users[state.session.id],
+      user: state.entities.users[ownProps.comment.user_id],
+      comment: ownProps.comment,
+      activity: ownProps.activity,
+      new: ownProps.new,
+    });
+  }
+}
+
 
 
 const mapDispatchToProps = (dispatch) => ({

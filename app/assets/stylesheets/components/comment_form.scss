@@ -1,0 +1,57 @@
+.feed-items > .show-item-container > .vertical-divide-comment {
+  margin-top: -10px;
+  margin-bottom: 10px;
+}
+
+.comment-main-new {
+  margin-top: 0px;
+
+  > div {
+    margin-top: 0px;
+
+    section {
+      width: 510px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+    }
+  }
+}
+
+.comment-form {
+  margin-top: 0px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  > input {
+    width: 100%;
+    font-family: 'Roboto', sans-serif;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    -ms-appearance: none;
+    border: none;
+    border-radius: 5px;
+    height: 30px;
+  }
+
+  > input:focus {
+    outline: none;
+    background-color: #f5f5fa;
+  }
+
+  > input[type="submit"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    -ms-appearance: none;
+    width: 40px;
+    border: none;
+    background-color: none;
+    color: $rt-orange;
+    font-weight: 700;
+    font-size: 12px;
+  }
+}

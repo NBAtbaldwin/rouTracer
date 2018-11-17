@@ -100,7 +100,7 @@
       }
     }
 
-    & > .vertical-divide {
+    & > [class^="vertical-divide"] {
       height: 1px;
       border-bottom: 1px solid #e6e6eb;
       width: 524px;
@@ -116,14 +116,16 @@
       padding: 0px;
     }
 
-    & > a > img {
-      margin: 20px;
-      border-radius: 2px;
+    & > a {
+        margin: 20px 20px 12px 20px;
+        img {
 
+        border-radius: 2px;
+      }
     }
 
     & > img {
-      margin: 20px;
+      margin: 20px 20px 0px 20px;
       border-radius: 2px;
 
     }
