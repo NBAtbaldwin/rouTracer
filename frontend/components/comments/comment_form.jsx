@@ -43,7 +43,7 @@ class CommentForm extends React.Component {
     return(
       <form onSubmit={this.onSubmit} className="comment-form">
         <input type="text" value={this.state.body}
-        onChange={this.updateField('body')} placeholder="Add a comment" autofocus="autofocus" />
+        onChange={this.updateField('body')} placeholder="Add a comment" autoFocus="autofocus" />
         <input type="submit" value={this.props.formType === 'edit' ? "Edit" : "Post"} />
       </form>
 

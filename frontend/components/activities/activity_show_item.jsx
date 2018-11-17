@@ -177,7 +177,7 @@ class ActivityShowItem extends React.Component {
               </div>
             </ul>
           </div>
-          <div className="vertical-divide"></div>
+          <div className="vertical-divide-comment"></div>
             {this.props.nestedInDashboard && (
               <div className="social-buttons">
                 <div></div>

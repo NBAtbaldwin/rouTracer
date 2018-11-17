@@ -66,7 +66,7 @@ class Comment extends React.Component {
     }
 
     return(
-      <main className={this.state.new ? 'comment-main-new' : 'comment-main'}>
+      <main className={this.state.new || this.state.edit ? 'comment-main-new' : 'comment-main'}>
         <div>
           <section>
             <img src={this.props.user ? this.props.user.photoUrl : ""} className="user-img"></img>
