@@ -4,6 +4,7 @@ class Api::ActivitiesController < ApplicationController
     friend_activities = []
     friend_routes = []
     likes = []
+
     current_user.friends_with_activities.each do |friend|
       acts_memo = friend.activities.includes(:likes)
       friend_activities.concat(acts_memo)
@@ -12,7 +13,14 @@ class Api::ActivitiesController < ApplicationController
         likes.concat(activity.likes)
       end
     end
-    @activities = friend_activities.concat(current_user.activities)
+
+    user_activities = current_user.activities.includes(:likes)
+
+    user_activities.each do |activity|
+      likes.concat(activity.likes)
+    end
+
+    @activities = friend_activities.concat(user_activities)
     @routes = friend_routes.concat(current_user.routes)
     @likes = likes
   end

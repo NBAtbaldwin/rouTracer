@@ -6,8 +6,24 @@
   justify-content: space-between;
   padding: 0px;
 
-  > div {
+  > .likes-display {
+    display: flex;
+    width: 200px;
+    margin-left: 24px;
+    align-items: center;
 
+    > img {
+      height: 18px;
+      width: 18px;
+      border-radius: 10px;
+      border: 2px solid white;
+      margin-left: -4px;
+    }
+
+    > p {
+      font-size: 11px;
+      text-indent: 12px;
+    }
   }
 
   > section {
@@ -29,8 +45,15 @@
       border: 1px solid #e6e6eb;
     }
 
-    > div:first-child {
-      display: none;
+    > .like-button {
+
+      i {
+
+      }
+
+      .liked {
+        color: $rt-orange;
+      }
     }
 
     > div:hover {

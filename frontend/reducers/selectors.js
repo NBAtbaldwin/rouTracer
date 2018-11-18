@@ -153,3 +153,21 @@ export const commentSelector = (state, activity_id) => {
   });
   return output;
 }
+
+export const currentUserActivityLikeSelector = (state, activity, currentUserId) => {
+  let likes = state.entities.likes;
+  let like = null;
+  Object.keys(likes).forEach(id => {
+    if (likes[id].user_id == currentUserId && likes[id].likeable_id == activity.id) like = likes[id]
+  });
+  return like;
+}
+
+export const activityLikesSelector = (state, activity) => {
+  let likes = state.entities.likes;
+  let output = [];
+  Object.keys(likes).forEach(id => {
+    if (likes[id].likeable_id == activity.id) output.push(likes[id]);
+  });
+  return output;
+}

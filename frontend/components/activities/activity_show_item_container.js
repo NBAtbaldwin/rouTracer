@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import ActivityShowItem from './activity_show_item';
 import { fetchComment, createComment } from "./../../actions/comment_actions";
 import { fetchActivity } from "./../../actions/activity_actions";
-import { commentSelector } from "./../../reducers/selectors";
+import { commentSelector, activityLikesSelector } from "./../../reducers/selectors";
 
 
 const mapStateToProps = (state, ownProps) => ({
@@ -10,6 +10,7 @@ const mapStateToProps = (state, ownProps) => ({
   users: state.entities.users,
   comments: commentSelector(state, ownProps.activity.id),
   activity: ownProps.activity,
+  likes: activityLikesSelector(state, ownProps.activity),
 });
 
 

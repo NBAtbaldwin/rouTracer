@@ -19,7 +19,7 @@ class Comment extends React.Component {
   }
 
   setEdit() {
-    this.setState({edit: true});
+    this.setState({edit: !this.state.edit});
   }
 
   componentDidUpdate(prevProps) {
@@ -41,7 +41,9 @@ class Comment extends React.Component {
       } else {
         return (
           <div>
-            <h3>{this.props.user ? this.props.user.email : ""}</h3>
+            <Link to={`/profile/${this.props.user.id}`}>
+              <h3>{this.props.user ? this.props.user.email : ""}</h3>
+            </Link>
             <p>{this.state.body}</p>
           </div>
         )
@@ -53,7 +55,7 @@ class Comment extends React.Component {
         return (
           <div className='comment-options'>
             <i className="far fa-trash-alt" onClick={this.deleteComment}></i>
-            <i class="far fa-edit" onClick={this.setEdit}></i>
+            <i className="far fa-edit" onClick={this.setEdit}></i>
           </div>
 
         )
@@ -69,7 +71,9 @@ class Comment extends React.Component {
       <main className={this.state.new || this.state.edit ? 'comment-main-new' : 'comment-main'}>
         <div>
           <section>
-            <img src={this.props.user ? this.props.user.photoUrl : ""} className="user-img"></img>
+            <Link to={`/profile/${this.props.user.id}`}>
+              <img src={this.props.user ? this.props.user.photoUrl : ""} className="user-img"></img>
+            </Link>
             {form()}
           </section>
           {deleteButton()}

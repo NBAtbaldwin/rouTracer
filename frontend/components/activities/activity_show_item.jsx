@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import * as MapUtil from './../../util/map_util';
 import * as ConversionUtil from "./../../util/conversion_util";
 import CommentContainer from "./../comments/comment_container";
+import LikeButtonContainer from "./../likes/like_button_container";
+import LikeDisplay from "./../likes/likes_display";
 
 class ActivityShowItem extends React.Component {
   constructor(props) {
@@ -28,8 +30,8 @@ class ActivityShowItem extends React.Component {
   }
 
   render() {
-    let route, activity, user, currentUser, feed, friends, friendActivities, nestedInProfile, nestedInDashboard, comments;
-    ({route, activity, user, currentUser, feed, friends, friendActivities, nestedInProfile, nestedInDashboard, comments} = {route: this.props.route, activity: this.props.activity, user: this.props.user, currentUser: this.props.currentUser, feed: this.props.feed, friends: this.props.friends, friendActivities: this.props.friendActivities, nestedInProfile: this.props.nestedInProfile, nestedInDashboard: this.props.nestedInDashboard, comments: this.props.comments});
+    let route, activity, user, currentUser, feed, friends, friendActivities, nestedInProfile, nestedInDashboard, comments, likes, users;
+    ({route, activity, user, currentUser, feed, friends, friendActivities, nestedInProfile, nestedInDashboard, comments, likes, users} = {route: this.props.route, activity: this.props.activity, user: this.props.user, currentUser: this.props.currentUser, feed: this.props.feed, friends: this.props.friends, friendActivities: this.props.friendActivities, nestedInProfile: this.props.nestedInProfile, nestedInDashboard: this.props.nestedInDashboard, comments: this.props.comments, likes: this.props.likes, users: this.props.users});
 
     const commentsContent = () => {
       if(nestedInDashboard) {
@@ -118,9 +120,9 @@ class ActivityShowItem extends React.Component {
           {mapForCurrentUser()}
           {this.props.nestedInDashboard && (
             <div className="social-buttons">
-              <div></div>
+              <LikeDisplay activity={activity} likes={likes} users={users} />
               <section>
-                <div><i className="far fa-thumbs-up"></i></div>
+                <LikeButtonContainer activity={activity} />
                 <div onClick={this.toggleComment}><i className="far fa-comment-alt"></i></div>
               </section>
             </div>
@@ -128,7 +130,7 @@ class ActivityShowItem extends React.Component {
           {commentsContent()}
           {this.state.commentForm && (
             <>
-              <div className="vertical-divide-comment"></div>
+              <div className={comments.length > 0 ? "vertical-divide-comment" : "hidden" }></div>
               <CommentContainer comment={null} new={true} activity={activity} />
             </>
           )}
@@ -178,22 +180,22 @@ class ActivityShowItem extends React.Component {
             </ul>
           </div>
           <div className="vertical-divide-comment"></div>
-            {this.props.nestedInDashboard && (
-              <div className="social-buttons">
-                <div></div>
-                <section>
-                  <div><i className="far fa-thumbs-up"></i></div>
-                  <div onClick={this.toggleComment}><i className="far fa-comment-alt"></i></div>
-                </section>
-              </div>
-            )}
-            {commentsContent()}
-            {this.state.commentForm && (
-              <>
-                <div className="vertical-divide-comment"></div>
-                <CommentContainer comment={null} new={true} activity={activity} />
-              </>
-            )}
+          {this.props.nestedInDashboard && (
+            <div className="social-buttons">
+              <LikeDisplay activity={activity} likes={likes} users={users} />
+              <section>
+                <LikeButtonContainer activity={activity} />
+                <div onClick={this.toggleComment}><i className="far fa-comment-alt"></i></div>
+              </section>
+            </div>
+          )}
+          {commentsContent()}
+          {this.state.commentForm && (
+            <>
+              <div className={comments.length > 0 ? "vertical-divide-comment" : "hidden" }></div>
+              <CommentContainer comment={null} new={true} activity={activity} />
+            </>
+          )}
         </div>
       );
     }
