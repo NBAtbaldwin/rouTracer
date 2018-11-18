@@ -7,9 +7,13 @@ const LikeDisplay = ({activity, likes, users}) => {
     return (
       <div className="likes-display">
         {likes.map((like, idx) => {
-          if(idx < 11) {
+          if(idx < 11 && users[parseInt(like.user_id)]) {
             return(
               <img key={idx} src={users[parseInt(like.user_id)].photoUrl}></img>
+            )
+          } else if (idx < 11 && !users[parseInt(like.user_id)]) {
+            return(
+              <div className="photo-placeholder" key={idx}></div>
             )
           }
         })}
