@@ -20,6 +20,7 @@ class CommentForm extends React.Component {
     }
     this.updateField = this.updateField.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.preventSubmit = this.preventSubmit.bind(this);
   }
 
   updateField(field) {
@@ -29,7 +30,7 @@ class CommentForm extends React.Component {
   }
 
   onSubmit(e) {
-    e.preventDefault;
+    e.preventDefault();
     if(this.props.formType === 'new') {
       this.props.createComment(this.state);
     } else {
@@ -37,11 +38,14 @@ class CommentForm extends React.Component {
     }
   }
 
+  preventSubmit(e) {
+    e.preventDefault();
+  }
+
   render() {
 
-
     return(
-      <form onSubmit={this.state.body ? this.onSubmit : null} className="comment-form">
+      <form onSubmit={this.state.body ? this.onSubmit : this.preventSubmit} className="comment-form">
         <input type="text" value={this.state.body}
         onChange={this.updateField('body')} placeholder="Add a comment" autoFocus="autofocus" />
         <input type="submit" value={this.props.formType === 'edit' ? "Edit" : "Post"} />
