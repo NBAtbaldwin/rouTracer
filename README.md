@@ -31,9 +31,8 @@ The dashboard functions as a homepage, displaying a user's activities in chronol
 
 ![](https://raw.githubusercontent.com/NBAtbaldwin/rouTracer/master/app/assets/images/Dashboard.png)
 
-This interface allows the user to toggle whether their feed displays their own recent activity or their friends' activities. On the same page, the user can view suggested friends (for the time being, simply friends of existing friends) and accept/deny follow requests from other users. There is also a small sidebar on the left that facilitates interaction with the current user's past 7 days of workout data. 
+This interface allows the user to toggle whether their feed displays their own recent activity or their friends' activities. On the same page, the user can view suggested friends (for the time being, simply friends of existing friends) and accept/deny follow requests from other users. There is also a small sidebar on the left that facilitates interaction with the current user's past 7 days of workout data.
 
 ## Future Features
-* Scoping in Rails back end to create an association between users and confirmed friends, circumventing an n+1 query
-* Polymorphic association to create Likes model, allowing friends to 'like' each other's activities
-* Facilitate uploading of profile pictures with AWS
+* Loading UI
+* Infinite scroll for dashboard feed
