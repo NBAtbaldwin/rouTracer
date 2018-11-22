@@ -26,9 +26,20 @@ class Dashboard extends React.Component {
     this.getFeedType = this.getFeedType.bind(this);
   }
 
-  componentDidUpdate(prevProps) {
-    let feedType = this.getFeedType();
-    if (this.props[feedType][0] && !prevProps[feedType][0]) {
+  getFeedType(bool=true) {
+    return this.state.friendFeed === bool ? 'friendActivities' : 'activities'
+  }
+
+  componentDidMount() {
+    this.props.fetchActivities()
+    .then(() => {
+      this.props.fetchComments();
+    })
+    .then(() => {
+      this.props.fetchUser(this.props.currentUser.id);
+    })
+    .then(() => {
+      let feedType = this.getFeedType();
       let i = 0;
       let activities = [];
       if(!this.props[feedType][i]) return;
@@ -42,19 +53,7 @@ class Dashboard extends React.Component {
         activities: activities,
         numLoaded: 6,
       })
-    } else {
-      // debugger
-    }
-  }
-
-  getFeedType(bool=true) {
-    return this.state.friendFeed === bool ? 'friendActivities' : 'activities'
-  }
-
-  componentDidMount() {
-    this.props.fetchActivities();
-    this.props.fetchComments();
-    this.props.fetchUser(this.props.currentUser.id);
+    })
   }
 
   toggleDropdown() {
