@@ -27,8 +27,8 @@ class Dashboard extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.friends !== prevProps.friends) {
-      let feedType = this.getFeedType();
+    let feedType = this.getFeedType();
+    if (this.props[feedType][0] && !prevProps[feedType][0]) {
       let i = 0;
       let activities = [];
       if(!this.props[feedType][i]) return;
@@ -42,6 +42,8 @@ class Dashboard extends React.Component {
         activities: activities,
         numLoaded: 6,
       })
+    } else {
+      // debugger
     }
   }
 
