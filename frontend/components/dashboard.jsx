@@ -9,6 +9,7 @@ import DashLowerPanelContainer from "./totals/dash_lower_panel_container";
 import * as ChartUtil from "./../util/chart_util";
 import SuggestedFriendsContainer from "./friends/suggested_friends_container";
 import FooterContainer from './footer_container';
+import BottomScrollListener from 'react-bottom-scroll-listener';
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -16,8 +17,36 @@ class Dashboard extends React.Component {
     this.state = {
       open: false,
       friendFeed: false,
+      activities: [],
+      numLoaded: 6,
+      hasMore: true,
     }
     this.toggleFeed = this.toggleFeed.bind(this);
+    this.scrollListener = this.scrollListener.bind(this);
+    this.getFeedType = this.getFeedType.bind(this);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.friends !== prevProps.friends) {
+      let feedType = this.getFeedType();
+      let i = 0;
+      let activities = [];
+      if(!this.props[feedType][i]) return;
+      while(i < 6) {
+        if(this.props[feedType][i]) {
+          activities.push(this.props[feedType][i]);
+        }
+        i++;
+      }
+      this.setState({
+        activities: activities,
+        numLoaded: 6,
+      })
+    }
+  }
+
+  getFeedType(bool=true) {
+    return this.state.friendFeed === bool ? 'friendActivities' : 'activities'
   }
 
   componentDidMount() {
@@ -31,7 +60,41 @@ class Dashboard extends React.Component {
   }
 
   toggleFeed() {
-    this.setState({friendFeed: !this.state.friendFeed});
+    let feedType = this.getFeedType(false);
+    let i = 0;
+    let activities = [];
+    if(!this.props[feedType][i]) return;
+    while(i < 6) {
+      if(this.props[feedType][i]) {
+        activities.push(this.props[feedType][i]);
+      }
+      i++;
+    }
+    this.setState({
+      activities: activities,
+      numLoaded: 6,
+      friendFeed: !this.state.friendFeed,
+    })
+  }
+
+  scrollListener() {
+    if (!this.state.hasMore) return;
+    let feedType = this.getFeedType();
+    let activities = this.state.activities;
+    let i = this.state.numLoaded;
+    if(!this.props[feedType][i]) return;
+    while(i < this.state.numLoaded + 6) {
+      if(this.props[feedType][i]) {
+        activities.push(this.props[feedType][i]);
+      } else {
+        this.setState({hasMore: false});
+      }
+      i++;
+    }
+    this.setState({
+      activities: activities,
+      numLoaded: this.state.numLoaded + 6,
+    });
   }
 
   createFriendDropdown() {
@@ -54,19 +117,9 @@ class Dashboard extends React.Component {
   }
 
   render() {
-    let feedType;
-    this.state.friendFeed === true ? feedType = 'friendActivities' : feedType = 'activities'
+    let feedType = this.getFeedType();
 
-    const sortedActivities = this.props[feedType].sort(function(a, b) {
-      if (ChartUtil.parseDate(a.date) < ChartUtil.parseDate(b.date)) {
-        return 1;
-      }
-      if (ChartUtil.parseDate(a.date) > ChartUtil.parseDate(b.date)) {
-        return -1;
-      }
-      return 0;
-    });
-
+    const sortedActivities = this.props[feedType];
     const userSortedActivities = this.props.activities.sort(function(a, b) {
       if (ChartUtil.parseDate(a.date) < ChartUtil.parseDate(b.date)) {
         return 1;
@@ -79,23 +132,25 @@ class Dashboard extends React.Component {
 
     const feedItems = () => {
       if (sortedActivities.length > 0) {
+        let items = this.state.activities.map((activity, idx) => {
+          let route;
+          let user;
+          if (this.state.friendFeed) {
+            user = this.props.friends[activity.user_id];
+            route = this.props.friendRoutes[activity.route_id];
+          } else {
+            user = this.props.currentUser;
+            route = this.props.routes[activity.route_id];
+          }
+          return (
+            <ActivityShowItemContainer key={idx} route={route} activity={activity} user = {user} currentUser={this.props.currentUser} feed={true} friends={this.props.friends} friendActivities={this.props.friendActivities} nestedInProfile={false} nestedInDashboard={true}/>
+          );
+        })
+
         return (
           <ul className="feed-items">
-            {sortedActivities.map((activity, idx) => {
-              let route;
-              let user;
-              if (this.state.friendFeed) {
-                user = this.props.friends[activity.user_id];
-                route = this.props.friendRoutes[activity.route_id];
-              } else {
-                user = this.props.currentUser;
-                route = this.props.routes[activity.route_id];
-              }
-
-              return (
-                <ActivityShowItemContainer key={idx} route={route} activity={activity} user = {user} currentUser={this.props.currentUser} feed={true} friends={this.props.friends} friendActivities={this.props.friendActivities} nestedInProfile={false} nestedInDashboard={true}/>
-              );
-            })}
+            {items}
+            <BottomScrollListener onBottom={this.scrollListener} />
           </ul>
         )
       } else {
