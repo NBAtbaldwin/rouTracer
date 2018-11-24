@@ -10,6 +10,7 @@ import * as ChartUtil from "./../util/chart_util";
 import SuggestedFriendsContainer from "./friends/suggested_friends_container";
 import FooterContainer from './footer_container';
 import BottomScrollListener from 'react-bottom-scroll-listener';
+import Loading from './loading/loading';
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -132,6 +133,11 @@ class Dashboard extends React.Component {
     });
 
     const feedItems = () => {
+      if (this.props.loading) {
+        return(
+          <Loading />
+        )
+      }
       if (sortedActivities.length > 0) {
         let items = this.state.activities.map((activity, idx) => {
           let route;

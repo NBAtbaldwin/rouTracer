@@ -2,6 +2,7 @@ import * as ApiUtil from './../util/comment_util';
 export const RECEIVE_COMMENT = 'RECEIVE_COMMENT';
 export const RECEIVE_COMMENTS = 'RECEIVE_COMMENTS';
 export const DELETE_COMMENT = 'DELETE_COMMENT';
+export const COMMENT_LOADING = 'COMMENT_LOADING';
 
 export const receiveComment = (comment) => ({
   type: RECEIVE_COMMENT,
@@ -18,15 +19,21 @@ export const removeComment = (commentId) => ({
   commentId: commentId
 });
 
-export const fetchComment = id => dispatch => (
-  ApiUtil.getComment(id).then((comment) => (dispatch(receiveComment(comment))
-  ))
-);
+export const commentLoading = () => ({
+  type: COMMENT_LOADING,
+})
 
-export const fetchComments = () => dispatch => (
-  ApiUtil.getComments().then((comments) => (dispatch(receiveComments(comments))
+export const fetchComment = id => dispatch => {
+  dispatch(commentLoading());
+  return ApiUtil.getComment(id).then((comment) => (dispatch(receiveComment(comment))
   ))
-);
+};
+
+export const fetchComments = () => dispatch => {
+  dispatch(commentLoading());
+  return ApiUtil.getComments().then((comments) => (dispatch(receiveComments(comments))
+  ))
+};
 
 export const createComment = comment => dispatch => (
   ApiUtil.createComment(comment).then((comment) => (dispatch(receiveComment(comment))))

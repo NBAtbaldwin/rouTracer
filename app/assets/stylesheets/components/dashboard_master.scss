@@ -57,6 +57,12 @@
         margin: 0px auto;
         position: relative;
 
+        > .loading {
+          position: absolute;
+          top: 80px;
+          left: 300px;
+        }
+
         & > .dropdown:hover, .active {
           box-shadow: 4px 4px 20px rgba(13,13,18,0.08), -1px -1px 8px rgba(13,13,18,0.02);
           background-color: white;

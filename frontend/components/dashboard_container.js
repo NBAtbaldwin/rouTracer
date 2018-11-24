@@ -26,6 +26,7 @@ const mapStateToProps = (state, ownProps) => ({
   friendActivities: sortByDate(friendsActivitySelector(state)),
   routes: routeSelectorHash(state),
   friendRoutes: friendsRouteSelectorHash(state),
+  loading: Boolean(state.ui.loading.activityLoading),
 });
 
 const mapDispatchToProps = (dispatch) => ({

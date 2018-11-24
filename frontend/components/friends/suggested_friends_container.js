@@ -8,6 +8,7 @@ const mapStateToProps = (state, ownProps) => ({
   currentUser: state.entities.users[state.session.id],
   friends: friendsSelector(state),
   suggestedFriends: strangersSelector(state),
+  loading: Boolean(state.ui.loading.userLoading),
 });
 
 const mapDispatchToProps = (dispatch) => ({

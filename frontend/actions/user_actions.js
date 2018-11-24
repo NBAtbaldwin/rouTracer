@@ -1,6 +1,7 @@
 import * as UserUtil from './../util/user_util';
 export const RECEIVE_USER = 'RECEIVE_USER';
 export const RECEIVE_USERS = 'RECEIVE_USERS';
+export const USER_LOADING = 'USER_LOADING';
 
 export const receiveUser = (payload) => ({
   type: RECEIVE_USER,
@@ -12,23 +13,31 @@ export const receiveUsers = (users) => ({
   users: users,
 });
 
-export const fetchUser = (id) => dispatch => (
-  UserUtil.getUser(id).then((payload) => (dispatch(receiveUser(payload))))
-)
+export const userLoading = () => ({
+  type: USER_LOADING,
+});
 
-export const fetchUsers = () => dispatch => (
-  UserUtil.getUsers().then((users) => (dispatch(receiveUsers(users))))
-);
+export const fetchUser = (id) => dispatch => {
+  dispatch(userLoading());
+  return UserUtil.getUser(id).then((payload) => (dispatch(receiveUser(payload))))
+};
 
-export const updateUser = (userData) => dispatch => (
-  UserUtil.updateUser(userData).then((payload) => {
+export const fetchUsers = () => dispatch => {
+  dispatch(userLoading());
+  return UserUtil.getUsers().then((users) => (dispatch(receiveUsers(users))))
+};
+
+export const updateUser = (userData) => dispatch => {
+  dispatch(userLoading());
+  return UserUtil.updateUser(userData).then((payload) => {
     dispatch(receiveUser(payload))
   })
-)
+};
 
-export const fetchPendingFriends = () => dispatch => (
-  UserUtil.getPendingFriendshipUsers().then((users) => (dispatch(receiveUsers(users))))
-);
+export const fetchPendingFriends = () => dispatch => {
+  dispatch(userLoading());
+  return UserUtil.getPendingFriendshipUsers().then((users) => (dispatch(receiveUsers(users))))
+};
 
 export const createFriendship = friendship => dispatch => (
   UserUtil.createFriendship(friendship).then((payload) => (dispatch(receiveUser(payload))))

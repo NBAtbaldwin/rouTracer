@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from "react-router-dom";
+import Loading from "./../loading/loading";
 
 class SuggestedFriends extends React.Component {
   constructor(props) {
@@ -52,10 +53,26 @@ class SuggestedFriends extends React.Component {
         </div>
       )
     }
+    const loadingLogic = () => {
+      if (this.props.loading) {
+        return(
+          <div className="suggested-friends-container">
+            <Loading />
+          </div>
+        )
+      } else {
+        return (
+          <div className="suggested-friends-container">
+            {this.props.suggestedFriends.length > 0 ? hasProps() : noProps()}
+          </div>
+        )
+      }
+    }
+
     return (
-      <div className="suggested-friends-container">
-        {this.props.suggestedFriends.length > 0 ? hasProps() : noProps()}
-      </div>
+      <>
+        {loadingLogic()}
+      </>
     )
   }
 }
