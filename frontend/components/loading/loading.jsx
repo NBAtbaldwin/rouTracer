@@ -4,7 +4,7 @@ import MyIcon from '../svg/icon.svg';
 const Loading = () => {
   return(
     <div className="loading">
-      <MyIcon />
+      <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
     </div>
   )
 }
