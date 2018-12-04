@@ -42,7 +42,7 @@ class Requests extends React.Component {
                 <li key={idx}>
                   <section>
                     <img src={pending.photoUrl} className='prof-pic'></img>
-                    <p><Link to={`profile/${pending.id}`}>{pending.email}</Link> wants to follow you</p>
+                    <p><Link to={`/profile/${pending.id}`}>{pending.email}</Link> wants to follow you</p>
                   </section>
                   <div>
                     <div onClick={this.handleConfirm(this.props.currentUser.id, pending.id)}>Confirm</div>
