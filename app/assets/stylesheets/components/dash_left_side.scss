@@ -71,9 +71,8 @@
   }
 
   & > div:last-child {
-    // margin: 20px 20px 20px 16px;
-    // display: flex;
     margin: 10px;
+    margin-top: 19px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -85,6 +84,10 @@
         color: black;
       }
     }
+
+    > a {
+      display: flex;
+    } 
 
     i {
       margin-left: 121px;
